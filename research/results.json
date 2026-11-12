@@ -1,0 +1,10 @@
+{
+  "schema": "DEC-public-results-v0.1",
+  "as_of": "2026-11-12",
+  "status": "no_dec_experiments_run",
+  "results": [],
+  "notice": {
+    "fa": "هیچ آزمون عملکرد DEC اجرا یا تأیید نشده است.",
+    "en": "No DEC performance experiment has been executed or verified."
+  }
+}

@@ -1,0 +1,37 @@
+name: Research proposal / پیشنهاد پژوهشی
+description: Non-confidential source, method, benchmark or reproduction proposal / طرح منبع، روش یا آزمون بدون داده محرمانه
+title: "[Research] "
+labels: ["research"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **No secrets, private institutional data, unfiled invention details or unlicensed third-party content.**
+        **اطلاعات محرمانه، ساختار اختراع ثبت‌نشده و داده فاقد مجوز منتشر نکنید.**
+  - type: input
+    id: question
+    attributes:
+      label: Research question / سؤال پژوهشی
+      placeholder: RQ-01, RQ-05...
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed evidence and method / منبع و روش پیشنهادی
+      description: Include original DOI/repo, stage, assumptions, benchmark and baselines.
+    validations:
+      required: true
+  - type: textarea
+    id: limits
+    attributes:
+      label: Limitations, hardware and licence / محدودیت‌ها، منابع و حقوق استفاده
+    validations:
+      required: true
+  - type: checkboxes
+    id: disclosure
+    attributes:
+      label: Publication safety / ایمنی انتشار
+      options:
+        - label: I have not included secrets, confidential disclosures or content I am not permitted to share. / اطلاعات محرمانه یا فاقد حق انتشار درج نکرده‌ام.
+          required: true

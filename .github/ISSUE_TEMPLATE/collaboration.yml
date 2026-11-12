@@ -1,0 +1,28 @@
+name: Collaboration enquiry / درخواست همکاری
+description: High-level academic or commercial enquiry without confidential details / درخواست همکاری علمی یا تجاری بدون اطلاعات محرمانه
+title: "[Collaboration] "
+labels: ["collaboration"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is a **public** issue. Only share non-confidential information; private commercial/technical discussions require separate arrangements.
+        این گفتگو **عمومی** است؛ فقط اطلاعات غیرمحرمانه را مطرح کنید.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Interest type / نوع همکاری
+      options:
+        - Academic research / پژوهش دانشگاهی
+        - Reproduction or benchmarking / بازتولید آزمون
+        - Engineering / توسعه فنی
+        - Commercial evaluation or licensing / ارزیابی تجاری یا اخذ مجوز
+        - Other / سایر
+    validations:
+      required: true
+  - type: textarea
+    id: inquiry
+    attributes:
+      label: Non-confidential summary / شرح غیرمحرمانه
+    validations:
+      required: true

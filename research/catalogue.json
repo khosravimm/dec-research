@@ -1,0 +1,608 @@
+{
+  "schema": "DEC-public-source-catalogue-v0.1",
+  "version": "0.1.0",
+  "as_of": "2026-11-12",
+  "ownership_note": {
+    "fa": "این فهرست شامل ارجاع به آثار دیگران است؛ مالکیت یا مجوز آن‌ها به DEC منتقل نمی‌شود.",
+    "en": "Links point to third-party work; their ownership and licensing do not transfer to DEC."
+  },
+  "coverage_note": {
+    "fa": "فهرست عمومی گزینش‌شده با حق انتشار؛ کامل‌بودن ادبیات یا بررسی کد ادعا نمی‌شود.",
+    "en": "Curated disclosure-safe public selection; not an exhaustive literature review or full code audit."
+  },
+  "sources": [
+    {
+      "id": "PRIOR-001",
+      "name": "MiniCPM5",
+      "title": {
+        "fa": "خانواده مدل زبانی کوچک با مسیر LoRA، GGUF و آموزش تخصصی",
+        "en": "Small language model family with LoRA, GGUF, and specialization training"
+      },
+      "url": "https://github.com/OpenBMB/MiniCPM",
+      "kind": "model-family",
+      "stages": [
+        "P1",
+        "P3"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "مدل Dense برای Tool و Thinking مناسبِ آزمون است، اما شورای نهفته آماده ندارد",
+        "en": "Standard dense model supports tool and thinking templates; no native latent council"
+      },
+      "license_status": "license-verify-exact-model",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-01",
+        "RQ-08"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-002",
+      "name": "Qwen3.5-0.8B",
+      "title": {
+        "fa": "مدل کوچک ترکیبی DeltaNet/Attention",
+        "en": "Compact hybrid DeltaNet/attention LLM"
+      },
+      "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B",
+      "kind": "model",
+      "stages": [
+        "P1"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "سازگاری Runtime و کیفیت زبان باید آزموده شود",
+        "en": "Model/runtime and language compatibility must be measured"
+      },
+      "license_status": "apache-2.0-model-card;verify-revision",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-01"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-003",
+      "name": "Granite 4.0 H-1B",
+      "title": {
+        "fa": "معماری Mamba-2 و Attention برای مدل کوچک",
+        "en": "Mamba-2 and attention hybrid small model"
+      },
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-1b",
+      "kind": "model",
+      "stages": [
+        "P1",
+        "P2"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "وضعیت بازگشتی آن با KV Attention یکسان نیست",
+        "en": "Different recurrence state from attention KV"
+      },
+      "license_status": "apache-2.0-model-card;verify-revision",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-01",
+        "RQ-06"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-004",
+      "name": "LFM3-1.7B",
+      "title": {
+        "fa": "خانواده مدل با هسته مشترک و تخصص‌ها",
+        "en": "Shared-backbone small model family"
+      },
+      "url": "https://huggingface.co/LiquidAI/LFM3-1.7B",
+      "kind": "model",
+      "stages": [
+        "P1",
+        "P3"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "مجوز و پشتیبانی Runtime برای نسخه دقیق باید کنترل شود",
+        "en": "Separate model licensing and runtime support need check"
+      },
+      "license_status": "lfm1.0-model;verify-usage",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-01",
+        "RQ-08"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-005",
+      "name": "RWKV",
+      "title": {
+        "fa": "مدل بازگشتی با وضعیت فشرده",
+        "en": "Recurrent language model with compact state"
+      },
+      "url": "https://github.com/BlinkDL/RWKV-LM",
+      "kind": "model-architecture",
+      "stages": [
+        "P2",
+        "P3"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "وضعیت بازگشتی آن جایگزین مستقیم KV نیست",
+        "en": "Native recurrent state is not Transformer cache"
+      },
+      "license_status": "source-apache-2.0;weights-verify",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-05",
+        "RQ-06"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-006",
+      "name": "Mamba",
+      "title": {
+        "fa": "شبکه حالت‌فضا با انتخاب‌گری وابسته به ورودی",
+        "en": "Selective state-space model kernels"
+      },
+      "url": "https://github.com/state-spaces/mamba",
+      "kind": "architecture-code",
+      "stages": [
+        "P2",
+        "P3"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "بهینه‌سازی‌ها و سازگاری GPU/CPU وابسته به پیکربندی است",
+        "en": "GPU optimization and compatibility requirements"
+      },
+      "license_status": "repository-license-review",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-05",
+        "RQ-08"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-007",
+      "name": "BitNet.cpp",
+      "title": {
+        "fa": "موتور استنتاج مدل بومی کم‌بیت",
+        "en": "Native low-bit model inference runtime"
+      },
+      "url": "https://github.com/microsoft/BitNet",
+      "kind": "runtime",
+      "stages": [
+        "P2"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "مدل کم‌بیت بومی معادل تبدیل Quantization معمولی نیست",
+        "en": "Native low-bit training not same as post-quantized dense model"
+      },
+      "license_status": "source-mit;weights-verify",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-01"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-008",
+      "name": "LatentMAS",
+      "title": {
+        "fa": "حافظه کاری نهفته و همکاری عامل‌ها",
+        "en": "Latent shared working memory across agents"
+      },
+      "url": "https://proceedings.mlr.press/v306/zou26k.html",
+      "kind": "peer-reviewed-paper",
+      "stages": [
+        "P2"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "نتایج مقاله برای همان آزمایش‌های نویسندگان است",
+        "en": "External reported evidence; no DEC replication"
+      },
+      "license_status": "paper-rights-original",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-05",
+        "RQ-07"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-009",
+      "name": "Interlat",
+      "title": {
+        "fa": "ارتباط وضعیت نهفته میان مدل‌ها",
+        "en": "Latent-state messaging and representation alignment"
+      },
+      "url": "https://aclanthology.org/2026.acl-long.1248/",
+      "kind": "peer-reviewed-paper",
+      "stages": [
+        "P2"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "ممکن است سازگارسازی و آموزش لازم باشد",
+        "en": "Alignment/training may be required"
+      },
+      "license_status": "paper-rights-original",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-06"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-010",
+      "name": "LatCom",
+      "title": {
+        "fa": "فشرده‌سازی ارتباط نهفته میان عامل‌ها",
+        "en": "Latent communication compression"
+      },
+      "url": "https://aclanthology.org/2026.emnlp-main.1068/",
+      "kind": "peer-reviewed-paper",
+      "stages": [
+        "P2"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "انتقال کامل وضعیت نهفته می‌تواند Context و حافظه را افزایش دهد",
+        "en": "Full latent transfer may expand context and memory"
+      },
+      "license_status": "paper-rights-original",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-05"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-011",
+      "name": "Cache-to-Cache",
+      "title": {
+        "fa": "انتقال معنایی بین KV Cache مدل‌ها",
+        "en": "Learned semantic KV-cache projection and fusion"
+      },
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/474ada926b331d78f06d95e8913111cc-Abstract-Conference.html",
+      "kind": "peer-reviewed-paper",
+      "stages": [
+        "P2"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "Projector وابسته به جفت مدل است و چندسروری فعلاً معوق است",
+        "en": "Pair-specific projector; multi-server out of scope"
+      },
+      "license_status": "paper-rights-original",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-06"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-012",
+      "name": "LRAgent",
+      "title": {
+        "fa": "اشتراک Cache مدل پایه با مؤلفه وابسته به LoRA",
+        "en": "LoRA-specific KV plus shared-base cache method"
+      },
+      "url": "https://proceedings.mlr.press/v306/jeon26b.html",
+      "kind": "peer-reviewed-paper",
+      "stages": [
+        "P2"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "Kernel ویژه نیاز دارد و سازگاری Cache خودکار نیست",
+        "en": "Specialized kernels; not automatic adapter cache compatibility"
+      },
+      "license_status": "paper-rights-original",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-06"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-013",
+      "name": "LD-MoLE",
+      "title": {
+        "fa": "انتخاب تخصص LoRA در سطح لایه/توکن",
+        "en": "Learned layer/token-level LoRA expert routing"
+      },
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/6a39cf3b666f8bdb2223f253981f3869-Abstract-Conference.html",
+      "kind": "peer-reviewed-paper",
+      "stages": [
+        "P3"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "آموزش Router و تداخل متخصص‌ها نیازمند آزمون است",
+        "en": "Router training and interference must be measured"
+      },
+      "license_status": "paper-rights-original",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-08"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-014",
+      "name": "Agent Primitives",
+      "title": {
+        "fa": "بلوک‌های شناختی Review/Voting/Planning با وضعیت نهفته",
+        "en": "Review/Voting/Planning primitives with latent state"
+      },
+      "url": "https://github.com/haibojin001/AgentPrimitives",
+      "kind": "research-code",
+      "stages": [
+        "P2",
+        "P3"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "ماژول‌ها موجودند؛ دمو و اجرای یکپارچه اثبات نشده",
+        "en": "Modules exist; complete end-to-end demo not confirmed"
+      },
+      "license_status": "repo-license-and-artifacts-verify",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-04",
+        "RQ-08"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-015",
+      "name": "LatentMAS-SLoRA",
+      "title": {
+        "fa": "تبادل نهفته با تعویض LoRA نقش‌ها",
+        "en": "Latent transport plus role adapter switching"
+      },
+      "url": "https://github.com/Arifuzzamanjoy/latent_mas_slora",
+      "kind": "research-code",
+      "stages": [
+        "P2"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "LoRAهای همراه آموزش‌دیده نیستند و آزمایش محدود است",
+        "en": "Included role adapters not trained; small evaluation"
+      },
+      "license_status": "repo-mit-reported;verify",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-05",
+        "RQ-06"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-016",
+      "name": "PEFT",
+      "title": {
+        "fa": "ابزار اصلی آموزش و ترکیب Adapter",
+        "en": "Parameter-efficient fine-tuning and adapter operations"
+      },
+      "url": "https://github.com/huggingface/peft",
+      "kind": "software-toolkit",
+      "stages": [
+        "P1",
+        "P3"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "وزن Adapter به‌تنهایی حافظه شناختی مشارکتی نمی‌سازد",
+        "en": "Adapter weights alone do not create deliberative memory"
+      },
+      "license_status": "source-apache-2.0;verify-deps",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-02"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-017",
+      "name": "llama.cpp",
+      "title": {
+        "fa": "موتور کم‌مصرف CPU/GGUF",
+        "en": "Efficient CPU/GGUF model runtime"
+      },
+      "url": "https://github.com/ggml-org/llama.cpp",
+      "kind": "runtime",
+      "stages": [
+        "P1"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "رابط عمومی انتقال هر Hidden State نیست",
+        "en": "Not a general hidden-state export interface"
+      },
+      "license_status": "source-mit;verify-deps",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-01"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-018",
+      "name": "LMCache",
+      "title": {
+        "fa": "ذخیره و بازیابی چندلایه KV Cache",
+        "en": "Tiered KV cache reuse and offload"
+      },
+      "url": "https://github.com/LMCache/LMCache",
+      "kind": "software-toolkit",
+      "stages": [
+        "P2"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "بازاستفاده KV سازگار، حافظه شناختی مشترک نیست",
+        "en": "Compatible-prefix caching is not shared cognition"
+      },
+      "license_status": "source-apache-2.0",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-05",
+        "RQ-06"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-019",
+      "name": "LangGraph",
+      "title": {
+        "fa": "مدیریت مسیر و وضعیت عامل‌ها",
+        "en": "Stateful graph orchestration"
+      },
+      "url": "https://github.com/langchain-ai/langgraph",
+      "kind": "framework",
+      "stages": [
+        "P1"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "کنترل ساختاریافته دارد، نه انتقال نهفته آماده",
+        "en": "Text/structured control; no built-in latent tensors"
+      },
+      "license_status": "source-mit",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-03",
+        "RQ-04"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-020",
+      "name": "Microsoft Agent Framework",
+      "title": {
+        "fa": "گردش کار و مدیریت چند عامل",
+        "en": "Supported multi-agent workflow framework"
+      },
+      "url": "https://github.com/microsoft/agent-framework",
+      "kind": "framework",
+      "stages": [
+        "P1"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "سازگاری Provider/Runtime و سربار نیازمند آزمون است",
+        "en": "Provider/runtime compatibility and overhead to benchmark"
+      },
+      "license_status": "source-mit",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-03",
+        "RQ-04"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-021",
+      "name": "pgvector",
+      "title": {
+        "fa": "بردارهای بازیابی همراه PostgreSQL",
+        "en": "PostgreSQL vector retrieval extension"
+      },
+      "url": "https://github.com/pgvector/pgvector",
+      "kind": "database-extension",
+      "stages": [
+        "P1"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "Embedding جست‌وجو معادل تفکر نهفته نیست",
+        "en": "Retrieval embedding is not latent thought"
+      },
+      "license_status": "source-postgresql-license",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-02"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-022",
+      "name": "LightRAG",
+      "title": {
+        "fa": "بازیابی تقویت‌شده با گراف",
+        "en": "Graph-enhanced retrieval framework"
+      },
+      "url": "https://github.com/HKUDS/LightRAG",
+      "kind": "framework",
+      "stages": [
+        "P1"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "سربار شاخص‌سازی باید با بستر موجود مقایسه شود",
+        "en": "Indexing/graph overhead vs existing retrieval platform"
+      },
+      "license_status": "verify-exact-deps",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-02"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    },
+    {
+      "id": "PRIOR-023",
+      "name": "AgentArk",
+      "title": {
+        "fa": "تقطیر رفتار چندعامل به عامل واحد",
+        "en": "Multi-agent-to-single-model distillation"
+      },
+      "url": "https://arxiv.org/abs/2602.03955",
+      "kind": "preprint",
+      "stages": [
+        "P3"
+      ],
+      "relevance": "candidate reference / مرجع پیشنهادی",
+      "limitation": {
+        "fa": "پیش‌چاپ است و حفظ اختلاف تخصصی تضمین نیست",
+        "en": "Preprint; specialist dissent may not be retained"
+      },
+      "license_status": "paper-rights-original",
+      "dec_evidence": "E0",
+      "research_questions": [
+        "RQ-08"
+      ],
+      "verified_stage": "primary-source/repository review, not DEC tested / بررسی منبع، نه اجرای DEC",
+      "review_date": "2026-11-12"
+    }
+  ]
+}

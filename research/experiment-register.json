@@ -1,0 +1,317 @@
+{
+  "schema": "DEC-public-experiment-register-v0.1",
+  "version": "0.1.0",
+  "as_of": "2026-11-12",
+  "all_results_status": "not_run",
+  "notes": {
+    "fa": "این‌ها آزمون‌های برنامه‌ریزی‌شده‌اند و نتیجه واقعی منتشر نشده است.",
+    "en": "These are planned experiments with no DEC measurements published yet."
+  },
+  "experiments": [
+    {
+      "id": "EXP-001",
+      "title": {
+        "en": "Model core comparison",
+        "fa": "مقایسه هسته کوچک"
+      },
+      "question": {
+        "en": "Compare MiniCPM5-1B, Qwen3.5-0.8B, Granite H-1B and LFM3-1.7B with identical FA/EN tasks and hardware.",
+        "fa": "مقایسه MiniCPM5-1B، Qwen3.5-0.8B، Granite H-1B و LFM3-1.7B با تکلیف فارسی/انگلیسی و سخت‌افزار یکسان."
+      },
+      "stage": "P1",
+      "research_questions": [
+        "RQ-01"
+      ],
+      "metrics": [
+        "accuracy",
+        "ttft_ms",
+        "peak_memory_bytes",
+        "tokens_per_second"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-002",
+      "title": {
+        "en": "Role prompting vs LoRA",
+        "fa": "Prompt نقش در برابر LoRA"
+      },
+      "question": {
+        "en": "Hold evidence and core fixed; compare role prompt with trained adapter.",
+        "fa": "مدل و شواهد ثابت، Prompt نقش در برابر Adapter آموزش‌دیده."
+      },
+      "stage": "P1",
+      "research_questions": [
+        "RQ-02"
+      ],
+      "metrics": [
+        "held_out_accuracy",
+        "latency_ms",
+        "adapter_bytes"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-003",
+      "title": {
+        "en": "RAG value and provenance",
+        "fa": "ارزش و منشأ RAG"
+      },
+      "question": {
+        "en": "Compare no-RAG, local retrieval, and authorized cross-RAG.",
+        "fa": "مقایسه بدون RAG، بازیابی اختصاصی و Cross-RAG مجاز."
+      },
+      "stage": "P1",
+      "research_questions": [
+        "RQ-02"
+      ],
+      "metrics": [
+        "retrieval_recall",
+        "citation_faithfulness",
+        "latency_ms"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-004",
+      "title": {
+        "en": "Three cognitive levels",
+        "fa": "سه سطح پردازش"
+      },
+      "question": {
+        "en": "Compare direct, deep single expert and adaptive council on equal-budget tasks.",
+        "fa": "مقایسه مستقیم، متخصص عمیق و شورای تطبیقی با بودجه برابر."
+      },
+      "stage": "P1",
+      "research_questions": [
+        "RQ-03",
+        "RQ-07"
+      ],
+      "metrics": [
+        "quality_per_compute",
+        "route_recall",
+        "peak_memory_bytes"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-005",
+      "title": {
+        "en": "Tool and evidence protocol",
+        "fa": "پروتکل ابزار و شواهد"
+      },
+      "question": {
+        "en": "Validate tool calls and structured evidence events before optional training.",
+        "fa": "اعتبارسنجی فراخوانی ابزار و رویداد شاهد پیش از آموزش اضافی."
+      },
+      "stage": "P1",
+      "research_questions": [
+        "RQ-04"
+      ],
+      "metrics": [
+        "tool_call_validity",
+        "evidence_accuracy",
+        "replayability"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-006",
+      "title": {
+        "en": "Latent vs typed transfer",
+        "fa": "تبادل نهفته در برابر ساختاریافته"
+      },
+      "question": {
+        "en": "Compare bounded hidden-state handoff to short typed events in compatible backbone.",
+        "fa": "مقایسه تبادل Hidden State محدود با رویداد کوتاه ساختاریافته روی هسته سازگار."
+      },
+      "stage": "P2",
+      "research_questions": [
+        "RQ-05"
+      ],
+      "metrics": [
+        "total_latency_ms",
+        "tensor_bytes",
+        "quality",
+        "peak_kv_bytes"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-007",
+      "title": {
+        "en": "LoRA cache compatibility",
+        "fa": "سازگاری Cache میان LoRAها"
+      },
+      "question": {
+        "en": "Verify adaptation changes do not contaminate or invalidate reusable cache.",
+        "fa": "بررسی عدم اختلاط یا بی‌اعتباری Cache هنگام تغییر Adapter."
+      },
+      "stage": "P2",
+      "research_questions": [
+        "RQ-06"
+      ],
+      "metrics": [
+        "cache_correctness",
+        "peak_memory_bytes",
+        "switch_latency_ms"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-008",
+      "title": {
+        "en": "LatentMAS-SLoRA reproduction",
+        "fa": "بازتولید LatentMAS-SLoRA"
+      },
+      "question": {
+        "en": "Audit code, train actual role LoRAs, reproduce baseline and assess failures.",
+        "fa": "بازبینی کد، آموزش LoRA واقعی، بازتولید خط مبنا و بررسی شکست‌ها."
+      },
+      "stage": "P2",
+      "research_questions": [
+        "RQ-05",
+        "RQ-06"
+      ],
+      "metrics": [
+        "held_out_accuracy",
+        "latency_ms",
+        "adapter_compatibility"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-009",
+      "title": {
+        "en": "Agent primitives",
+        "fa": "بلوک‌های شناختی"
+      },
+      "question": {
+        "en": "Evaluate review/vote/planning with controlled errors and equivalent typed baselines.",
+        "fa": "ارزیابی Review/Vote/Planning با خطاهای کنترل‌شده و خط مبنای پیام ساختاریافته."
+      },
+      "stage": "P2",
+      "research_questions": [
+        "RQ-04",
+        "RQ-08"
+      ],
+      "metrics": [
+        "task_accuracy",
+        "cost_per_correct",
+        "failure_rate"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-010",
+      "title": {
+        "en": "Council behavior distillation",
+        "fa": "تقطیر رفتار شورا"
+      },
+      "question": {
+        "en": "Study teacher/student retention of dissent, abstention and rare-case reasoning.",
+        "fa": "بررسی حفظ نقد، امتناع و استدلال موارد نادر در مدل دانش‌آموز."
+      },
+      "stage": "P3",
+      "research_questions": [
+        "RQ-08"
+      ],
+      "metrics": [
+        "held_out_quality",
+        "dissent_recall",
+        "model_size_bytes"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-011",
+      "title": {
+        "en": "Native integrated cognition",
+        "fa": "معماری شناختی درونی"
+      },
+      "question": {
+        "en": "Conditional trained mechanism with component ablation against strongest modular baseline.",
+        "fa": "مکانیزم آموزش‌دیده مشروط با Ablation اجزا در برابر قوی‌ترین مبنای ماژولار."
+      },
+      "stage": "P3",
+      "research_questions": [
+        "RQ-08"
+      ],
+      "metrics": [
+        "quality_per_compute",
+        "ablation_effect",
+        "peak_memory_bytes"
+      ],
+      "status": "planned",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    },
+    {
+      "id": "EXP-012",
+      "title": {
+        "en": "Future multiuser design",
+        "fa": "چندکاربره آینده"
+      },
+      "question": {
+        "en": "Only after verified PoC; separate authorization, isolation and scheduling tests.",
+        "fa": "فقط پس از موفقیت PoC؛ آزمون مستقل مجوز، جداسازی و زمان‌بندی."
+      },
+      "stage": "FUTURE",
+      "research_questions": [
+        "RQ-03"
+      ],
+      "metrics": [
+        "isolation",
+        "p95_latency",
+        "throughput"
+      ],
+      "status": "deferred",
+      "evidence_grade": "E0",
+      "runs": [],
+      "result": null,
+      "independent_review": null
+    }
+  ]
+}
