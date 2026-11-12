@@ -1,0 +1,1587 @@
+{
+  "schema": "dec-roadmap-v1",
+  "version": "0.2.0",
+  "created_at": "2026-11-12",
+  "status": "owner-requested proposed implementation roadmap; phases not executed",
+  "evidence_grade": "E0",
+  "public_repository": "https://github.com/khosravimm/dec-research",
+  "private_backlog_source": "39 pre-existing DEC-BK identifiers, references only (private task content not copied)",
+  "phase_duration_assumptions": "one focused full-time researcher; durations are nonbinding estimates; P2/P3 gated and may never execute",
+  "phases": [
+    {
+      "id": "P0",
+      "name": {
+        "en": "P0 � Research foundation / ?�?� ??��",
+        "fa": "P0 � ?�?� ??��"
+      },
+      "duration_weeks": [
+        2,
+        4
+      ],
+      "gate": "G0",
+      "depends_on": [],
+      "state": "planned"
+    },
+    {
+      "id": "P1A",
+      "name": {
+        "en": "P1-A � Core model selection / 쫢�",
+        "fa": "P1-A � �뢦�� 쫢�"
+      },
+      "duration_weeks": [
+        3,
+        5
+      ],
+      "gate": "G1A",
+      "depends_on": [
+        "P0"
+      ],
+      "state": "planned"
+    },
+    {
+      "id": "P1B",
+      "name": {
+        "en": "P1-B � Expertise and retrieval / ���� � ���",
+        "fa": "P1-B � ���� � ���"
+      },
+      "duration_weeks": [
+        4,
+        6
+      ],
+      "gate": "G1B",
+      "depends_on": [
+        "P1A"
+      ],
+      "state": "planned"
+    },
+    {
+      "id": "P1C",
+      "name": {
+        "en": "P1-C � Three-level cognitive prototype / �럦� ꬟�?�?",
+        "fa": "P1-C � ����� �럦�?"
+      },
+      "duration_weeks": [
+        4,
+        6
+      ],
+      "gate": "G1",
+      "depends_on": [
+        "P1B"
+      ],
+      "state": "planned"
+    },
+    {
+      "id": "P2",
+      "name": {
+        "en": "P2 � Latent compute integration / ���� ����",
+        "fa": "P2 � ???��?�?���? ����"
+      },
+      "duration_weeks": [
+        6,
+        10
+      ],
+      "gate": "G2",
+      "depends_on": [
+        "P1C"
+      ],
+      "state": "conditional"
+    },
+    {
+      "id": "P3",
+      "name": {
+        "en": "P3 � New native-model research / ��꟩? ��",
+        "fa": "P3 � ��꟩? �� ��?�"
+      },
+      "duration_weeks": [
+        12,
+        20
+      ],
+      "gate": "G3",
+      "depends_on": [
+        "P2"
+      ],
+      "state": "conditional"
+    },
+    {
+      "id": "CONT",
+      "name": {
+        "en": "Ongoing � Research governance & public science / �����",
+        "fa": "����� ??�� � �뢬��"
+      },
+      "duration_weeks": null,
+      "gate": "G-PUB",
+      "depends_on": [],
+      "state": "ongoing"
+    },
+    {
+      "id": "FUTURE",
+      "name": {
+        "en": "Future � Multiuser/distributed (deferred) / ��?",
+        "fa": "�?�� ����"
+      },
+      "duration_weeks": null,
+      "gate": "G-FUT",
+      "depends_on": [
+        "P3"
+      ],
+      "state": "deferred"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G0",
+      "phase": "P0",
+      "criterion": {
+        "en": "Versioned rights-cleared bilingual reference set, hardware/runtime inventory, signed study plan, measurable experiment harness and P1 baseline budget.",
+        "fa": "����� ꩤ� ������� ����? �� �뢬��? �����? ���? �럠�? ?���?� ���?�?��� � ����� �뤬 �� ����� P1."
+      },
+      "approval": "project-owner + independent technical reviewer",
+      "fallback": "revise P0; no model tuning before benchmark freeze"
+    },
+    {
+      "id": "G1A",
+      "phase": "P1A",
+      "criterion": {
+        "en": "Core shortlist compared on identical held-out tests and hardware; model/adapter/template fit identified, no unsupported winner claim.",
+        "fa": "��?�� �ꪧ�? 쫢� �� ���� � ���?�媟� �����? �㢠�� �� � Adapter � ������? �� �뢦�� �??���."
+      },
+      "approval": "project-owner + evaluation reviewer",
+      "fallback": "keep 2 candidates, obtain improved benchmark or smaller core"
+    },
+    {
+      "id": "G1B",
+      "phase": "P1B",
+      "criterion": {
+        "en": "Working expert-owned retrieval with opt-out Cross-RAG, real trained LoRAs or explicit failed adaptation, replayable evidence and cache compatibility.",
+        "fa": "RAG ����? � Cross-RAG 矠� �����?? LoRA ���? ?� �?�� ���?���? ��� ���?��??�?� � Cache ���?��."
+      },
+      "approval": "technical lead + evaluation reviewer",
+      "fallback": "retain prompt+RAG baseline if adapters fail"
+    },
+    {
+      "id": "G1",
+      "phase": "P1C",
+      "criterion": {
+        "en": "Runnable L1/L2/L3 and matched-budget ablation with held-out quality, latency/memory, negative cases and independent review; owner decides whether P2 is justified.",
+        "fa": "����? �� �� � Ablation �� �럠� �����? ���� ��??? ??�?�/�럠�/�?�� � ����? ꫢ��? ���?� ��? ������ P2."
+      },
+      "approval": "project-owner",
+      "fallback": "retain best simpler level; revise hypotheses or stop branch"
+    },
+    {
+      "id": "G2",
+      "phase": "P2",
+      "criterion": {
+        "en": "Demonstrable net benefit for at least one latent/integration mechanism over strong typed-event baseline, with correctness and reversible implementation; otherwise reject.",
+        "fa": "����� ��� ��?? ����� ?? ����?�� ���� �� ����� ??�� ?���� �꩟� ��� � 矠�?� ���?��? �� �?� �?� ���� ��."
+      },
+      "approval": "project-owner + independent technical reviewer",
+      "fallback": "stay with modular proven runtime; publish scoped negative findings"
+    },
+    {
+      "id": "G3",
+      "phase": "P3",
+      "criterion": {
+        "en": "Native integrated learned prototype validated by ablation vs best modular baseline; novelty, IP rights, licensing and disclosure independently reviewed.",
+        "fa": "����� �� ����? ?��?���? �� Ablation 뫠� �� ��? �?�韩 � ����? ꫢ�� ����?? ���� � ��� �뢬��."
+      },
+      "approval": "project-owner + technical/IP specialist",
+      "fallback": "publish modular science only or continue scoped research privately"
+    },
+    {
+      "id": "G-PUB",
+      "phase": "CONT",
+      "criterion": {
+        "en": "Every public change has EN/FA parity, source provenance, evidence grades, rights approval, CI and reversible git record (not reversible public disclosure).",
+        "fa": "� ��??� ����? ����? �矩� 埩�?/��?�?�?? �묚? ���� ���? ?뢩� ����? CI � ����� Git ���� (�嬟? ����? ���?��??�?� �?��)."
+      },
+      "approval": "project maintainer",
+      "fallback": "withhold disclosure or publish redacted status"
+    },
+    {
+      "id": "G-FUT",
+      "phase": "FUTURE",
+      "criterion": {
+        "en": "Future expansion needs separate real-world capacity, risk and owner authorization, not implied by P3 success.",
+        "fa": "����� �?�� �� ����? �럠�? �?�? � ��� ꫢ�� �?�� ����? ����?� P3 ��?���?? ��� �?��."
+      },
+      "approval": "project-owner",
+      "fallback": "defer"
+    }
+  ],
+  "assumptions": [
+    {
+      "en": "Estimates are relative, not commitments. Phase durations assume roughly one focused full-time research engineer with intermittent subject-matter and legal review. Hardware, Internet, data preparation and training constraints may lengthen the critical path.",
+      "fa": "ꧢ?� ������ 뫠??��? �� ��� ���?? �� ?? ??��?� ���?�� ��?� �� ����? ��?/����? ����? ���. ���?�媟�? �?뢩�? ���� � ����� �??���� �?� �����? �� ����? ?��."
+    },
+    {
+      "en": "No numerical success threshold is approved yet; P0 must preregister the smallest worthwhile effect, sample sizes, statistical procedure, latency/resource budgets, unacceptable regressions and owner sign-off before held-out testing.",
+      "fa": "������ ?�? ����?� ���� ���?� 묧�? �� P0 ?ꢩ?� ��� ������? �㧟� �����? ��� �꟩?? ����� �럠�? �� �?�矠� ��� � ��??� ��? ??� �� ����� ��?? ��� �??���."
+    },
+    {
+      "en": "Only public-safe abstractions are in this document. Potentially novel equations/weights/implementation, private LDI corpus, lab addresses and confidential results stay outside GitHub until cleared.",
+      "fa": "��� ���㟢 矠� �뢬�� ����? ��� �??���. �㟧韢/���/??���?���? ����� ��? ��럧 ����? LDI? ����?�? ���?�?�� � 뢟?� ꥩ��� �� ��??� ����? ���� �� GitHub �??���."
+    }
+  ],
+  "risks": [
+    {
+      "id": "R01",
+      "threat": {
+        "en": "Benchmark leakage or biased oracle",
+        "fa": "묢? ����� ?� ?��� ꩤ� ��렧��"
+      },
+      "treatment": {
+        "en": "Independent held-out split, dataset hashes, second reviewer; stop claims",
+        "fa": "��??? ����� ��??? � � ���� ���? ���� ���"
+      },
+      "severity": "high",
+      "status": "open-E0"
+    },
+    {
+      "id": "R02",
+      "threat": {
+        "en": "Core inadequate in Persian",
+        "fa": "��� 쫢� �� 埩�?"
+      },
+      "treatment": {
+        "en": "FA/EN controls; compare larger/smaller, abstain, domain RAG; do not fake gain",
+        "fa": "�� 埩�?? ����? RAG � ��?�? �?�� ���? �����"
+      },
+      "severity": "high",
+      "status": "open-E0"
+    },
+    {
+      "id": "R03",
+      "threat": {
+        "en": "6GB-class GPU / CPU bottleneck",
+        "fa": "?��?�� GPU ꥧ�� � CPU"
+      },
+      "treatment": {
+        "en": "Fresh resource inventory, QLoRA short context, profiling, scope control",
+        "fa": "��?�? ���? �럠�? QLoRA � Context ꥧ�� �� ?���?�"
+      },
+      "severity": "high",
+      "status": "open-E0"
+    },
+    {
+      "id": "R04",
+      "threat": {
+        "en": "LoRA?KV latent incompatibility",
+        "fa": "럫��?��? LoRA � KV/Latent"
+      },
+      "treatment": {
+        "en": "Pinned compatibility IDs and negative tests; fallback to typed events",
+        "fa": "�럫� 뫦� � ��� ���?? ���?�� �� ??�� ������?���"
+      },
+      "severity": "high",
+      "status": "open-E0"
+    },
+    {
+      "id": "R05",
+      "threat": {
+        "en": "Council lacks marginal value",
+        "fa": "�??����? ����� ����"
+      },
+      "treatment": {
+        "en": "Equal-compute single-agent counterfactual; cancel unnecessary council",
+        "fa": "��?�� �� ퟥ� �� ����� �����? ��� ���� �??�?��"
+      },
+      "severity": "high",
+      "status": "open-E0"
+    },
+    {
+      "id": "R06",
+      "threat": {
+        "en": "Excessive latent tensor overhead",
+        "fa": "����� ���? Tensor ����"
+      },
+      "treatment": {
+        "en": "Measure full wall time+bytes/memory; cap slots and abort bad branch",
+        "fa": "�뤬 ���? ��� � �����? ꥧ�����? � ����"
+      },
+      "severity": "high",
+      "status": "open-E0"
+    },
+    {
+      "id": "R07",
+      "threat": {
+        "en": "Third-party licensing or chain-of-title conflicts",
+        "fa": "�㟩� ���� �럠� � ?�?�����??"
+      },
+      "treatment": {
+        "en": "Artifact-by-artifact license review and private rights ledger before publishing",
+        "fa": "����? ��� 뫦� ��?� � ?���� ���� ����? ??� �� �뢬��"
+      },
+      "severity": "critical",
+      "status": "open-E0"
+    },
+    {
+      "id": "R08",
+      "threat": {
+        "en": "Premature novelty disclosure",
+        "fa": "�嬟? �����?�� ����?"
+      },
+      "treatment": {
+        "en": "Publication/IP gate, no unpublished inventive mechanism in public issues",
+        "fa": "??� ����? ??� �� �뢬�� �?��?�� ��? �� ��� �� Issues"
+      },
+      "severity": "critical",
+      "status": "open-E0"
+    },
+    {
+      "id": "R09",
+      "threat": {
+        "en": "Infrastructure scope creep and cross-project leakage",
+        "fa": "?���� ����� � 묢 ���㟢 ����?"
+      },
+      "treatment": {
+        "en": "Private lab independent; sanitized public artifacts only; controlled changes",
+        "fa": "���?�?�� ꫢ�� ����?? ��� ����? ?��?�?��� � ��??� ?뢩�?���"
+      },
+      "severity": "high",
+      "status": "open-E0"
+    },
+    {
+      "id": "R10",
+      "threat": {
+        "en": "Unreproducible or vendor-biased result",
+        "fa": "�?�� �?�矠� ������?� ?� �?? �� �����"
+      },
+      "treatment": {
+        "en": "Locked run recipes, raw measurements, independent review and negative results",
+        "fa": "뫦� � ���?� ����? �뤬 ���? ����?�? ꫢ�� � �?�� ���?"
+      },
+      "severity": "high",
+      "status": "open-E0"
+    },
+    {
+      "id": "R11",
+      "threat": {
+        "en": "Over-engineering multiuser/multiserver",
+        "fa": "????�?? �����?�� ?�?����� ?� ?맫���?"
+      },
+      "treatment": {
+        "en": "Owner deferment enforced until P3 and dedicated scope",
+        "fa": "���?� �� P3 � ꥧ��� � ��� ꫢ��"
+      },
+      "severity": "medium",
+      "status": "open-E0"
+    },
+    {
+      "id": "R12",
+      "threat": {
+        "en": "Commercial overclaiming",
+        "fa": "���? �����?�� ���� ����?"
+      },
+      "treatment": {
+        "en": "Separate research, IP, pilot and product readiness; no invented valuations",
+        "fa": "��??? ���� ??��? ����? ?�?��� � ꥭ��? ���� ����??���? ����??"
+      },
+      "severity": "high",
+      "status": "open-E0"
+    }
+  ],
+  "work_packages": [
+    {
+      "id": "DEC-WP-001",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_role": "project-owner",
+      "title": {
+        "en": "Governance, risk and project charter",
+        "fa": "����? ��?�?� � �?�?"
+      },
+      "scope": {
+        "en": "Confirm current DEC research boundaries, decision authority, requirements and register risks/changes. Ensure bilingual issue and artifact contracts.",
+        "fa": "���?� ����� ??��? ���?���� ���?�? �骟꟢ � ��� ��??� � �?�?? 穟���� ��� �������."
+      },
+      "deliverable": {
+        "en": "Charter, decision register, risk and change register / baseline.",
+        "fa": "����? �墩 ���?�? �?�? � ��??�."
+      },
+      "acceptance": {
+        "en": "Every requirement has unique ID, phase, accountable decision maker and acceptance evidence.",
+        "fa": "� �骟� �럫�? 埪? ꩤ� ���?� � ��� ?�?�� ����."
+      },
+      "dependencies": [],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 3,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-002",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Audit existing LDI and evidence retrieval",
+        "fa": "��?�? LDI � ���?��? ��� �����"
+      },
+      "scope": {
+        "en": "Read-only inspect actual LDI APIs, indexes, corpus rights, revisions and compatibility. No corpus copying to public GitHub.",
+        "fa": "��?�? ���?����? ����?�? �?�?�?�? ���� ��럧 � 뫦�?�? LDI � ���?��?."
+      },
+      "deliverable": {
+        "en": "Internal interface inventory and reuse/replace ADR.",
+        "fa": "�쩫� ���� ����? � ADR ���埧� ꤧ�/��??�?�?."
+      },
+      "acceptance": {
+        "en": "API and retrieval behavior are demonstrated with authorized test documents; unknowns marked.",
+        "fa": "�墟� API � ���?��? �� ��럧 ꤟ� ������ � ���韢 ꬦ� ���."
+      },
+      "dependencies": [
+        "DEC-WP-001"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-001"
+      ],
+      "estimated_person_days": 4,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-003",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Verify compute, runtime and model inventory",
+        "fa": "���?��? ���?�媟�? Runtime � ��?�"
+      },
+      "scope": {
+        "en": "Collect fresh, read-only CPU/GPU/RAM/disk and model/runtimes hashes and availability, storage and isolated experiment capacity.",
+        "fa": "��� ���� � ���?����? �럠� CPU/GPU/RAM/�?�?? 뫦� �� � Runtime � ��?� �?� ���?�."
+      },
+      "deliverable": {
+        "en": "Private signed/hash inventory snapshot with non-sensitive public summary.",
+        "fa": "���?� ���?� �?��� ����? � �韭� ��� ����?."
+      },
+      "acceptance": {
+        "en": "At least one target machine and two model artifacts are identified with measured available capacity; no prior history masquerades as current state.",
+        "fa": "����� ?? �?���� � �� �� �� ��?� ���? ꬦ� ���? ���� ���?�? ��?��? ���?� ���? ���? ���."
+      },
+      "dependencies": [
+        "DEC-WP-001"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-002",
+        "DEC-BK-032"
+      ],
+      "estimated_person_days": 3,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-004",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_role": "evaluation",
+      "title": {
+        "en": "Create bilingual evaluation golden set",
+        "fa": "���� ����� ꩤ� ����� �������"
+      },
+      "scope": {
+        "en": "Curate licensed/author-created task cases across network, information security, programming, management, conflicting evidence and abstention.",
+        "fa": "���� ?���?�? ����? �� �뢬�� �� ��?�? ���?�? �����?��?�?? �?�?�? �㟩� � ?��� ���."
+      },
+      "deliverable": {
+        "en": "Versioned task JSON, oracle, rubrics, public synthetic subset and private held-out subset.",
+        "fa": "���� 뫦�?���? ?��� ꩤ�? Rubric? �?������ ����? ����? � ����� ��?? ����?."
+      },
+      "acceptance": {
+        "en": "Provisional target >=160 cases incl >=40% FA and >=30% EN, mixed-language, negative/abstention; stratification and reviewer sign-off before runs.",
+        "fa": "�� ���?� ���??� ??? ?���� ���� ����� ??? 埩�? � ??? ��?�?�? � �ퟩ� ���?? ��??� ���?� � ����? ??� �� ����."
+      },
+      "dependencies": [
+        "DEC-WP-001"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-003"
+      ],
+      "estimated_person_days": 9,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-005",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_role": "evaluation",
+      "title": {
+        "en": "Build experiment and reproducibility harness",
+        "fa": "���� ����� ����? ����� � ������?�"
+      },
+      "scope": {
+        "en": "Pin dependencies and container/venv; capture corpus/model hashes, metrics and failure cases. Evaluate MLflow only if simpler log files insufficient.",
+        "fa": "��� ퟠ��??? �?�? � ����/��? ��� � ��? MLflow ��� �� ���� �?�� ���?."
+      },
+      "deliverable": {
+        "en": "Runnable local test runner, schema and controlled trace exporter.",
+        "fa": "����? ���?� ��?? Schema � ����? Trace ?뢩�?���."
+      },
+      "acceptance": {
+        "en": "Same run configuration yields repeatable artifacts; missing metrics reported null; secret review before public output.",
+        "fa": "���?꟢ ??��� ���㟢 矠� �?��� ��? ���� ���� Null � �뢬�� ���� Secret ����."
+      },
+      "dependencies": [
+        "DEC-WP-003",
+        "DEC-WP-004"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-012"
+      ],
+      "estimated_person_days": 6,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-006",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_role": "research-governance",
+      "title": {
+        "en": "Research prior art, licenses and rights",
+        "fa": "����? ??�?��? ���� � ���� ����"
+      },
+      "scope": {
+        "en": "Maintain pinned literature/method/product matrix, model and dataset licenses, candidate IP disclosure and human/AI authorship/chain-of-title reviews.",
+        "fa": "��� ��� � ��� 뫦� ��?� ��/����/����� � ?뢩� �嬟? ������ �����? � ��?�� ��??�."
+      },
+      "deliverable": {
+        "en": "Versioned evidence/permission matrix, disclosure gate, legal review queue.",
+        "fa": "꟢�?� ��� � ��� 뫦�?���? ??� �뢬�� � �쩫� ����? ����?."
+      },
+      "acceptance": {
+        "en": "Each shortlisted artifact has original URL, version, license unknown/verified flag, risks and a release classification.",
+        "fa": "� �ꪧ ��� � 뫦�? ���?� ���? �?�? � ���� �뢬�� ꬦ� ����."
+      },
+      "dependencies": [
+        "DEC-WP-001"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 5,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-007",
+      "phase": "P1A",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Benchmark replaceable small-model cores",
+        "fa": "��?꟩? 쫢�?�? ?�?? 矠� ���?�"
+      },
+      "scope": {
+        "en": "Compare MiniCPM5-1B, Qwen3.5-0.8B, Granite H-1B, LFM3-1.7B and historical controls on equal tasks/hardware.",
+        "fa": "��?�� MiniCPM5-1B? Qwen3.5-0.8B? Granite H-1B? LFM3-1.7B � ?뢩�?� �� ���?�媟� � ���� �����."
+      },
+      "deliverable": {
+        "en": "Comparable score/resource Pareto frontier and conditional core ADR.",
+        "fa": "������ ?����? ??�?�/�럠� � ADR �뢦�� ���."
+      },
+      "acceptance": {
+        "en": "Report paired held-out FA/EN quality, cold/warm latency, TTFT, peak memory and model hashes; winner only within tested scope.",
+        "fa": "??�?� 埩�?/��?�?�?? ���?� ���/?��? ����� � � ���? �뢦�� ��� �� ����� �����."
+      },
+      "dependencies": [
+        "DEC-WP-003",
+        "DEC-WP-004",
+        "DEC-WP-005",
+        "DEC-WP-006"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-004",
+        "DEC-BK-026",
+        "DEC-BK-033"
+      ],
+      "estimated_person_days": 10,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-008",
+      "phase": "P1A",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Validate tool calling and Think control",
+        "fa": "�㢠����? ����� � ?뢩� Thinking"
+      },
+      "scope": {
+        "en": "Check model-specific templates/parser, valid call boundaries, retry/abort and false tool execution, MiniCPM Think modes.",
+        "fa": "?뢩� �� ������? ��? Parser? ꩪ �㢠� �����? �?���/��� � ��� Thinking."
+      },
+      "deliverable": {
+        "en": "Portable structured tool adapter plus scenario tests.",
+        "fa": "�?� ����� ������?��� 矠� ���?� � �����?�."
+      },
+      "acceptance": {
+        "en": "Correct tool selection/JSON or XML parsing and safe denial measured on held-out scenarios; no claimed access to private model reasoning.",
+        "fa": "�뢦�� �����? ��� Parser � �� �?�� ��? ����� ��?? ��?�� ���? ���? ?뢩� ������ ����? �� 렟��."
+      },
+      "dependencies": [
+        "DEC-WP-007"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-006",
+        "DEC-BK-027"
+      ],
+      "estimated_person_days": 5,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-009",
+      "phase": "P1A",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Validate adaptive router and stopping",
+        "fa": "�㢠����? Router ��?�? � ����"
+      },
+      "scope": {
+        "en": "Benchmark rule-based baseline against small-router candidates with risk/cost-aware L1/L2/L3 action selection.",
+        "fa": "��?�� Router ���? � �� ?�?? �� �뢦�� L1/L2/L3 �� ���� �?�? � �?��."
+      },
+      "deliverable": {
+        "en": "Router specification, confusion matrix and hard-stop policy.",
+        "fa": "ꬦ��� Router? ꟢�?� �� � �?��� ����."
+      },
+      "acceptance": {
+        "en": "Missed escalation, false escalation, abstention, time and compute measured; unbounded cycle test fails safely.",
+        "fa": "��? �� ���?�? ���?� ����?? ����? ��� � �럠� ��?�� � ���� �ꥧ�� ��� ���."
+      },
+      "dependencies": [
+        "DEC-WP-004",
+        "DEC-WP-005",
+        "DEC-WP-007"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-007",
+        "DEC-BK-029",
+        "DEC-BK-034"
+      ],
+      "estimated_person_days": 7,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-010",
+      "phase": "P1B",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Implement expert-owned RAG and Cross-RAG",
+        "fa": "??���?���? RAG ����? � Cross-RAG"
+      },
+      "scope": {
+        "en": "Use existing LDI when verified; otherwise compare pgvector, LightRAG, Qdrant on same documents; Cross-RAG opt-out and source provenance.",
+        "fa": "���埧� ꤧ� �� LDI ?� �� ��??� ?� ��?�� pgvector/LightRAG/Qdrant �� ��럧 ??���? Cross-RAG 矠� �?����?���?."
+      },
+      "deliverable": {
+        "en": "Expert RAG adapters, provenance references, benchmark report and reuse ADR.",
+        "fa": "���� RAG ꢦ��? ����� �묚? ?���� ��?꟩? � ADR."
+      },
+      "acceptance": {
+        "en": "Document citations trace to exact revision; disabled Cross-RAG makes no cross-source call; retrieval quality measured on held-out items.",
+        "fa": "���럧 �� 뫦� ��� ��� � �� �����? Cross-RAG ���?��? ���� �뤟� ���? ??�?� ��?�� ���."
+      },
+      "dependencies": [
+        "DEC-WP-002",
+        "DEC-WP-004",
+        "DEC-WP-005"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-009",
+        "DEC-BK-011"
+      ],
+      "estimated_person_days": 8,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-011",
+      "phase": "P1B",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Train and test first real role LoRAs",
+        "fa": "����� � ����� 릫�?� LoRA�? ���?"
+      },
+      "scope": {
+        "en": "Compare role prompt and RAG against at least two trained adapters on identical model revision. Confirm adapter/GGUF convertibility separately.",
+        "fa": "��?�� Prompt � RAG �� ���??� �� Adapter �����?�?�� ��? 뫦� ??���? ���?� GGUF ���?��� ������ ���."
+      },
+      "deliverable": {
+        "en": "Adapter artifacts/hash privately, training card, eval and regression results publicly where safe.",
+        "fa": "��� � � Adapter �� ꦪ� ꤟ�? ?��� ����� � ?���� ����� �� ���? ����? ���."
+      },
+      "acceptance": {
+        "en": "Held-out skill uplift or explicit negative result, no unacceptable regression, exact base/LoRA compatibility and memory tracked.",
+        "fa": "���� ���? �� ����� ��?? ?� �?�� ���? ?뢩� ?��� � ���?��? �� �럠� �맟��???�? ���."
+      },
+      "dependencies": [
+        "DEC-WP-007",
+        "DEC-WP-010"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-005",
+        "DEC-BK-028"
+      ],
+      "estimated_person_days": 10,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-012",
+      "phase": "P1B",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Implement typed expert collaboration protocol",
+        "fa": "??���?���? 穟���� ��?��? ������?���"
+      },
+      "scope": {
+        "en": "Define PROPOSE, SUPPORT, CHALLENGE, REVISE, REQUEST_EXPERT, VERIFY, DISSENT, ABSTAIN actions; durable evidence ledger.",
+        "fa": "��?� ��?����? ??��쟧? ���럧? ��? ��韥? ���ퟫ� ꢦ��? ����??���??? ����� � ����."
+      },
+      "deliverable": {
+        "en": "Typed state machine, event contract and deterministic replay tests.",
+        "fa": "꟬?� ���? 穟���� ��?��� � ����� ���?�� ���?."
+      },
+      "acceptance": {
+        "en": "All critical state transitions replayable; malformed events and cycles handled with bounded behavior.",
+        "fa": "?���� 矠� ���?�� � ��?��� ��?��/���� ?뢩�?��� ����."
+      },
+      "dependencies": [
+        "DEC-WP-005"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-008"
+      ],
+      "estimated_person_days": 7,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-013",
+      "phase": "P1B",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Ensure case/KV state correctness and lab boundary",
+        "fa": "��� ���?� ?���� � KV � ꩪ ���?�?��"
+      },
+      "scope": {
+        "en": "Check per-case lifecycle, adapter cache validity, model revision, denied external actions, bounded trace publication without heavy per-tensor IAM.",
+        "fa": "?뢩� ?��� ?����? ���?��? KV/LoRA? 뫦� ��? ��� �租� �?���? � �뢬�� ��� ���� IAM ��??� ��? Tensor."
+      },
+      "deliverable": {
+        "en": "Compatibility assertions, negative cache tests and sanitized telemetry.",
+        "fa": "穟���� ���?��?? ��� Cache ���? � ���?ꢩ? ?��?�?���."
+      },
+      "acceptance": {
+        "en": "Cross-case stale states never reused in defined tests; forbidden external action blocked; all failures logged.",
+        "fa": "�� ����� ��?�?��� Cache ?���� �??� ���埧� ���? ���?�� ����� ���� � �� ��� ���."
+      },
+      "dependencies": [
+        "DEC-WP-008",
+        "DEC-WP-012"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-013",
+        "DEC-BK-014"
+      ],
+      "estimated_person_days": 6,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-014",
+      "phase": "P1B",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Compare council orchestration implementations",
+        "fa": "��?�� ?뢩��? ����"
+      },
+      "scope": {
+        "en": "Compare lightweight state machine with LangGraph, Microsoft Agent Framework and CrewAI; avoid extra services by default.",
+        "fa": "��?�� ꟬?� ��� ��? �� LangGraph? Microsoft Agent Framework � CrewAI? ?��?� �� ���?� ����?."
+      },
+      "deliverable": {
+        "en": "Council-controller ADR with CPU/latency/recovery comparison.",
+        "fa": "ADR ?뢩� �꩟� ��?�� CPU? ���?� � ���?��?."
+      },
+      "acceptance": {
+        "en": "Selection supported by measured local overhead and sufficient replay/failure recovery.",
+        "fa": "�뢦�� �� ����� ���? ��? � ��� ���?��/���?��? ꫢ� ���."
+      },
+      "dependencies": [
+        "DEC-WP-012",
+        "DEC-WP-005"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-039"
+      ],
+      "estimated_person_days": 4,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-015",
+      "phase": "P1C",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Deliver Level 1 direct specialist path",
+        "fa": "���?� �?� �� ??: ?��� ꫢ�?� ꢦ��"
+      },
+      "scope": {
+        "en": "One expert, direct evidence-aware answer with low overhead, status and abstention support.",
+        "fa": "�?� ?��� ꫢ�?� ?? ꢦ�� �꩟� �묚? ��?���?� � ����."
+      },
+      "deliverable": {
+        "en": "Runnable L1 path and trace-to-answer tests.",
+        "fa": "�?� L1 矠� ���� � ��� ��?��? ?���."
+      },
+      "acceptance": {
+        "en": "Passes smoke and regression tests with no council activation on simple cases.",
+        "fa": "��� ?�?� � ?��� ���� ���?���? �?����? ���� ?�� ���."
+      },
+      "dependencies": [
+        "DEC-WP-007",
+        "DEC-WP-010",
+        "DEC-WP-012"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 4,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-016",
+      "phase": "P1C",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Deliver Level 2 iterative interactive thinking",
+        "fa": "���?� �� ��: ������ ����?"
+      },
+      "scope": {
+        "en": "Implement bounded single-expert tools/retrieval/verify/revise cycles with cancellation and externally observable events.",
+        "fa": "���� ꥧ�� �����? ���?��?? ��??� � ��韥 ꢦ�� ퟥ� �꩟� ��� � ��?��� 矠� ꬟��."
+      },
+      "deliverable": {
+        "en": "Runnable L2 and iterative trace scenarios.",
+        "fa": "����? L2 � �럩?��? Trace ?�ꩥ��?�?."
+      },
+      "acceptance": {
+        "en": "Evidence-refresh and model continuation work on fixtures; bounded iterations and timeouts verified.",
+        "fa": "����?���? ��� � ����� �� Fixture ���� � ?��� �?���/��� ��??� ���."
+      },
+      "dependencies": [
+        "DEC-WP-008",
+        "DEC-WP-009",
+        "DEC-WP-013",
+        "DEC-WP-015"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 6,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-017",
+      "phase": "P1C",
+      "priority": "P1",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Deliver Level 3 dynamic specialist council",
+        "fa": "���?� �� ��: ����? ?�?�? ꢦ����"
+      },
+      "scope": {
+        "en": "Dynamic expert recruitment, independent criticism, evidence-based revision, retained dissent, shared bounded session state.",
+        "fa": "���� ?�?�? ꢦ��? �� ꫢ��? ��韥 ꠢ�? �� ���? ��� ����� � ����� ꥧ��."
+      },
+      "deliverable": {
+        "en": "Runnable L3 council and adversarial cross-domain fixtures.",
+        "fa": "����? L3 矠� ���� � Fixture �?��?����?�?/�㟩�?."
+      },
+      "acceptance": {
+        "en": "Shows distinct experts contribute or rejects extra council; avoid forced consensus, loops and stale memory.",
+        "fa": "��� ���? ꢦ��?� ?� ��?�?�� ��� ���? ���� �����?/����/����� ����� 렟��."
+      },
+      "dependencies": [
+        "DEC-WP-011",
+        "DEC-WP-013",
+        "DEC-WP-014",
+        "DEC-WP-016"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 8,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-018",
+      "phase": "P1C",
+      "priority": "P1",
+      "owner_role": "evaluation",
+      "title": {
+        "en": "Run fair ablations across three reasoning levels",
+        "fa": "����? Ablation ����� �� ��"
+      },
+      "scope": {
+        "en": "Compare direct, prompt-only, RAG, LoRA, deep thinking, fixed council, adaptive council and larger reference with matched compute and evidence.",
+        "fa": "��?�� ꫢ�?�? Prompt? RAG? LoRA? ��?� ��?�? ����? ����/?�?� � �� ���? �� �럠�/��� �����."
+      },
+      "deliverable": {
+        "en": "Raw reproducible performance traces, comparison and falsified/confirmed hypotheses.",
+        "fa": "Trace ��� ������?�?�?�? ��?�� � ���?� ������ ��?�?�."
+      },
+      "acceptance": {
+        "en": "Report task correctness, evidence, abstention, p50/p95, peak memory, paired uncertainty; record weak/negative gains.",
+        "fa": "���? ���? ����? ���? ����� � ��?���?� �꩟� �?��?� ?���� ���."
+      },
+      "dependencies": [
+        "DEC-WP-015",
+        "DEC-WP-016",
+        "DEC-WP-017",
+        "DEC-WP-005"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-010"
+      ],
+      "estimated_person_days": 9,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-019",
+      "phase": "P1C",
+      "priority": "P1",
+      "owner_role": "project-owner",
+      "title": {
+        "en": "Issue P1 acceptance decision and reproducibility dossier",
+        "fa": "���� ���?� ?�?�� P1 � ?���� ������?�"
+      },
+      "scope": {
+        "en": "Independent review of all P1 evidence, benchmark leakage, resource envelope and whether P2 is justified.",
+        "fa": "����?�? ꫢ�� ��� P1? 묢? ���� �����? �럠� � ���?� �䟪 P2."
+      },
+      "deliverable": {
+        "en": "P1 gate decision: proceed, revise, stop or conditional follow-up with risks.",
+        "fa": "���?� �����/��韥/���� P1 �꩟� �?�?."
+      },
+      "acceptance": {
+        "en": "No P2 work starts before a signed decision citing hashes, failures, confidence and measured marginal benefit.",
+        "fa": "���� ���?� ����? ���? �? �� � ��� ���?? P2 �䟪 ���."
+      },
+      "dependencies": [
+        "DEC-WP-018"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 4,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-020",
+      "phase": "P2",
+      "priority": "P2",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Profile and prototype hidden-state expert transfer",
+        "fa": "?���?� � ����� ���� Hidden State"
+      },
+      "scope": {
+        "en": "Inspect LatentMAS-SLoRA and LatentMAS code; implement a small same-core typed-vs-hidden transfer on compatible adapters.",
+        "fa": "���?� ?� LatentMAS-SLoRA/LatentMAS? ����� ���� ������?��� �� ����� ���� ��? 쫢� ꬢ�?."
+      },
+      "deliverable": {
+        "en": "P2 repeatable compatibility/latency/quality report.",
+        "fa": "?���� 矠� ������?� ���?��?/���/??�?�."
+      },
+      "acceptance": {
+        "en": "No transfer until correct shape/model/adapter contracts; real end-to-end gain versus short typed event required.",
+        "fa": "�� ���?��? Shape/Model/LoRA ꥩ� ��� ���� �뤟� ���? ���� ��?? ��?�� ���."
+      },
+      "dependencies": [
+        "DEC-WP-019"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-015",
+        "DEC-BK-030",
+        "DEC-BK-035"
+      ],
+      "estimated_person_days": 10,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-021",
+      "phase": "P2",
+      "priority": "P2",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Evaluate bounded latent compression",
+        "fa": "����� 嬩��?���? ����� ����"
+      },
+      "scope": {
+        "en": "Compare full hidden-state, bounded slots, LatCom/CondenseFlow-like trained projectors and fallback to short structured events.",
+        "fa": "��?�� Hidden State ?���? Slot ꥧ��? Projector � ??�� ?����."
+      },
+      "deliverable": {
+        "en": "Memory saturation and quality/overhead ablation.",
+        "fa": "Ablation ꭩ� �����? ����� � ??�?�."
+      },
+      "acceptance": {
+        "en": "Profile end-to-end and reject compression when quality cost outweighs resources; no assumed tensor savings.",
+        "fa": "�?�� ?��� �맟��???�? � ��� �?��?��� �� ���? ����?��?? �� ���."
+      },
+      "dependencies": [
+        "DEC-WP-020"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-016"
+      ],
+      "estimated_person_days": 8,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-022",
+      "phase": "P2",
+      "priority": "P2",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Benchmark adapter-aware shared KV and cache engines",
+        "fa": "��?꟩? KV ퟠ��� �� LoRA � ������? Cache"
+      },
+      "scope": {
+        "en": "Evaluate LRAgent/RelayCaching/LMCache ideas against same-case in-process cache, switching adapters and model revisions.",
+        "fa": "����� LRAgent/RelayCaching/LMCache �� ����� Cache ����? �� ���?� Adapter � ��."
+      },
+      "deliverable": {
+        "en": "Cache contract and measured compatibility and overhead.",
+        "fa": "穟���� Cache � ?���� ���/�����."
+      },
+      "acceptance": {
+        "en": "No invalid cache reuse; measured benefit beyond added kernel/memory overhead.",
+        "fa": "������埧� 럫��?�� �� �� �럩?��? ��?�?���? ���� �� ����� �?��� ����."
+      },
+      "dependencies": [
+        "DEC-WP-019"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-017",
+        "DEC-BK-037"
+      ],
+      "estimated_person_days": 7,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-023",
+      "phase": "P2",
+      "priority": "P2",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Compare learned and fixed expert routing",
+        "fa": "��?�� Routing ?��?���? � ���? ꢦ��"
+      },
+      "scope": {
+        "en": "PEFT Arrow vs task-level router vs token/layer MoLE and existing alternatives with identical budgets.",
+        "fa": "��?�� PEFT Arrow? Router �� ��?�� � MoLE �?�/��?� �� �럠� �����."
+      },
+      "deliverable": {
+        "en": "Router model card and Pareto ablation.",
+        "fa": "?��� Router � Ablation ?����."
+      },
+      "acceptance": {
+        "en": "Show added value and compatibility; do not adopt a learned router for complexity alone.",
+        "fa": "���� ����� � ���?��? ����? ????�?? ��?���?? ��?� ?�?�� �?��."
+      },
+      "dependencies": [
+        "DEC-WP-019"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-018"
+      ],
+      "estimated_person_days": 7,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-024",
+      "phase": "P2",
+      "priority": "P2",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Study local-only C2C and latent primitives",
+        "fa": "����? C2C ��? � ���??�? �럦�?"
+      },
+      "scope": {
+        "en": "Local pair-compatible projector only; compare Agent Primitives review/vote/plan against event-loop baseline. No multi-server.",
+        "fa": "Projector ���?�� ��? � ��?�� Review/Vote/Plan �� ���� ��?���?? ���� ?맫���?."
+      },
+      "deliverable": {
+        "en": "Prior-art and code reproducibility report with rejection reasons.",
+        "fa": "?���� ??�?�� � ������?� ?� �꩟� ��?� ��."
+      },
+      "acceptance": {
+        "en": "Each tested projector has pinned source-target; primitives run with repeatable tests or are marked unimplemented.",
+        "fa": "� Projector �� 뫦� ꬦ� ����? ���??� ���?� ?� ��?����� ���� 묧� ��� �����."
+      },
+      "dependencies": [
+        "DEC-WP-020"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-019",
+        "DEC-BK-021",
+        "DEC-BK-038"
+      ],
+      "estimated_person_days": 7,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-025",
+      "phase": "P2",
+      "priority": "P2",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Assess recurrent and native low-bit alternatives",
+        "fa": "����? �� ���?��? � ?�?�?� ���?"
+      },
+      "scope": {
+        "en": "Profile RWKV/Mamba/Granite/BitNet memory-state semantics and native kernels against DEC's actual bottlenecks.",
+        "fa": "����? RWKV/Mamba/Granite/BitNet � ���?� �����/Kernel 뫠� �� ?��?�� ���?."
+      },
+      "deliverable": {
+        "en": "Architecture trade-off and fit/no-fit feasibility report.",
+        "fa": "?���� ��?��?��? ��꟩? � ��?� �럫�/�� �럫�."
+      },
+      "acceptance": {
+        "en": "Cost, compatibility and language quality measured or explicit research-only disposition.",
+        "fa": "�?��? ���?��? � ??�?� ���� ��?�� ?� ?�?�� ??��?� ����?묧� ���? ���."
+      },
+      "dependencies": [
+        "DEC-WP-019"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-020",
+        "DEC-BK-036"
+      ],
+      "estimated_person_days": 6,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-026",
+      "phase": "P2",
+      "priority": "P2",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Optimize runtime only where profiling justifies it",
+        "fa": "��?��?���? Runtime ��� �� ?�?� ?��?�� ���?"
+      },
+      "scope": {
+        "en": "Assess fused kernels, in-process buffers, batching, vLLM/SGLang only if measured bottlenecks warrant migration.",
+        "fa": "����? Kernel? Buffer? Batching � Runtime ��??�?� ��� �� ���� ?��?�� ���?."
+      },
+      "deliverable": {
+        "en": "Performance profile + no/low-risk migration ADR.",
+        "fa": "?���?� � ADR �쟤�� ?� �� �쟤��."
+      },
+      "acceptance": {
+        "en": "Improvement reproducible and no functional regression; fallback/rollback tested.",
+        "fa": "���� �?���?�?� � ���� ?���? ���?�� ������ ���."
+      },
+      "dependencies": [
+        "DEC-WP-020",
+        "DEC-WP-022"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 7,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-027",
+      "phase": "P2",
+      "priority": "P2",
+      "owner_role": "project-owner",
+      "title": {
+        "en": "P2 gate: decide whether native model research is warranted",
+        "fa": "??� P2: ���?� ������ ��꟩? �� ��?�"
+      },
+      "scope": {
+        "en": "Quantify whether P1/P2 integrated substrate outperforms best fair modular baseline; choose native research only if justified.",
+        "fa": "�맟��???�? ����? ���� 뫠� �� �� ��? �?�韩 � ���?� ������ ���?� �� ��?�."
+      },
+      "deliverable": {
+        "en": "P2 gate report with proceed/revise/stop and next investment decision.",
+        "fa": "?���� ??� P2 �� �����/��韥/���� � ���?� �?��."
+      },
+      "acceptance": {
+        "en": "Independent evidence review with confidence, negative cases and IP review before P3 disclosure.",
+        "fa": "����? ꫢ��? ��?���?�? �?�� � ?뢩� ���� ??� �� �嬟? P3."
+      },
+      "dependencies": [
+        "DEC-WP-021",
+        "DEC-WP-022",
+        "DEC-WP-023",
+        "DEC-WP-024",
+        "DEC-WP-025",
+        "DEC-WP-026"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 5,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-028",
+      "phase": "P3",
+      "priority": "P3",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Council-to-student distillation feasibility",
+        "fa": "��?��?��? ���?� ���� �� �� ���?����"
+      },
+      "scope": {
+        "en": "Study MiniCPM OPD/AgentArk ideas and construct controlled teacher/student experiment with rare-case criticism and abstention labels.",
+        "fa": "����� MiniCPM OPD/AgentArk � ����� ����/���?���� �� �� �ퟩ� 럧� � ����."
+      },
+      "deliverable": {
+        "en": "Teacher trace dataset under rights gate, student baseline and held-out eval.",
+        "fa": "����� Trace ���� �� ?뢩� ����? �� ���?���� � ����� ��??."
+      },
+      "acceptance": {
+        "en": "Preserve quality and disagreement or document failure; compare at matched end-to-end budget.",
+        "fa": "��� ??�?� � ����� ?� �?�� ���? ��?�� �럠� �����."
+      },
+      "dependencies": [
+        "DEC-WP-027",
+        "DEC-WP-006"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-022",
+        "DEC-BK-031"
+      ],
+      "estimated_person_days": 12,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-029",
+      "phase": "P3",
+      "priority": "P3",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Research learned integrated cognitive model",
+        "fa": "??�� �� �럦�? ?��?���? ???��?�"
+      },
+      "scope": {
+        "en": "Investigate trainable expert gating, bounded memory and control signals against best modular and distillation references.",
+        "fa": "����? Routing �����??�?�? ����� ꥧ�� � �??�� ?뢩� �� ����� ��? �?�韩 � ���?�."
+      },
+      "deliverable": {
+        "en": "Reproducible compact integrated model prototype or transparent negative finding.",
+        "fa": "����� 矠� ������?� ��꟩? ???��?� ?� ?���� �?�� ���?."
+      },
+      "acceptance": {
+        "en": "Distinct mechanism independently ablated; quality, compute and robustness compared; no novelty claim without prior art.",
+        "fa": "�?��?�� ��?� �� Ablation? ??�?�/�럠�/?�?���? ��?��? ���� ���? ����? �????�?��."
+      },
+      "dependencies": [
+        "DEC-WP-028"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-023"
+      ],
+      "estimated_person_days": 16,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-030",
+      "phase": "P3",
+      "priority": "P3",
+      "owner_role": "project-owner",
+      "title": {
+        "en": "Protect and evaluate technical novelty and title",
+        "fa": "���?��? ����? � ���� ��??� ��?"
+      },
+      "scope": {
+        "en": "Record early prior art, authorship, invention disclosures and license chain; external qualified legal review before inventive disclosures or filing.",
+        "fa": "��� ??�?��? ��� ?�?������? �嬟? ������ ����?? ��?�� ��� � �� ����? ??� �� �뢬��."
+      },
+      "deliverable": {
+        "en": "Private invention and rights dossier; public redacted novelty map.",
+        "fa": "?���� ����? ������/���� � ��� ??�?�� ?��?�?��� ����?."
+      },
+      "acceptance": {
+        "en": "No patent/ownership claim before expert legal clearance and actual inventor/contract review.",
+        "fa": "���? ���/�륭�� ���� ����? ����? � ��� ����� �ᩥ ���."
+      },
+      "dependencies": [
+        "DEC-WP-006",
+        "DEC-WP-029"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 6,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-031",
+      "phase": "P3",
+      "priority": "P3",
+      "owner_role": "project-owner",
+      "title": {
+        "en": "Release candidate and research-to-product decision",
+        "fa": "���?� 뫦� ??��? 矠� ����� � ?��� ꥭ��"
+      },
+      "scope": {
+        "en": "Assess reproducibility, model card, risk/performance, source rights and possible licensing/partnership; do not infer production readiness.",
+        "fa": "����? 矠�?� �?���? ?��� ��? �?�?? ���� ��� � �?� ��?��?/��� ���� ���? �꟧?? ���?�."
+      },
+      "deliverable": {
+        "en": "Research release or stop recommendation and rights-cleared demo synopsis.",
+        "fa": "뫦� ??��?/���?� ���� � ��� ��?�? ����? ��� �뢬��."
+      },
+      "acceptance": {
+        "en": "Scientific acceptance and IP gate passed; productization separately approved with costs.",
+        "fa": "??� ���? � ����? ���? ����??���? �� �?��/��� ꫢ��."
+      },
+      "dependencies": [
+        "DEC-WP-029",
+        "DEC-WP-030"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 7,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-032",
+      "phase": "FUTURE",
+      "priority": "deferred",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Investigate future multi-user/multitask design",
+        "fa": "??�� ��? ?�?����� � ?���?��?�?"
+      },
+      "scope": {
+        "en": "After proven model and owner approval: tenant/session isolation, scheduling, quotas and concurrent quality.",
+        "fa": "?� �� ����?� �� � ��??� ��?: ������? 묫�? ���?��?? ���?� � ??�?� ��?���."
+      },
+      "deliverable": {
+        "en": "Separate future threat/performance model and project charter.",
+        "fa": "�� ��?�/���?�� � ���� ꫢ�� �?��."
+      },
+      "acceptance": {
+        "en": "Explicit post-P3 authorization and representative workload; no current implementation.",
+        "fa": "��� ꫢ�� ?� �� P3 � ��� ?��? ���?? �?��� ���� ��??���."
+      },
+      "dependencies": [
+        "DEC-WP-031"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-024"
+      ],
+      "estimated_person_days": 0,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-033",
+      "phase": "FUTURE",
+      "priority": "deferred",
+      "owner_role": "research-engineering",
+      "title": {
+        "en": "Investigate future distributed C2C",
+        "fa": "??�� ��? C2C ���?�?���"
+      },
+      "scope": {
+        "en": "Multi-server latent/caching system considered only with approved topology and reproducible local benefit.",
+        "fa": "?맫���? ��� ?� �� ��??� ��?���?? � ���� ���? ��?."
+      },
+      "deliverable": {
+        "en": "Separate architectural proposal and transport/security feasibility tests.",
+        "fa": "??��쟧 ��꟩? � ����� ꫢ�� ����/���?�."
+      },
+      "acceptance": {
+        "en": "Owner authorization and local C2C success required before remote execution.",
+        "fa": "��� ��? � ����?� C2C ��? ??� �� ����? ���?�?���."
+      },
+      "dependencies": [
+        "DEC-WP-031"
+      ],
+      "legacy_backlog_ids": [
+        "DEC-BK-025"
+      ],
+      "estimated_person_days": 0,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-034",
+      "phase": "CONT",
+      "priority": "P0",
+      "owner_role": "research-governance",
+      "title": {
+        "en": "Maintain bilingual publication and scientific change log",
+        "fa": "����� �뢬�� ������� � ���?�?� ���?"
+      },
+      "scope": {
+        "en": "Keep EN/FA docs synchronized, triage issues, tag research releases, publish only sanitized evidence and honest negative outcomes.",
+        "fa": "����?? ��럧 埩�?/��?�?�?? Issue? Release? ��� ?��?�?��� � ���?� ���? �㢠�."
+      },
+      "deliverable": {
+        "en": "Periodic public roadmap/status, changelog, dated experiment summaries with disclosure approval.",
+        "fa": "���?� � ��� ����? ����?�?? ��??��� � 뢟?� ����? ���."
+      },
+      "acceptance": {
+        "en": "Each publication has matching bilingual docs, CI pass, source references, E grade and rights gate.",
+        "fa": "� �뢬�� �� ����? CI ����? �����? ��� ��� � ?뢩� ���� ����."
+      },
+      "dependencies": [
+        "DEC-WP-001",
+        "DEC-WP-006"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 3,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    },
+    {
+      "id": "DEC-WP-035",
+      "phase": "CONT",
+      "priority": "P0",
+      "owner_role": "project-owner",
+      "title": {
+        "en": "Build collaboration and commercial evaluation pipeline",
+        "fa": "�?��� �?� ��?��? � ���?��? ����?"
+      },
+      "scope": {
+        "en": "Provide public non-confidential participation channel and private due diligence/permission routes; record human contributions and rights.",
+        "fa": "?��� ��?��? ����?� �?�ꥩ��� � ����? ����? ����? 穟���� � ��� �婟�."
+      },
+      "deliverable": {
+        "en": "Contributor guidance, collaboration template and partner-interest tracking without promises.",
+        "fa": "�����? ꬟�?�? �� ��?��? � ????�? ����?�맟� ���� ��� ����?."
+      },
+      "acceptance": {
+        "en": "No external code/data merged without authorization/rights agreement; confidential details not disclosed in public issues.",
+        "fa": "���� 穟����? ?�/���� ����� ��� ���� ��� � ���㟢 ꥩ��� ����? �?���."
+      },
+      "dependencies": [
+        "DEC-WP-034"
+      ],
+      "legacy_backlog_ids": [],
+      "estimated_person_days": 3,
+      "status": "planned",
+      "evidence_grade": "E0",
+      "public_disclosure": "summary-only, subject to publication gate",
+      "github_issue": null
+    }
+  ],
+  "proposed_experiment_design": {
+    "candidate_golden_set_size": 160,
+    "fa_share_min": 0.4,
+    "en_share_min": 0.3,
+    "method": "held-out, paired randomized task comparisons and 95% paired bootstrap confidence intervals where appropriate; at least 3 controlled repetitions for latency and robustness; preregister thresholds during P0; no winner if inconclusive",
+    "primary_metrics": [
+      "held-out factual correctness",
+      "evidence faithfulness",
+      "task success at matched total compute"
+    ],
+    "secondary_metrics": [
+      "abstention calibration",
+      "time to first token",
+      "end-to-end latency p50/p95",
+      "peak RSS RAM/VRAM incl KV and LoRA",
+      "prefill/generated tokens",
+      "tensor transfer bytes",
+      "adapter-switch correctness",
+      "cost per accepted answer"
+    ],
+    "target_evidence": "E1 only upon actual execution"
+  },
+  "success_metrics_status": "provisional; not approved criteria until P0",
+  "execution_note": "No core selected or implementation made by roadmap publication."
+}

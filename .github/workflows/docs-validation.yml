@@ -14,5 +14,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Verify generated bilingual roadmap matches JSON source
+        run: |
+          python tools/render_roadmap.py
+          git diff --exit-code -- docs/en/roadmap.md docs/fa/roadmap.md
       - name: Validate public research dossiers
         run: python tools/validate_public_docs.py

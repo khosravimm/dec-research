@@ -77,6 +77,58 @@ def check_machine_records() -> tuple[int, int]:
         issue("Results file falsely claims actual DEC experiment")
     return len(srcs), len(testids)
 
+def check_roadmap() -> tuple[int, int]:
+    data = json.loads((ROOT / "research/roadmap.json").read_text(encoding="utf-8"))
+    packages = data.get("work_packages", [])
+    phase_ids = {p["id"] for p in data.get("phases", [])}
+    package_ids = {w["id"] for w in packages}
+    legacy = set()
+    for w in packages:
+        if w["phase"] not in phase_ids:
+            issue(f"Invalid roadmap phase in {w['id']}")
+        for key in ("title", "scope", "deliverable", "acceptance"):
+            if not isinstance(w.get(key), dict) or not all(str(w[key].get(lang,"")).strip() for lang in ("en","fa")):
+                issue(f"Missing bilingual work package {w['id']}:{key}")
+        for d in w.get("dependencies", []):
+            if d not in package_ids:
+                issue(f"Unknown work-package dependency {w['id']} -> {d}")
+        if w.get("status") not in ("planned","deferred"):
+            issue(f"Roadmap publication claims activity or results without evidence: {w['id']}")
+        legacy.update(w.get("legacy_backlog_ids", []))
+    if len(package_ids) != len(packages):
+        issue("Duplicate work-package IDs")
+    expected_legacy={f"DEC-BK-{i:03}" for i in range(1,40)}
+    if not expected_legacy.issubset(legacy):
+        issue(f"Legacy backlog mapping incomplete: {expected_legacy-legacy}")
+    deps={w["id"]:w.get("dependencies",[]) for w in packages}
+    visiting=set()
+    visited=set()
+    def visit(k):
+        if k in visiting:
+            issue(f"Cycle in roadmap work packages at {k}")
+            return
+        if k in visited:
+            return
+        visiting.add(k)
+        for d in deps.get(k, []):
+            if d in deps:
+                visit(d)
+        visiting.remove(k)
+        visited.add(k)
+    for name in deps:
+        visit(name)
+    for lang in ("en","fa"):
+        body=(ROOT/"docs"/lang/"roadmap.md").read_text(encoding="utf-8")
+        for w in packages:
+            if w["id"] not in body:
+                issue(f"Missing work-package in rendered {lang} roadmap: {w['id']}")
+        if "version: "+data["version"] not in body:
+            issue(f"Rendered roadmap stale in {lang}")
+    if len(data.get("gates", [])) < 6 or len(data.get("risks", [])) < 10:
+        issue("Roadmap risk or gate coverage low")
+    return len(packages), len(legacy)
+
+
 def check_rights_and_leaks() -> None:
     rights = (ROOT / "RIGHTS.md").read_text(encoding="utf-8")
     if "No blanket" not in rights or not (ROOT / "RIGHTS.fa.md").exists():
@@ -106,12 +158,13 @@ def check_rights_and_leaks() -> None:
 def main() -> int:
     n_docs = check_docs()
     n_sources, n_experiments = check_machine_records()
+    n_work,n_backlog = check_roadmap()
     check_rights_and_leaks()
     if issues:
         for x in issues:
             print("ERROR:", x)
         return 1
-    print(f"PASS: {n_docs} bilingual pairs; {n_sources} public cited sources; {n_experiments} planned/deferred experiments; no published DEC results.")
+    print(f"PASS: {n_docs} bilingual pairs; {n_sources} public sources; {n_experiments} experiments; {n_work} roadmap packages linked to {n_backlog} historical tasks; no DEC results.")
     print("NOTE: structural and basic leak checks only; copyright, inventorship, translation and patent novelty need independent review.")
     return 0
 

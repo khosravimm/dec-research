@@ -20,6 +20,10 @@ We are investigating whether a **small, swappable language model** can solve dif
 
 **Latent-first, not latent-only:** avoid needless hidden-state → text → token roundtrips where measured to be effective; maintain an auditable structured evidence lane. Retrieval embeddings, hidden states and KV cache are **not interchangeable**.
 
+## Full scientific and delivery roadmap
+
+[Detailed roadmap (English)](docs/en/roadmap.md) and [Persian roadmap](docs/fa/roadmap.md) track **35 packages linked to 39 earlier research tasks**, eight decision gates, twelve risks, reproducible acceptance criteria, and provisional effort. The shared [machine-readable plan](research/roadmap.json) generates both versions. This is E0 planning, not implementation.
+
 ## Research stages
 
 **P1: modular laboratory proof** → **P2: measured runtime/latent integration** → **P3: conditional investigation of a native learned integrated architecture**. No multi-tenant/multi-user/multi-server implementation is in current scope. Evidence gates and negative results are mandatory.
