@@ -2,6 +2,12 @@
 
 [English](CHANGELOG.md) · [فارسی](CHANGELOG.fa.md)
 
+## 0.2.1 — 2026-11-12
+
+- Correct Windows encoding corruption in the Persian roadmap, 35 public GitHub issue titles/bodies and 8 milestone names.
+- Add actual Unicode integrity checks and link every work package to its tracking issue.
+- All 39 historical research IDs remain mapped; experiments unchanged, E0.
+
 ## 0.2.0 — 2026-11-12
 
 - Detailed English/Persian roadmap: 35 work packages, mapped to 39 historical task identifiers, phased dependencies, provisional effort, outputs, acceptance tests, 8 gates and 12 risks.

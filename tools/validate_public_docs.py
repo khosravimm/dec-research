@@ -129,6 +129,23 @@ def check_roadmap() -> tuple[int, int]:
     return len(packages), len(legacy)
 
 
+def check_utf8_integrity() -> None:
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or ".git" in path.parts or path.suffix not in {".md", ".json", ".py", ".yaml", ".yml"}:
+            continue
+        content=path.read_text(encoding="utf-8",errors="replace")
+        if chr(0xfffd) in content:
+            issue(f"Unicode replacement character in public artifact: {path.relative_to(ROOT)}")
+        if path.parent==ROOT / "docs/fa":
+            persian=sum(0x600<=ord(ch)<=0x6ff for ch in content)
+            if persian<100:
+                issue(f"Persian documentation file lacks actual Persian text: {path.relative_to(ROOT)}")
+    roadmap=json.loads((ROOT/"research/roadmap.json").read_text(encoding="utf-8"))
+    for w in roadmap["work_packages"]:
+        if sum(0x600<=ord(ch)<=0x6ff for ch in w["title"]["fa"])<5:
+            issue(f"Invalid Persian title in {w['id']}")
+
+
 def check_rights_and_leaks() -> None:
     rights = (ROOT / "RIGHTS.md").read_text(encoding="utf-8")
     if "No blanket" not in rights or not (ROOT / "RIGHTS.fa.md").exists():
@@ -159,6 +176,7 @@ def main() -> int:
     n_docs = check_docs()
     n_sources, n_experiments = check_machine_records()
     n_work,n_backlog = check_roadmap()
+    check_utf8_integrity()
     check_rights_and_leaks()
     if issues:
         for x in issues:

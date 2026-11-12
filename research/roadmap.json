@@ -1,6 +1,6 @@
 {
   "schema": "dec-roadmap-v1",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "created_at": "2026-11-12",
   "status": "owner-requested proposed implementation roadmap; phases not executed",
   "evidence_grade": "E0",
@@ -11,8 +11,8 @@
     {
       "id": "P0",
       "name": {
-        "en": "P0 � Research foundation / ?�?� ??��",
-        "fa": "P0 � ?�?� ??��"
+        "en": "P0 - Research foundation",
+        "fa": "پایه پژوهش"
       },
       "duration_weeks": [
         2,
@@ -25,8 +25,8 @@
     {
       "id": "P1A",
       "name": {
-        "en": "P1-A � Core model selection / 쫢�",
-        "fa": "P1-A � �뢦�� 쫢�"
+        "en": "P1-A - Core model selection",
+        "fa": "انتخاب هسته و ابزار"
       },
       "duration_weeks": [
         3,
@@ -41,8 +41,8 @@
     {
       "id": "P1B",
       "name": {
-        "en": "P1-B � Expertise and retrieval / ���� � ���",
-        "fa": "P1-B � ���� � ���"
+        "en": "P1-B - Expertise and retrieval",
+        "fa": "تخصص و بازیابی دانش"
       },
       "duration_weeks": [
         4,
@@ -57,8 +57,8 @@
     {
       "id": "P1C",
       "name": {
-        "en": "P1-C � Three-level cognitive prototype / �럦� ꬟�?�?",
-        "fa": "P1-C � ����� �럦�?"
+        "en": "P1-C - Cognitive prototype",
+        "fa": "نمونه شناختی سه‌سطحی"
       },
       "duration_weeks": [
         4,
@@ -73,8 +73,8 @@
     {
       "id": "P2",
       "name": {
-        "en": "P2 � Latent compute integration / ���� ����",
-        "fa": "P2 � ???��?�?���? ����"
+        "en": "P2 - Latent compute integration",
+        "fa": "یکپارچه‌سازی نهفته"
       },
       "duration_weeks": [
         6,
@@ -89,8 +89,8 @@
     {
       "id": "P3",
       "name": {
-        "en": "P3 � New native-model research / ��꟩? ��",
-        "fa": "P3 � ��꟩? �� ��?�"
+        "en": "P3 - Integrated model research",
+        "fa": "معماری مدل یکپارچه"
       },
       "duration_weeks": [
         12,
@@ -105,8 +105,8 @@
     {
       "id": "CONT",
       "name": {
-        "en": "Ongoing � Research governance & public science / �����",
-        "fa": "����� ??�� � �뢬��"
+        "en": "Ongoing - Research governance and public science",
+        "fa": "حاکمیت و انتشار پیوسته"
       },
       "duration_weeks": null,
       "gate": "G-PUB",
@@ -116,8 +116,8 @@
     {
       "id": "FUTURE",
       "name": {
-        "en": "Future � Multiuser/distributed (deferred) / ��?",
-        "fa": "�?�� ����"
+        "en": "Future - Multiuser/distributed (deferred)",
+        "fa": "آینده معوق"
       },
       "duration_weeks": null,
       "gate": "G-FUT",
@@ -133,7 +133,7 @@
       "phase": "P0",
       "criterion": {
         "en": "Versioned rights-cleared bilingual reference set, hardware/runtime inventory, signed study plan, measurable experiment harness and P1 baseline budget.",
-        "fa": "����� ꩤ� ������� ����? �� �뢬��? �����? ���? �럠�? ?���?� ���?�?��� � ����� �뤬 �� ����� P1."
+        "fa": "داده مرجع دارای حق انتشار، موجودی منابع، پروتکل تصویب‌شده و ابزار سنجش آماده باشد."
       },
       "approval": "project-owner + independent technical reviewer",
       "fallback": "revise P0; no model tuning before benchmark freeze"
@@ -143,7 +143,7 @@
       "phase": "P1A",
       "criterion": {
         "en": "Core shortlist compared on identical held-out tests and hardware; model/adapter/template fit identified, no unsupported winner claim.",
-        "fa": "��?�� �ꪧ�? 쫢� �� ���� � ���?�媟� �����? �㢠�� �� � Adapter � ������? �� �뢦�� �??���."
+        "fa": "مدل‌های پایه با داده و سخت‌افزار برابر سنجیده و سازگاری ابزار و Adapter مشخص شود."
       },
       "approval": "project-owner + evaluation reviewer",
       "fallback": "keep 2 candidates, obtain improved benchmark or smaller core"
@@ -153,7 +153,7 @@
       "phase": "P1B",
       "criterion": {
         "en": "Working expert-owned retrieval with opt-out Cross-RAG, real trained LoRAs or explicit failed adaptation, replayable evidence and cache compatibility.",
-        "fa": "RAG ����? � Cross-RAG 矠� �����?? LoRA ���? ?� �?�� ���?���? ��� ���?��??�?� � Cache ���?��."
+        "fa": "RAG تخصصی، Cross-RAG قابل خاموشی، LoRA واقعی یا شکست مستند و Cache سازگار ارائه شود."
       },
       "approval": "technical lead + evaluation reviewer",
       "fallback": "retain prompt+RAG baseline if adapters fail"
@@ -163,7 +163,7 @@
       "phase": "P1C",
       "criterion": {
         "en": "Runnable L1/L2/L3 and matched-budget ablation with held-out quality, latency/memory, negative cases and independent review; owner decides whether P2 is justified.",
-        "fa": "����? �� �� � Ablation �� �럠� �����? ���� ��??? ??�?�/�럠�/�?�� � ����? ꫢ��? ���?� ��? ������ P2."
+        "fa": "سه سطح قابل اجرا و آزمون منصفانه کیفیت/منابع با داوری مستقل انجام شود."
       },
       "approval": "project-owner",
       "fallback": "retain best simpler level; revise hypotheses or stop branch"
@@ -173,7 +173,7 @@
       "phase": "P2",
       "criterion": {
         "en": "Demonstrable net benefit for at least one latent/integration mechanism over strong typed-event baseline, with correctness and reversible implementation; otherwise reject.",
-        "fa": "����� ��� ��?? ����� ?? ����?�� ���� �� ����� ??�� ?���� �꩟� ��� � 矠�?� ���?��? �� �?� �?� ���� ��."
+        "fa": "حداقل یک مسیر ادغام نهفته نسبت به مبنای ساختاریافته بهبود تکرارپذیر نشان دهد."
       },
       "approval": "project-owner + independent technical reviewer",
       "fallback": "stay with modular proven runtime; publish scoped negative findings"
@@ -183,7 +183,7 @@
       "phase": "P3",
       "criterion": {
         "en": "Native integrated learned prototype validated by ablation vs best modular baseline; novelty, IP rights, licensing and disclosure independently reviewed.",
-        "fa": "����� �� ����? ?��?���? �� Ablation 뫠� �� ��? �?�韩 � ����? ꫢ�� ����?? ���� � ��� �뢬��."
+        "fa": "معماری یادگرفتنی با Ablation و بررسی مستقل نوآوری، حقوق و مجوزها سنجیده شود."
       },
       "approval": "project-owner + technical/IP specialist",
       "fallback": "publish modular science only or continue scoped research privately"
@@ -193,7 +193,7 @@
       "phase": "CONT",
       "criterion": {
         "en": "Every public change has EN/FA parity, source provenance, evidence grades, rights approval, CI and reversible git record (not reversible public disclosure).",
-        "fa": "� ��??� ����? ����? �矩� 埩�?/��?�?�?? �묚? ���� ���? ?뢩� ����? CI � ����� Git ���� (�嬟? ����? ���?��??�?� �?��)."
+        "fa": "انتشار عمومی با دو زبان، منشأ، رده شواهد، مجوز، CI و سابقه تغییر انجام شود."
       },
       "approval": "project maintainer",
       "fallback": "withhold disclosure or publish redacted status"
@@ -203,7 +203,7 @@
       "phase": "FUTURE",
       "criterion": {
         "en": "Future expansion needs separate real-world capacity, risk and owner authorization, not implied by P3 success.",
-        "fa": "����� �?�� �� ����? �럠�? �?�? � ��� ꫢ�� �?�� ����? ����?� P3 ��?���?? ��� �?��."
+        "fa": "چندکاربره و چندسروری نیازمند محدوده و مجوز مستقل و ارزیابی ریسک است."
       },
       "approval": "project-owner",
       "fallback": "defer"
@@ -212,15 +212,15 @@
   "assumptions": [
     {
       "en": "Estimates are relative, not commitments. Phase durations assume roughly one focused full-time research engineer with intermittent subject-matter and legal review. Hardware, Internet, data preparation and training constraints may lengthen the critical path.",
-      "fa": "ꧢ?� ������ 뫠??��? �� ��� ���?? �� ?? ??��?� ���?�� ��?� �� ����? ��?/����? ����? ���. ���?�媟�? �?뢩�? ���� � ����� �??���� �?� �����? �� ����? ?��."
+      "fa": "برآورد مدت و نفرروز، تعهد اجرایی نیست. فرض یک پژوهشگر تمام‌وقت با داوری فنی و حقوقی مقطعی است؛ سخت‌افزار، شبکه، داده و آموزش می‌تواند مسیر بحرانی را تغییر دهد."
     },
     {
       "en": "No numerical success threshold is approved yet; P0 must preregister the smallest worthwhile effect, sample sizes, statistical procedure, latency/resource budgets, unacceptable regressions and owner sign-off before held-out testing.",
-      "fa": "������ ?�? ����?� ���� ���?� 묧�? �� P0 ?ꢩ?� ��� ������? �㧟� �����? ��� �꟩?? ����� �럠�? �� �?�矠� ��� � ��??� ��? ??� �� ����� ��?? ��� �??���."
+      "fa": "آستانه کمی موفقیت هنوز تصویب نشده و باید پیش از مشاهده نتیجه در P0 شامل اثر ارزشمند، نمونه، روش آماری، بودجه منابع و افت غیرقابل قبول تثبیت شود."
     },
     {
       "en": "Only public-safe abstractions are in this document. Potentially novel equations/weights/implementation, private LDI corpus, lab addresses and confidential results stay outside GitHub until cleared.",
-      "fa": "��� ���㟢 矠� �뢬�� ����? ��� �??���. �㟧韢/���/??���?���? ����� ��? ��럧 ����? LDI? ����?�? ���?�?�� � 뢟?� ꥩ��� �� ��??� ����? ���� �� GitHub �??���."
+      "fa": "مکانیزم احتمالی قابل ثبت، کد و وزن منتشرنشده، اسناد خصوصی LDI و نتایج محرمانه تا بررسی حقوقی از مخزن عمومی جدا می‌مانند."
     }
   ],
   "risks": [
@@ -228,11 +228,11 @@
       "id": "R01",
       "threat": {
         "en": "Benchmark leakage or biased oracle",
-        "fa": "묢? ����� ?� ?��� ꩤ� ��렧��"
+        "fa": "نشت داده آزمون یا پاسخ مرجع جانبدار"
       },
       "treatment": {
         "en": "Independent held-out split, dataset hashes, second reviewer; stop claims",
-        "fa": "��??? ����� ��??? � � ���� ���? ���� ���"
+        "fa": "تقسیم مستقل داده، هش مجموعه، داور دوم و توقف ادعای فاقد اعتبار."
       },
       "severity": "high",
       "status": "open-E0"
@@ -241,11 +241,11 @@
       "id": "R02",
       "threat": {
         "en": "Core inadequate in Persian",
-        "fa": "��� 쫢� �� 埩�?"
+        "fa": "ضعف مدل پایه در زبان فارسی"
       },
       "treatment": {
         "en": "FA/EN controls; compare larger/smaller, abstain, domain RAG; do not fake gain",
-        "fa": "�� 埩�?? ����? RAG � ��?�? �?�� ���? �����"
+        "fa": "خط مبنای فارسی، امتناع، RAG و مقایسه مدل دیگر؛ عدم جعل بهبود."
       },
       "severity": "high",
       "status": "open-E0"
@@ -254,11 +254,11 @@
       "id": "R03",
       "threat": {
         "en": "6GB-class GPU / CPU bottleneck",
-        "fa": "?��?�� GPU ꥧ�� � CPU"
+        "fa": "گلوگاه حافظه GPU و پردازنده CPU"
       },
       "treatment": {
         "en": "Fresh resource inventory, QLoRA short context, profiling, scope control",
-        "fa": "��?�? ���? �럠�? QLoRA � Context ꥧ�� �� ?���?�"
+        "fa": "ممیزی ظرفیت واقعی، Context محدود، QLoRA و پروفایل."
       },
       "severity": "high",
       "status": "open-E0"
@@ -267,11 +267,11 @@
       "id": "R04",
       "threat": {
         "en": "LoRA?KV latent incompatibility",
-        "fa": "럫��?��? LoRA � KV/Latent"
+        "fa": "ناسازگاری LoRA، KV Cache و وضعیت نهفته"
       },
       "treatment": {
         "en": "Pinned compatibility IDs and negative tests; fallback to typed events",
-        "fa": "�럫� 뫦� � ��� ���?? ���?�� �� ??�� ������?���"
+        "fa": "ثبت نسخه و قرارداد سازگاری، آزمون منفی و بازگشت به پیام ساختاریافته."
       },
       "severity": "high",
       "status": "open-E0"
@@ -280,11 +280,11 @@
       "id": "R05",
       "threat": {
         "en": "Council lacks marginal value",
-        "fa": "�??����? ����� ����"
+        "fa": "نبود ارزش افزوده شورای متخصصان"
       },
       "treatment": {
         "en": "Equal-compute single-agent counterfactual; cancel unnecessary council",
-        "fa": "��?�� �� ퟥ� �� ����� �����? ��� ���� �??�?��"
+        "fa": "مقایسه با متخصص واحد با هزینه برابر و حذف فعال‌سازی بی‌دلیل شورا."
       },
       "severity": "high",
       "status": "open-E0"
@@ -293,11 +293,11 @@
       "id": "R06",
       "threat": {
         "en": "Excessive latent tensor overhead",
-        "fa": "����� ���? Tensor ����"
+        "fa": "سربار بیش از حد Tensor نهفته"
       },
       "treatment": {
         "en": "Measure full wall time+bytes/memory; cap slots and abort bad branch",
-        "fa": "�뤬 ���? ��� � �����? ꥧ�����? � ����"
+        "fa": "سنجش زمان و حافظه کل، محدودیت Slot و رد مسیر کم‌فایده."
       },
       "severity": "high",
       "status": "open-E0"
@@ -306,11 +306,11 @@
       "id": "R07",
       "threat": {
         "en": "Third-party licensing or chain-of-title conflicts",
-        "fa": "�㟩� ���� �럠� � ?�?�����??"
+        "fa": "تعارض مجوز یا زنجیره مالکیت فکری"
       },
       "treatment": {
         "en": "Artifact-by-artifact license review and private rights ledger before publishing",
-        "fa": "����? ��� 뫦� ��?� � ?���� ���� ����? ??� �� �뢬��"
+        "fa": "بررسی هر Artifact و نگهداری اسناد حقوق خصوصی پیش از افشا."
       },
       "severity": "critical",
       "status": "open-E0"
@@ -319,11 +319,11 @@
       "id": "R08",
       "threat": {
         "en": "Premature novelty disclosure",
-        "fa": "�嬟? �����?�� ����?"
+        "fa": "افشای زودهنگام مکانیزم قابل ثبت"
       },
       "treatment": {
         "en": "Publication/IP gate, no unpublished inventive mechanism in public issues",
-        "fa": "??� ����? ??� �� �뢬�� �?��?�� ��? �� ��� �� Issues"
+        "fa": "کنترل حقوقی پیش از انتشار و عدم درج جزئیات نو در Issue عمومی."
       },
       "severity": "critical",
       "status": "open-E0"
@@ -332,11 +332,11 @@
       "id": "R09",
       "threat": {
         "en": "Infrastructure scope creep and cross-project leakage",
-        "fa": "?���� ����� � 묢 ���㟢 ����?"
+        "fa": "گسترش نامجاز محدوده و نشت داده داخلی"
       },
       "treatment": {
         "en": "Private lab independent; sanitized public artifacts only; controlled changes",
-        "fa": "���?�?�� ꫢ�� ����?? ��� ����? ?��?�?��� � ��??� ?뢩�?���"
+        "fa": "تفکیک مخزن خصوصی، انتشار پالایش‌شده و مدیریت تغییر."
       },
       "severity": "high",
       "status": "open-E0"
@@ -345,11 +345,11 @@
       "id": "R10",
       "threat": {
         "en": "Unreproducible or vendor-biased result",
-        "fa": "�?�� �?�矠� ������?� ?� �?? �� �����"
+        "fa": "نتیجه غیرقابل تکرار یا متکی به سازنده"
       },
       "treatment": {
         "en": "Locked run recipes, raw measurements, independent review and negative results",
-        "fa": "뫦� � ���?� ����? �뤬 ���? ����?�? ꫢ�� � �?�� ���?"
+        "fa": "نسخه و داده ثابت، سنجه خام، داوری مستقل و ثبت شکست."
       },
       "severity": "high",
       "status": "open-E0"
@@ -358,11 +358,11 @@
       "id": "R11",
       "threat": {
         "en": "Over-engineering multiuser/multiserver",
-        "fa": "????�?? �����?�� ?�?����� ?� ?맫���?"
+        "fa": "پیچیدگی زودهنگام چندکاربره و چندسروری"
       },
       "treatment": {
         "en": "Owner deferment enforced until P3 and dedicated scope",
-        "fa": "���?� �� P3 � ꥧ��� � ��� ꫢ��"
+        "fa": "تعویق تا تأیید مستقل پس از آزمایش موفق."
       },
       "severity": "medium",
       "status": "open-E0"
@@ -371,11 +371,11 @@
       "id": "R12",
       "threat": {
         "en": "Commercial overclaiming",
-        "fa": "���? �����?�� ���� ����?"
+        "fa": "ادعای تجاری زودهنگام"
       },
       "treatment": {
         "en": "Separate research, IP, pilot and product readiness; no invented valuations",
-        "fa": "��??? ���� ??��? ����? ?�?��� � ꥭ��? ���� ����??���? ����??"
+        "fa": "تفکیک پژوهش، حقوق، پایلوت و محصول؛ پرهیز از ارزش‌گذاری ساختگی."
       },
       "severity": "high",
       "status": "open-E0"
@@ -389,19 +389,19 @@
       "owner_role": "project-owner",
       "title": {
         "en": "Governance, risk and project charter",
-        "fa": "����? ��?�?� � �?�?"
+        "fa": "منشور، حاکمیت و ریسک"
       },
       "scope": {
         "en": "Confirm current DEC research boundaries, decision authority, requirements and register risks/changes. Ensure bilingual issue and artifact contracts.",
-        "fa": "���?� ����� ??��? ���?���� ���?�? �骟꟢ � ��� ��??� � �?�?? 穟���� ��� �������."
+        "fa": "تثبیت دامنه DEC، اختیارات تصمیم، الزامات، مدیریت تغییر و ریسک‌ها."
       },
       "deliverable": {
         "en": "Charter, decision register, risk and change register / baseline.",
-        "fa": "����? �墩 ���?�? �?�? � ��??�."
+        "fa": "منشور، دفتر تصمیم، دفتر ریسک و خط مبنا."
       },
       "acceptance": {
         "en": "Every requirement has unique ID, phase, accountable decision maker and acceptance evidence.",
-        "fa": "� �骟� �럫�? 埪? ꩤ� ���?� � ��� ?�?�� ����."
+        "fa": "هر الزام دارای شناسه، فاز، مسئول و شاهد پذیرش باشد."
       },
       "dependencies": [],
       "legacy_backlog_ids": [],
@@ -409,7 +409,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/3"
     },
     {
       "id": "DEC-WP-002",
@@ -418,19 +418,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Audit existing LDI and evidence retrieval",
-        "fa": "��?�? LDI � ���?��? ��� �����"
+        "fa": "ممیزی LDI و بازیابی موجود"
       },
       "scope": {
         "en": "Read-only inspect actual LDI APIs, indexes, corpus rights, revisions and compatibility. No corpus copying to public GitHub.",
-        "fa": "��?�? ���?����? ����?�? �?�?�?�? ���� ��럧 � 뫦�?�? LDI � ���?��?."
+        "fa": "بررسی فقط‌خواندنی API، شاخص، حقوق اسناد و نسخه‌های LDI بدون انتشار داده خصوصی."
       },
       "deliverable": {
         "en": "Internal interface inventory and reuse/replace ADR.",
-        "fa": "�쩫� ���� ����? � ADR ���埧� ꤧ�/��??�?�?."
+        "fa": "فهرست رابط‌های واقعی و ADR استفاده مجدد یا جایگزینی."
       },
       "acceptance": {
         "en": "API and retrieval behavior are demonstrated with authorized test documents; unknowns marked.",
-        "fa": "�墟� API � ���?��? �� ��럧 ꤟ� ������ � ���韢 ꬦ� ���."
+        "fa": "رفتار بازیابی با اسناد مجاز آزموده و مجهولات ثبت شوند."
       },
       "dependencies": [
         "DEC-WP-001"
@@ -442,7 +442,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/4"
     },
     {
       "id": "DEC-WP-003",
@@ -451,19 +451,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Verify compute, runtime and model inventory",
-        "fa": "���?��? ���?�媟�? Runtime � ��?�"
+        "fa": "صحت‌سنجی سخت‌افزار و مدل‌ها"
       },
       "scope": {
         "en": "Collect fresh, read-only CPU/GPU/RAM/disk and model/runtimes hashes and availability, storage and isolated experiment capacity.",
-        "fa": "��� ���� � ���?����? �럠� CPU/GPU/RAM/�?�?? 뫦� �� � Runtime � ��?� �?� ���?�."
+        "fa": "ثبت تازه CPU، GPU، RAM، دیسک، نسخه مدل‌ها و Runtimeهای محیط آزمایش."
       },
       "deliverable": {
         "en": "Private signed/hash inventory snapshot with non-sensitive public summary.",
-        "fa": "���?� ���?� �?��� ����? � �韭� ��� ����?."
+        "fa": "موجودی خصوصی دارای هش و خلاصه عمومی ایمن."
       },
       "acceptance": {
         "en": "At least one target machine and two model artifacts are identified with measured available capacity; no prior history masquerades as current state.",
-        "fa": "����� ?? �?���� � �� �� �� ��?� ���? ꬦ� ���? ���� ���?�? ��?��? ���?� ���? ���? ���."
+        "fa": "حداقل یک میزبان و دو مدل از نظر ظرفیت و نسخه تأیید شوند."
       },
       "dependencies": [
         "DEC-WP-001"
@@ -476,7 +476,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/5"
     },
     {
       "id": "DEC-WP-004",
@@ -485,19 +485,19 @@
       "owner_role": "evaluation",
       "title": {
         "en": "Create bilingual evaluation golden set",
-        "fa": "���� ����� ꩤ� ����� �������"
+        "fa": "مجموعه مرجع آزمون دوزبانه"
       },
       "scope": {
         "en": "Curate licensed/author-created task cases across network, information security, programming, management, conflicting evidence and abstention.",
-        "fa": "���� ?���?�? ����? �� �뢬�� �� ��?�? ���?�? �����?��?�?? �?�?�? �㟩� � ?��� ���."
+        "fa": "تهیه موارد فارسی، انگلیسی و ترکیبی در شبکه، امنیت، نرم‌افزار، مدیریت، تعارض و امتناع."
       },
       "deliverable": {
         "en": "Versioned task JSON, oracle, rubrics, public synthetic subset and private held-out subset.",
-        "fa": "���� 뫦�?���? ?��� ꩤ�? Rubric? �?������ ����? ����? � ����� ��?? ����?."
+        "fa": "داده، پاسخ مرجع و Rubric نسخه‌دار با مجموعه نهایی مستقل."
       },
       "acceptance": {
         "en": "Provisional target >=160 cases incl >=40% FA and >=30% EN, mixed-language, negative/abstention; stratification and reviewer sign-off before runs.",
-        "fa": "�� ���?� ���??� ??? ?���� ���� ����� ??? 埩�? � ??? ��?�?�? � �ퟩ� ���?? ��??� ���?� � ����? ??� �� ����."
+        "fa": "هدف مقدماتی حداقل ۱۶۰ مورد با ۴۰٪ فارسی و ۳۰٪ انگلیسی، پس از تأیید داور."
       },
       "dependencies": [
         "DEC-WP-001"
@@ -509,7 +509,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/6"
     },
     {
       "id": "DEC-WP-005",
@@ -518,19 +518,19 @@
       "owner_role": "evaluation",
       "title": {
         "en": "Build experiment and reproducibility harness",
-        "fa": "���� ����� ����? ����� � ������?�"
+        "fa": "ابزار آزمون و بازتولید"
       },
       "scope": {
         "en": "Pin dependencies and container/venv; capture corpus/model hashes, metrics and failure cases. Evaluate MLflow only if simpler log files insufficient.",
-        "fa": "��� ퟠ��??? �?�? � ����/��? ��� � ��? MLflow ��� �� ���� �?�� ���?."
+        "fa": "تثبیت محیط و وابستگی، ثبت هش، زمان، حافظه، کیفیت و شکست؛ بررسی MLflow در صورت نیاز."
       },
       "deliverable": {
         "en": "Runnable local test runner, schema and controlled trace exporter.",
-        "fa": "����? ���?� ��?? Schema � ����? Trace ?뢩�?���."
+        "fa": "ابزار اجرای آزمون محلی و Trace استاندارد."
       },
       "acceptance": {
         "en": "Same run configuration yields repeatable artifacts; missing metrics reported null; secret review before public output.",
-        "fa": "���?꟢ ??��� ���㟢 矠� �?��� ��? ���� ���� Null � �뢬�� ���� Secret ����."
+        "fa": "پیکربندی ثابت خروجی قابل تکرار دهد؛ مقدار نامعلوم Null باشد."
       },
       "dependencies": [
         "DEC-WP-003",
@@ -543,7 +543,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/7"
     },
     {
       "id": "DEC-WP-006",
@@ -552,19 +552,19 @@
       "owner_role": "research-governance",
       "title": {
         "en": "Research prior art, licenses and rights",
-        "fa": "����? ??�?��? ���� � ���� ����"
+        "fa": "مرور پیشینه، مجوز و حقوق"
       },
       "scope": {
         "en": "Maintain pinned literature/method/product matrix, model and dataset licenses, candidate IP disclosure and human/AI authorship/chain-of-title reviews.",
-        "fa": "��� ��� � ��� 뫦� ��?� ��/����/����� � ?뢩� �嬟? ������ �����? � ��?�� ��??�."
+        "fa": "ماتریس مقاله و محصول با نسخه و مجوز دقیق؛ بررسی حق انتشار و اختراع احتمالی."
       },
       "deliverable": {
         "en": "Versioned evidence/permission matrix, disclosure gate, legal review queue.",
-        "fa": "꟢�?� ��� � ��� 뫦�?���? ??� �뢬�� � �쩫� ����? ����?."
+        "fa": "ماتریس قابل ردیابی منابع و گیت حقوقی افشا."
       },
       "acceptance": {
         "en": "Each shortlisted artifact has original URL, version, license unknown/verified flag, risks and a release classification.",
-        "fa": "� �ꪧ ��� � 뫦�? ���?� ���? �?�? � ���� �뢬�� ꬦ� ����."
+        "fa": "برای هر نامزد، منبع، نسخه، مجوز، ریسک و سطح انتشار مشخص باشد."
       },
       "dependencies": [
         "DEC-WP-001"
@@ -574,7 +574,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/8"
     },
     {
       "id": "DEC-WP-007",
@@ -583,19 +583,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Benchmark replaceable small-model cores",
-        "fa": "��?꟩? 쫢�?�? ?�?? 矠� ���?�"
+        "fa": "مقایسه هسته‌های مدل کوچک"
       },
       "scope": {
         "en": "Compare MiniCPM5-1B, Qwen3.5-0.8B, Granite H-1B, LFM3-1.7B and historical controls on equal tasks/hardware.",
-        "fa": "��?�� MiniCPM5-1B? Qwen3.5-0.8B? Granite H-1B? LFM3-1.7B � ?뢩�?� �� ���?�媟� � ���� �����."
+        "fa": "مقایسه MiniCPM5، Qwen3.5، Granite و LFM3 با داده و سخت‌افزار یکسان."
       },
       "deliverable": {
         "en": "Comparable score/resource Pareto frontier and conditional core ADR.",
-        "fa": "������ ?����? ??�?�/�럠� � ADR �뢦�� ���."
+        "fa": "ماتریس پارتوی کیفیت/هزینه و ADR انتخاب موقت."
       },
       "acceptance": {
         "en": "Report paired held-out FA/EN quality, cold/warm latency, TTFT, peak memory and model hashes; winner only within tested scope.",
-        "fa": "??�?� 埩�?/��?�?�?? ���?� ���/?��? ����� � � ���? �뢦�� ��� �� ����� �����."
+        "fa": "کیفیت فارسی، تأخیر، حافظه و هش مدل ثبت و نتیجه محدود به آزمون باشد."
       },
       "dependencies": [
         "DEC-WP-003",
@@ -612,7 +612,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/1"
     },
     {
       "id": "DEC-WP-008",
@@ -621,19 +621,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Validate tool calling and Think control",
-        "fa": "�㢠����? ����� � ?뢩� Thinking"
+        "fa": "فراخوانی ابزار و کنترل Thinking"
       },
       "scope": {
         "en": "Check model-specific templates/parser, valid call boundaries, retry/abort and false tool execution, MiniCPM Think modes.",
-        "fa": "?뢩� �� ������? ��? Parser? ꩪ �㢠� �����? �?���/��� � ��� Thinking."
+        "fa": "بررسی Chat Template، Parser، مرز فراخوانی، لغو و حالت‌های تفکر مدل‌ها."
       },
       "deliverable": {
         "en": "Portable structured tool adapter plus scenario tests.",
-        "fa": "�?� ����� ������?��� 矠� ���?� � �����?�."
+        "fa": "رابط ساختاریافته ابزار و آزمون بازپخش."
       },
       "acceptance": {
         "en": "Correct tool selection/JSON or XML parsing and safe denial measured on held-out scenarios; no claimed access to private model reasoning.",
-        "fa": "�뢦�� �����? ��� Parser � �� �?�� ��? ����� ��?? ��?�� ���? ���? ?뢩� ������ ����? �� 렟��."
+        "fa": "صحت ابزار و رد ایمن اندازه‌گیری شود؛ کنترل استدلال خصوصی ادعا نشود."
       },
       "dependencies": [
         "DEC-WP-007"
@@ -646,7 +646,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/9"
     },
     {
       "id": "DEC-WP-009",
@@ -655,19 +655,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Validate adaptive router and stopping",
-        "fa": "�㢠����? Router ��?�? � ����"
+        "fa": "Router تطبیقی و سیاست توقف"
       },
       "scope": {
         "en": "Benchmark rule-based baseline against small-router candidates with risk/cost-aware L1/L2/L3 action selection.",
-        "fa": "��?�� Router ���? � �� ?�?? �� �뢦�� L1/L2/L3 �� ���� �?�? � �?��."
+        "fa": "مقایسه Router قطعی با مدل کوچک برای انتخاب L1، L2 و L3 بر اساس هزینه و ریسک."
       },
       "deliverable": {
         "en": "Router specification, confusion matrix and hard-stop policy.",
-        "fa": "ꬦ��� Router? ꟢�?� �� � �?��� ����."
+        "fa": "مشخصات Router، ماتریس خطا و محدودیت حلقه."
       },
       "acceptance": {
         "en": "Missed escalation, false escalation, abstention, time and compute measured; unbounded cycle test fails safely.",
-        "fa": "��? �� ���?�? ���?� ����?? ����? ��� � �럠� ��?�� � ���� �ꥧ�� ��� ���."
+        "fa": "خطای تشدید، امتناع و مصرف منابع ثبت و حلقه نامحدود قطع شود."
       },
       "dependencies": [
         "DEC-WP-004",
@@ -683,7 +683,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/10"
     },
     {
       "id": "DEC-WP-010",
@@ -692,19 +692,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Implement expert-owned RAG and Cross-RAG",
-        "fa": "??���?���? RAG ����? � Cross-RAG"
+        "fa": "RAG تخصصی و Cross-RAG"
       },
       "scope": {
         "en": "Use existing LDI when verified; otherwise compare pgvector, LightRAG, Qdrant on same documents; Cross-RAG opt-out and source provenance.",
-        "fa": "���埧� ꤧ� �� LDI ?� �� ��??� ?� ��?�� pgvector/LightRAG/Qdrant �� ��럧 ??���? Cross-RAG 矠� �?����?���?."
+        "fa": "استفاده از LDI تأییدشده یا مقایسه pgvector، Qdrant و LightRAG؛ ثبت منشأ سند."
       },
       "deliverable": {
         "en": "Expert RAG adapters, provenance references, benchmark report and reuse ADR.",
-        "fa": "���� RAG ꢦ��? ����� �묚? ?���� ��?꟩? � ADR."
+        "fa": "رابط بازیابی و گزارش کیفیت و ADR."
       },
       "acceptance": {
         "en": "Document citations trace to exact revision; disabled Cross-RAG makes no cross-source call; retrieval quality measured on held-out items.",
-        "fa": "���럧 �� 뫦� ��� ��� � �� �����? Cross-RAG ���?��? ���� �뤟� ���? ??�?� ��?�� ���."
+        "fa": "استناد به نسخه سند متصل و Cross-RAG قابل خاموش‌کردن باشد."
       },
       "dependencies": [
         "DEC-WP-002",
@@ -719,7 +719,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/11"
     },
     {
       "id": "DEC-WP-011",
@@ -728,19 +728,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Train and test first real role LoRAs",
-        "fa": "����� � ����� 릫�?� LoRA�? ���?"
+        "fa": "آموزش LoRAهای تخصصی واقعی"
       },
       "scope": {
         "en": "Compare role prompt and RAG against at least two trained adapters on identical model revision. Confirm adapter/GGUF convertibility separately.",
-        "fa": "��?�� Prompt � RAG �� ���??� �� Adapter �����?�?�� ��? 뫦� ??���? ���?� GGUF ���?��� ������ ���."
+        "fa": "مقایسه Prompt و RAG با دست‌کم دو LoRA آموزش‌دیده روی نسخه ثابت مدل؛ آزمون GGUF."
       },
       "deliverable": {
         "en": "Adapter artifacts/hash privately, training card, eval and regression results publicly where safe.",
-        "fa": "��� � � Adapter �� ꦪ� ꤟ�? ?��� ����� � ?���� ����� �� ���? ����? ���."
+        "fa": "وزن و هش Adapter در فضای مجاز، کارت آموزش و گزارش کیفیت."
       },
       "acceptance": {
         "en": "Held-out skill uplift or explicit negative result, no unacceptable regression, exact base/LoRA compatibility and memory tracked.",
-        "fa": "���� ���? �� ����� ��?? ?� �?�� ���? ?뢩� ?��� � ���?��? �� �럠� �맟��???�? ���."
+        "fa": "بهبود یا شکست روی داده نهایی ثبت و سازگاری و حافظه اندازه‌گیری شود."
       },
       "dependencies": [
         "DEC-WP-007",
@@ -754,7 +754,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/12"
     },
     {
       "id": "DEC-WP-012",
@@ -763,19 +763,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Implement typed expert collaboration protocol",
-        "fa": "??���?���? 穟���� ��?��? ������?���"
+        "fa": "پروتکل همکاری و دفتر شواهد"
       },
       "scope": {
         "en": "Define PROPOSE, SUPPORT, CHALLENGE, REVISE, REQUEST_EXPERT, VERIFY, DISSENT, ABSTAIN actions; durable evidence ledger.",
-        "fa": "��?� ��?����? ??��쟧? ���럧? ��? ��韥? ���ퟫ� ꢦ��? ����??���??? ����� � ����."
+        "fa": "پیاده‌سازی PROPOSE، CHALLENGE، REVISE، VERIFY، DISSENT، ABSTAIN و رویدادهای تخصصی."
       },
       "deliverable": {
         "en": "Typed state machine, event contract and deterministic replay tests.",
-        "fa": "꟬?� ���? 穟���� ��?��� � ����� ���?�� ���?."
+        "fa": "ماشین حالت و قرارداد رویداد با بازپخش قطعی."
       },
       "acceptance": {
         "en": "All critical state transitions replayable; malformed events and cycles handled with bounded behavior.",
-        "fa": "?���� 矠� ���?�� � ��?��� ��?��/���� ?뢩�?��� ����."
+        "fa": "گذارها قابل ردیابی و رویداد معیوب و حلقه مهار شوند."
       },
       "dependencies": [
         "DEC-WP-005"
@@ -787,7 +787,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/13"
     },
     {
       "id": "DEC-WP-013",
@@ -796,19 +796,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Ensure case/KV state correctness and lab boundary",
-        "fa": "��� ���?� ?���� � KV � ꩪ ���?�?��"
+        "fa": "صحت KV و مرز آزمایشگاه"
       },
       "scope": {
         "en": "Check per-case lifecycle, adapter cache validity, model revision, denied external actions, bounded trace publication without heavy per-tensor IAM.",
-        "fa": "?뢩� ?��� ?����? ���?��? KV/LoRA? 뫦� ��? ��� �租� �?���? � �뢬�� ��� ���� IAM ��??� ��? Tensor."
+        "fa": "کنترل چرخه پرونده، اعتبار Cache در تغییر LoRA، نسخه مدل و خروجی بیرونی."
       },
       "deliverable": {
         "en": "Compatibility assertions, negative cache tests and sanitized telemetry.",
-        "fa": "穟���� ���?��?? ��� Cache ���? � ���?ꢩ? ?��?�?���."
+        "fa": "تست منفی Cache و Trace پالایش‌شده."
       },
       "acceptance": {
         "en": "Cross-case stale states never reused in defined tests; forbidden external action blocked; all failures logged.",
-        "fa": "�� ����� ��?�?��� Cache ?���� �??� ���埧� ���? ���?�� ����� ���� � �� ��� ���."
+        "fa": "Cache پرونده دیگر دوباره استفاده نشود و عملیات ممنوع رد شود."
       },
       "dependencies": [
         "DEC-WP-008",
@@ -822,7 +822,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/14"
     },
     {
       "id": "DEC-WP-014",
@@ -831,19 +831,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Compare council orchestration implementations",
-        "fa": "��?�� ?뢩��? ����"
+        "fa": "مقایسه کنترلرهای شورا"
       },
       "scope": {
         "en": "Compare lightweight state machine with LangGraph, Microsoft Agent Framework and CrewAI; avoid extra services by default.",
-        "fa": "��?�� ꟬?� ��� ��? �� LangGraph? Microsoft Agent Framework � CrewAI? ?��?� �� ���?� ����?."
+        "fa": "مقایسه ماشین حالت سبک با LangGraph، Microsoft Agent Framework و CrewAI."
       },
       "deliverable": {
         "en": "Council-controller ADR with CPU/latency/recovery comparison.",
-        "fa": "ADR ?뢩� �꩟� ��?�� CPU? ���?� � ���?��?."
+        "fa": "ADR انتخاب کنترلر و سنجش CPU، تأخیر و بازیابی."
       },
       "acceptance": {
         "en": "Selection supported by measured local overhead and sufficient replay/failure recovery.",
-        "fa": "�뢦�� �� ����� ���? ��? � ��� ���?��/���?��? ꫢ� ���."
+        "fa": "انتخاب بر اساس هزینه و صحت واقعی، نه شهرت ابزار باشد."
       },
       "dependencies": [
         "DEC-WP-012",
@@ -856,7 +856,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/15"
     },
     {
       "id": "DEC-WP-015",
@@ -865,19 +865,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Deliver Level 1 direct specialist path",
-        "fa": "���?� �?� �� ??: ?��� ꫢ�?� ꢦ��"
+        "fa": "سطح یک: پاسخ مستقیم متخصص"
       },
       "scope": {
         "en": "One expert, direct evidence-aware answer with low overhead, status and abstention support.",
-        "fa": "�?� ?��� ꫢ�?� ?? ꢦ�� �꩟� �묚? ��?���?� � ����."
+        "fa": "پاسخ مستقیم یک متخصص همراه شواهد، عدم‌قطعیت و امتناع با سربار کم."
       },
       "deliverable": {
         "en": "Runnable L1 path and trace-to-answer tests.",
-        "fa": "�?� L1 矠� ���� � ��� ��?��? ?���."
+        "fa": "مسیر اجرایی L1 و تست ردیابی پاسخ."
       },
       "acceptance": {
         "en": "Passes smoke and regression tests with no council activation on simple cases.",
-        "fa": "��� ?�?� � ?��� ���� ���?���? �?����? ���� ?�� ���."
+        "fa": "تست پایه پاس شود و شورای غیرضروری فعال نشود."
       },
       "dependencies": [
         "DEC-WP-007",
@@ -889,7 +889,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/16"
     },
     {
       "id": "DEC-WP-016",
@@ -898,19 +898,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Deliver Level 2 iterative interactive thinking",
-        "fa": "���?� �� ��: ������ ����?"
+        "fa": "سطح دو: استدلال تعاملی"
       },
       "scope": {
         "en": "Implement bounded single-expert tools/retrieval/verify/revise cycles with cancellation and externally observable events.",
-        "fa": "���� ꥧ�� �����? ���?��?? ��??� � ��韥 ꢦ�� ퟥ� �꩟� ��� � ��?��� 矠� ꬟��."
+        "fa": "حلقه محدود ابزار، بازیابی، تأیید و اصلاح یک متخصص همراه امکان لغو."
       },
       "deliverable": {
         "en": "Runnable L2 and iterative trace scenarios.",
-        "fa": "����? L2 � �럩?��? Trace ?�ꩥ��?�?."
+        "fa": "مسیر L2 و سناریوهای چندمرحله‌ای."
       },
       "acceptance": {
         "en": "Evidence-refresh and model continuation work on fixtures; bounded iterations and timeouts verified.",
-        "fa": "����?���? ��� � ����� �� Fixture ���� � ?��� �?���/��� ��??� ���."
+        "fa": "ادامه استدلال، کران زمان و تکرار و Trace درست باشد."
       },
       "dependencies": [
         "DEC-WP-008",
@@ -923,7 +923,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/17"
     },
     {
       "id": "DEC-WP-017",
@@ -932,19 +932,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Deliver Level 3 dynamic specialist council",
-        "fa": "���?� �� ��: ����? ?�?�? ꢦ����"
+        "fa": "سطح سه: شورای پویای متخصصان"
       },
       "scope": {
         "en": "Dynamic expert recruitment, independent criticism, evidence-based revision, retained dissent, shared bounded session state.",
-        "fa": "���� ?�?�? ꢦ��? �� ꫢ��? ��韥 ꠢ�? �� ���? ��� ����� � ����� ꥧ��."
+        "fa": "فعال‌سازی انتخابی متخصص، نقد مستقل، حفظ اختلاف و حافظه مشترک محدود."
       },
       "deliverable": {
         "en": "Runnable L3 council and adversarial cross-domain fixtures.",
-        "fa": "����? L3 矠� ���� � Fixture �?��?����?�?/�㟩�?."
+        "fa": "مسیر L3 و سناریوهای تعارض میان‌رشته‌ای."
       },
       "acceptance": {
         "en": "Shows distinct experts contribute or rejects extra council; avoid forced consensus, loops and stale memory.",
-        "fa": "��� ���? ꢦ��?� ?� ��?�?�� ��� ���? ���� �����?/����/����� ����� 렟��."
+        "fa": "اثر واقعی شورا ثبت و اجماع اجباری و حلقه نامحدود حذف شود."
       },
       "dependencies": [
         "DEC-WP-011",
@@ -957,7 +957,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/18"
     },
     {
       "id": "DEC-WP-018",
@@ -966,19 +966,19 @@
       "owner_role": "evaluation",
       "title": {
         "en": "Run fair ablations across three reasoning levels",
-        "fa": "����? Ablation ����� �� ��"
+        "fa": "Ablation منصفانه سه سطح"
       },
       "scope": {
         "en": "Compare direct, prompt-only, RAG, LoRA, deep thinking, fixed council, adaptive council and larger reference with matched compute and evidence.",
-        "fa": "��?�� ꫢ�?�? Prompt? RAG? LoRA? ��?� ��?�? ����? ����/?�?� � �� ���? �� �럠�/��� �����."
+        "fa": "مقایسه Prompt، RAG، LoRA، تفکر عمیق، شورای ثابت و پویا در بودجه برابر."
       },
       "deliverable": {
         "en": "Raw reproducible performance traces, comparison and falsified/confirmed hypotheses.",
-        "fa": "Trace ��� ������?�?�?�? ��?�� � ���?� ������ ��?�?�."
+        "fa": "گزارش Trace و نتیجه آزمون فرضیه‌ها."
       },
       "acceptance": {
         "en": "Report task correctness, evidence, abstention, p50/p95, peak memory, paired uncertainty; record weak/negative gains.",
-        "fa": "���? ���? ����? ���? ����� � ��?���?� �꩟� �?��?� ?���� ���."
+        "fa": "صحت، شواهد، امتناع، p95 و حافظه همراه عدم‌قطعیت گزارش شود."
       },
       "dependencies": [
         "DEC-WP-015",
@@ -993,7 +993,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/19"
     },
     {
       "id": "DEC-WP-019",
@@ -1002,19 +1002,19 @@
       "owner_role": "project-owner",
       "title": {
         "en": "Issue P1 acceptance decision and reproducibility dossier",
-        "fa": "���� ���?� ?�?�� P1 � ?���� ������?�"
+        "fa": "گیت پذیرش و بازتولید P1"
       },
       "scope": {
         "en": "Independent review of all P1 evidence, benchmark leakage, resource envelope and whether P2 is justified.",
-        "fa": "����?�? ꫢ�� ��� P1? 묢? ���� �����? �럠� � ���?� �䟪 P2."
+        "fa": "داوری مستقل شواهد، نشت داده، هزینه محاسبات و توجیه ورود به P2."
       },
       "deliverable": {
         "en": "P1 gate decision: proceed, revise, stop or conditional follow-up with risks.",
-        "fa": "���?� �����/��韥/���� P1 �꩟� �?�?."
+        "fa": "تصمیم ادامه، اصلاح یا توقف با ریسک باقیمانده."
       },
       "acceptance": {
         "en": "No P2 work starts before a signed decision citing hashes, failures, confidence and measured marginal benefit.",
-        "fa": "���� ���?� ����? ���? �? �� � ��� ���?? P2 �䟪 ���."
+        "fa": "P2 فقط پس از تصمیم مستند مبتنی بر کیفیت و منابع آغاز شود."
       },
       "dependencies": [
         "DEC-WP-018"
@@ -1024,7 +1024,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/20"
     },
     {
       "id": "DEC-WP-020",
@@ -1033,19 +1033,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Profile and prototype hidden-state expert transfer",
-        "fa": "?���?� � ����� ���� Hidden State"
+        "fa": "انتقال نهفته بین متخصصان"
       },
       "scope": {
         "en": "Inspect LatentMAS-SLoRA and LatentMAS code; implement a small same-core typed-vs-hidden transfer on compatible adapters.",
-        "fa": "���?� ?� LatentMAS-SLoRA/LatentMAS? ����� ���� ������?��� �� ����� ���� ��? 쫢� ꬢ�?."
+        "fa": "ممیزی کد LatentMAS-SLoRA و مقایسه پیام کوتاه با Hidden State روی مدل مشترک."
       },
       "deliverable": {
         "en": "P2 repeatable compatibility/latency/quality report.",
-        "fa": "?���� 矠� ������?� ���?��?/���/??�?�."
+        "fa": "گزارش بازتولیدپذیر کیفیت، زمان، حافظه و سازگاری."
       },
       "acceptance": {
         "en": "No transfer until correct shape/model/adapter contracts; real end-to-end gain versus short typed event required.",
-        "fa": "�� ���?��? Shape/Model/LoRA ꥩ� ��� ���� �뤟� ���? ���� ��?? ��?�� ���."
+        "fa": "نسخه و Shape مدل/Adapter سازگار باشد و منفعت نهایی سنجیده شود."
       },
       "dependencies": [
         "DEC-WP-019"
@@ -1059,7 +1059,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/2"
     },
     {
       "id": "DEC-WP-021",
@@ -1068,19 +1068,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Evaluate bounded latent compression",
-        "fa": "����� 嬩��?���? ����� ����"
+        "fa": "فشرده‌سازی حافظه نهفته"
       },
       "scope": {
         "en": "Compare full hidden-state, bounded slots, LatCom/CondenseFlow-like trained projectors and fallback to short structured events.",
-        "fa": "��?�� Hidden State ?���? Slot ꥧ��? Projector � ??�� ?����."
+        "fa": "مقایسه حالت کامل، Slot محدود، LatCom/CondenseFlow و پیام کوتاه."
       },
       "deliverable": {
         "en": "Memory saturation and quality/overhead ablation.",
-        "fa": "Ablation ꭩ� �����? ����� � ??�?�."
+        "fa": "Ablation کیفیت و حافظه در بار آزمون."
       },
       "acceptance": {
         "en": "Profile end-to-end and reject compression when quality cost outweighs resources; no assumed tensor savings.",
-        "fa": "�?�� ?��� �맟��???�? � ��� �?��?��� �� ���? ����?��?? �� ���."
+        "fa": "افت کیفیت یا هزینه بیش از منفعت موجب رد روش شود."
       },
       "dependencies": [
         "DEC-WP-020"
@@ -1092,7 +1092,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/21"
     },
     {
       "id": "DEC-WP-022",
@@ -1101,19 +1101,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Benchmark adapter-aware shared KV and cache engines",
-        "fa": "��?꟩? KV ퟠ��� �� LoRA � ������? Cache"
+        "fa": "KV اشتراکی و Cache وابسته به LoRA"
       },
       "scope": {
         "en": "Evaluate LRAgent/RelayCaching/LMCache ideas against same-case in-process cache, switching adapters and model revisions.",
-        "fa": "����� LRAgent/RelayCaching/LMCache �� ����� Cache ����? �� ���?� Adapter � ��."
+        "fa": "آزمون LRAgent، RelayCaching و LMCache نسبت به Cache داخلی با تعویض Adapter."
       },
       "deliverable": {
         "en": "Cache contract and measured compatibility and overhead.",
-        "fa": "穟���� Cache � ?���� ���/�����."
+        "fa": "قرارداد Cache و گزارش صحت و منابع."
       },
       "acceptance": {
         "en": "No invalid cache reuse; measured benefit beyond added kernel/memory overhead.",
-        "fa": "������埧� 럫��?�� �� �� �럩?��? ��?�?���? ���� �� ����� �?��� ����."
+        "fa": "بازاستفاده ناسازگار در آزمون صفر و منفعت از سربار بیشتر باشد."
       },
       "dependencies": [
         "DEC-WP-019"
@@ -1126,7 +1126,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/22"
     },
     {
       "id": "DEC-WP-023",
@@ -1135,19 +1135,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Compare learned and fixed expert routing",
-        "fa": "��?�� Routing ?��?���? � ���? ꢦ��"
+        "fa": "Routing یادگرفتنی در برابر قطعی"
       },
       "scope": {
         "en": "PEFT Arrow vs task-level router vs token/layer MoLE and existing alternatives with identical budgets.",
-        "fa": "��?�� PEFT Arrow? Router �� ��?�� � MoLE �?�/��?� �� �럠� �����."
+        "fa": "مقایسه Arrow، Router سطح وظیفه و MoLE سطح لایه یا توکن."
       },
       "deliverable": {
         "en": "Router model card and Pareto ablation.",
-        "fa": "?��� Router � Ablation ?����."
+        "fa": "کارت Router و Ablation کیفیت/هزینه."
       },
       "acceptance": {
         "en": "Show added value and compatibility; do not adopt a learned router for complexity alone.",
-        "fa": "���� ����� � ���?��? ����? ????�?? ��?���?? ��?� ?�?�� �?��."
+        "fa": "ارزش افزوده و سازگاری ثابت شود؛ پیچیدگی کافی نیست."
       },
       "dependencies": [
         "DEC-WP-019"
@@ -1159,7 +1159,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/23"
     },
     {
       "id": "DEC-WP-024",
@@ -1168,19 +1168,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Study local-only C2C and latent primitives",
-        "fa": "����? C2C ��? � ���??�? �럦�?"
+        "fa": "C2C محلی و بلوک‌های شناختی"
       },
       "scope": {
         "en": "Local pair-compatible projector only; compare Agent Primitives review/vote/plan against event-loop baseline. No multi-server.",
-        "fa": "Projector ���?�� ��? � ��?�� Review/Vote/Plan �� ���� ��?���?? ���� ?맫���?."
+        "fa": "آزمون Projector جفت مدل در یک میزبان و Review/Vote/Plan در برابر رویداد متنی."
       },
       "deliverable": {
         "en": "Prior-art and code reproducibility report with rejection reasons.",
-        "fa": "?���� ??�?�� � ������?� ?� �꩟� ��?� ��."
+        "fa": "گزارش پیشینه و بازتولید همراه دلایل رد/قبول."
       },
       "acceptance": {
         "en": "Each tested projector has pinned source-target; primitives run with repeatable tests or are marked unimplemented.",
-        "fa": "� Projector �� 뫦� ꬦ� ����? ���??� ���?� ?� ��?����� ���� 묧� ��� �����."
+        "fa": "نسخه جفت مدل مشخص و اجرای واقعی یا عدم اجرا روشن باشد."
       },
       "dependencies": [
         "DEC-WP-020"
@@ -1194,7 +1194,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/24"
     },
     {
       "id": "DEC-WP-025",
@@ -1203,19 +1203,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Assess recurrent and native low-bit alternatives",
-        "fa": "����? �� ���?��? � ?�?�?� ���?"
+        "fa": "معماری بازگشتی و کم‌بیت"
       },
       "scope": {
         "en": "Profile RWKV/Mamba/Granite/BitNet memory-state semantics and native kernels against DEC's actual bottlenecks.",
-        "fa": "����? RWKV/Mamba/Granite/BitNet � ���?� �����/Kernel 뫠� �� ?��?�� ���?."
+        "fa": "پروفایل RWKV، Mamba، Granite و BitNet نسبت به گلوگاه واقعی DEC."
       },
       "deliverable": {
         "en": "Architecture trade-off and fit/no-fit feasibility report.",
-        "fa": "?���� ��?��?��? ��꟩? � ��?� �럫�/�� �럫�."
+        "fa": "گزارش تناسب معماری و هزینه."
       },
       "acceptance": {
         "en": "Cost, compatibility and language quality measured or explicit research-only disposition.",
-        "fa": "�?��? ���?��? � ??�?� ���� ��?�� ?� ?�?�� ??��?� ����?묧� ���? ���."
+        "fa": "کیفیت، سازگاری و منابع آزموده یا صریحاً نامعلوم ثبت شود."
       },
       "dependencies": [
         "DEC-WP-019"
@@ -1228,7 +1228,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/25"
     },
     {
       "id": "DEC-WP-026",
@@ -1237,19 +1237,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Optimize runtime only where profiling justifies it",
-        "fa": "��?��?���? Runtime ��� �� ?�?� ?��?�� ���?"
+        "fa": "بهینه‌سازی Runtime مبتنی بر گلوگاه"
       },
       "scope": {
         "en": "Assess fused kernels, in-process buffers, batching, vLLM/SGLang only if measured bottlenecks warrant migration.",
-        "fa": "����? Kernel? Buffer? Batching � Runtime ��??�?� ��� �� ���� ?��?�� ���?."
+        "fa": "Kernel، Buffer، Batching و Runtime جایگزین فقط در صورت نیاز اندازه‌گیری‌شده."
       },
       "deliverable": {
         "en": "Performance profile + no/low-risk migration ADR.",
-        "fa": "?���?� � ADR �쟤�� ?� �� �쟤��."
+        "fa": "پروفایل و ADR مهاجرت با Rollback."
       },
       "acceptance": {
         "en": "Improvement reproducible and no functional regression; fallback/rollback tested.",
-        "fa": "���� �?���?�?� � ���� ?���? ���?�� ������ ���."
+        "fa": "بهبود تکرارپذیر، بدون پسرفت و با بازگشت آزموده باشد."
       },
       "dependencies": [
         "DEC-WP-020",
@@ -1260,7 +1260,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/26"
     },
     {
       "id": "DEC-WP-027",
@@ -1269,19 +1269,19 @@
       "owner_role": "project-owner",
       "title": {
         "en": "P2 gate: decide whether native model research is warranted",
-        "fa": "??� P2: ���?� ������ ��꟩? �� ��?�"
+        "fa": "گیت P2 و تصمیم معماری نو"
       },
       "scope": {
         "en": "Quantify whether P1/P2 integrated substrate outperforms best fair modular baseline; choose native research only if justified.",
-        "fa": "�맟��???�? ����? ���� 뫠� �� �� ��? �?�韩 � ���?� ������ ���?� �� ��?�."
+        "fa": "ارزیابی سود ادغام نهفته در برابر قوی‌ترین خط مبنای ماژولار."
       },
       "deliverable": {
         "en": "P2 gate report with proceed/revise/stop and next investment decision.",
-        "fa": "?���� ??� P2 �� �����/��韥/���� � ���?� �?��."
+        "fa": "گزارش تصمیم ادامه یا توقف و ریسک‌ها."
       },
       "acceptance": {
         "en": "Independent evidence review with confidence, negative cases and IP review before P3 disclosure.",
-        "fa": "����? ꫢ��? ��?���?�? �?�� � ?뢩� ���� ??� �� �嬟? P3."
+        "fa": "داوری مستقل با عدم‌قطعیت و کنترل حقوق پیش از P3."
       },
       "dependencies": [
         "DEC-WP-021",
@@ -1296,7 +1296,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/27"
     },
     {
       "id": "DEC-WP-028",
@@ -1305,19 +1305,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Council-to-student distillation feasibility",
-        "fa": "��?��?��? ���?� ���� �� �� ���?����"
+        "fa": "تقطیر شورا به مدل دانش‌آموز"
       },
       "scope": {
         "en": "Study MiniCPM OPD/AgentArk ideas and construct controlled teacher/student experiment with rare-case criticism and abstention labels.",
-        "fa": "����� MiniCPM OPD/AgentArk � ����� ����/���?���� �� �� �ퟩ� 럧� � ����."
+        "fa": "مطالعه OPD و AgentArk با آزمون معلم/دانش‌آموز و حفظ نقد و امتناع."
       },
       "deliverable": {
         "en": "Teacher trace dataset under rights gate, student baseline and held-out eval.",
-        "fa": "����� Trace ���� �� ?뢩� ����? �� ���?���� � ����� ��??."
+        "fa": "داده Trace مجاز، مدل دانش‌آموز و آزمون نهایی."
       },
       "acceptance": {
         "en": "Preserve quality and disagreement or document failure; compare at matched end-to-end budget.",
-        "fa": "��� ??�?� � ����� ?� �?�� ���? ��?�� �럠� �����."
+        "fa": "کیفیت و اختلاف نظر حفظ یا شکست ثبت شود؛ بودجه برابر مقایسه گردد."
       },
       "dependencies": [
         "DEC-WP-027",
@@ -1331,7 +1331,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/28"
     },
     {
       "id": "DEC-WP-029",
@@ -1340,19 +1340,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Research learned integrated cognitive model",
-        "fa": "??�� �� �럦�? ?��?���? ???��?�"
+        "fa": "مدل شناختی درونی یادگرفتنی"
       },
       "scope": {
         "en": "Investigate trainable expert gating, bounded memory and control signals against best modular and distillation references.",
-        "fa": "����? Routing �����??�?�? ����� ꥧ�� � �??�� ?뢩� �� ����� ��? �?�韩 � ���?�."
+        "fa": "آزمون Routing آموزش‌پذیر، حافظه محدود و سیگنال کنترل در قیاس با مبنای ماژولار."
       },
       "deliverable": {
         "en": "Reproducible compact integrated model prototype or transparent negative finding.",
-        "fa": "����� 矠� ������?� ��꟩? ???��?� ?� ?���� �?�� ���?."
+        "fa": "نمونه مدل یکپارچه یا نتیجه منفی قابل بازتولید."
       },
       "acceptance": {
         "en": "Distinct mechanism independently ablated; quality, compute and robustness compared; no novelty claim without prior art.",
-        "fa": "�?��?�� ��?� �� Ablation? ??�?�/�럠�/?�?���? ��?��? ���� ���? ����? �????�?��."
+        "fa": "مکانیزم متمایز با Ablation، کیفیت، هزینه و پایداری ارزیابی شود."
       },
       "dependencies": [
         "DEC-WP-028"
@@ -1364,7 +1364,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/29"
     },
     {
       "id": "DEC-WP-030",
@@ -1373,19 +1373,19 @@
       "owner_role": "project-owner",
       "title": {
         "en": "Protect and evaluate technical novelty and title",
-        "fa": "���?��? ����? � ���� ��??� ��?"
+        "fa": "نوآوری و حقوق مالکیت فکری"
       },
       "scope": {
         "en": "Record early prior art, authorship, invention disclosures and license chain; external qualified legal review before inventive disclosures or filing.",
-        "fa": "��� ??�?��? ��� ?�?������? �嬟? ������ ����?? ��?�� ��� � �� ����? ??� �� �뢬��."
+        "fa": "ثبت پیشینه، سهم پدیدآوران، سابقه خصوصی اختراع و زنجیره حقوق."
       },
       "deliverable": {
         "en": "Private invention and rights dossier; public redacted novelty map.",
-        "fa": "?���� ����? ������/���� � ��� ??�?�� ?��?�?��� ����?."
+        "fa": "پرونده خصوصی مالکیت و خلاصه عمومی پالایش‌شده."
       },
       "acceptance": {
         "en": "No patent/ownership claim before expert legal clearance and actual inventor/contract review.",
-        "fa": "���? ���/�륭�� ���� ����? ����? � ��� ����� �ᩥ ���."
+        "fa": "بدون بررسی حقوق اشخاص و قراردادها ادعای ثبت و انحصار مطرح نشود."
       },
       "dependencies": [
         "DEC-WP-006",
@@ -1396,7 +1396,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/30"
     },
     {
       "id": "DEC-WP-031",
@@ -1405,19 +1405,19 @@
       "owner_role": "project-owner",
       "title": {
         "en": "Release candidate and research-to-product decision",
-        "fa": "���?� 뫦� ??��? 矠� ����� � ?��� ꥭ��"
+        "fa": "نسخه پژوهشی و تصمیم تجاری‌سازی"
       },
       "scope": {
         "en": "Assess reproducibility, model card, risk/performance, source rights and possible licensing/partnership; do not infer production readiness.",
-        "fa": "����? 矠�?� �?���? ?��� ��? �?�?? ���� ��� � �?� ��?��?/��� ���� ���? �꟧?? ���?�."
+        "fa": "بررسی بازتولید، کارت مدل، منابع، حقوق و گزینه همکاری یا واگذاری فناوری."
       },
       "deliverable": {
         "en": "Research release or stop recommendation and rights-cleared demo synopsis.",
-        "fa": "뫦� ??��?/���?� ���� � ��� ��?�? ����? ��� �뢬��."
+        "fa": "نسخه پژوهشی یا پیشنهاد توقف و نمایشی دارای حق انتشار."
       },
       "acceptance": {
         "en": "Scientific acceptance and IP gate passed; productization separately approved with costs.",
-        "fa": "??� ���? � ����? ���? ����??���? �� �?��/��� ꫢ��."
+        "fa": "گیت علمی و حقوقی پاس شود و تجاری‌سازی مجوز مستقل بگیرد."
       },
       "dependencies": [
         "DEC-WP-029",
@@ -1428,7 +1428,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/31"
     },
     {
       "id": "DEC-WP-032",
@@ -1437,19 +1437,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Investigate future multi-user/multitask design",
-        "fa": "??�� ��? ?�?����� � ?���?��?�?"
+        "fa": "چندکاربره و چندوظیفه‌ای آینده"
       },
       "scope": {
         "en": "After proven model and owner approval: tenant/session isolation, scheduling, quotas and concurrent quality.",
-        "fa": "?� �� ����?� �� � ��??� ��?: ������? 묫�? ���?��?? ���?� � ??�?� ��?���."
+        "fa": "پس از موفقیت مدل و مجوز مالک، جداسازی نشست، صف، سهمیه و هم‌زمانی بررسی شود."
       },
       "deliverable": {
         "en": "Separate future threat/performance model and project charter.",
-        "fa": "�� ��?�/���?�� � ���� ꫢ�� �?��."
+        "fa": "منشور مستقل و مدل تهدید و بار آینده."
       },
       "acceptance": {
         "en": "Explicit post-P3 authorization and representative workload; no current implementation.",
-        "fa": "��� ꫢ�� ?� �� P3 � ��� ?��? ���?? �?��� ���� ��??���."
+        "fa": "اکنون اجرا نشود؛ تصمیم مستقل پس از P3 لازم است."
       },
       "dependencies": [
         "DEC-WP-031"
@@ -1461,7 +1461,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/32"
     },
     {
       "id": "DEC-WP-033",
@@ -1470,19 +1470,19 @@
       "owner_role": "research-engineering",
       "title": {
         "en": "Investigate future distributed C2C",
-        "fa": "??�� ��? C2C ���?�?���"
+        "fa": "C2C توزیع‌شده آینده"
       },
       "scope": {
         "en": "Multi-server latent/caching system considered only with approved topology and reproducible local benefit.",
-        "fa": "?맫���? ��� ?� �� ��??� ��?���?? � ���� ���? ��?."
+        "fa": "چندسروری فقط پس از منفعت C2C محلی و تأیید توپولوژی پژوهش شود."
       },
       "deliverable": {
         "en": "Separate architectural proposal and transport/security feasibility tests.",
-        "fa": "??��쟧 ��꟩? � ����� ꫢ�� ����/���?�."
+        "fa": "طرح معماری و آزمون مستقل انتقال و امنیت."
       },
       "acceptance": {
         "en": "Owner authorization and local C2C success required before remote execution.",
-        "fa": "��� ��? � ����?� C2C ��? ??� �� ����? ���?�?���."
+        "fa": "مجوز مالک و شواهد اجرای محلی شرط آغاز باشد."
       },
       "dependencies": [
         "DEC-WP-031"
@@ -1494,7 +1494,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/33"
     },
     {
       "id": "DEC-WP-034",
@@ -1503,19 +1503,19 @@
       "owner_role": "research-governance",
       "title": {
         "en": "Maintain bilingual publication and scientific change log",
-        "fa": "����� �뢬�� ������� � ���?�?� ���?"
+        "fa": "انتشار علمی و تغییرات دوزبانه"
       },
       "scope": {
         "en": "Keep EN/FA docs synchronized, triage issues, tag research releases, publish only sanitized evidence and honest negative outcomes.",
-        "fa": "����?? ��럧 埩�?/��?�?�?? Issue? Release? ��� ?��?�?��� � ���?� ���? �㢠�."
+        "fa": "هماهنگی اسناد فارسی و انگلیسی، Issue، Release، شواهد پالایش‌شده و نتایج منفی."
       },
       "deliverable": {
         "en": "Periodic public roadmap/status, changelog, dated experiment summaries with disclosure approval.",
-        "fa": "���?� � ��� ����? ����?�?? ��??��� � 뢟?� ����? ���."
+        "fa": "گزارش دوره‌ای، Changelog و نتیجه قابل انتشار."
       },
       "acceptance": {
         "en": "Each publication has matching bilingual docs, CI pass, source references, E grade and rights gate.",
-        "fa": "� �뢬�� �� ����? CI ����? �����? ��� ��� � ?뢩� ���� ����."
+        "fa": "هر انتشار دارای دو زبان، CI، منبع و گیت حقوقی باشد."
       },
       "dependencies": [
         "DEC-WP-001",
@@ -1526,7 +1526,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/34"
     },
     {
       "id": "DEC-WP-035",
@@ -1535,19 +1535,19 @@
       "owner_role": "project-owner",
       "title": {
         "en": "Build collaboration and commercial evaluation pipeline",
-        "fa": "�?��� �?� ��?��? � ���?��? ����?"
+        "fa": "همکاری و ارزیابی تجاری"
       },
       "scope": {
         "en": "Provide public non-confidential participation channel and private due diligence/permission routes; record human contributions and rights.",
-        "fa": "?��� ��?��? ����?� �?�ꥩ��� � ����? ����? ����? 穟���� � ��� �婟�."
+        "fa": "کانال عمومی غیرمحرمانه و مذاکره خصوصی برای قرارداد و حقوق مشارکت ایجاد شود."
       },
       "deliverable": {
         "en": "Contributor guidance, collaboration template and partner-interest tracking without promises.",
-        "fa": "�����? ꬟�?�? �� ��?��? � ????�? ����?�맟� ���� ��� ����?."
+        "fa": "راهنمای همکاری و پیگیری درخواست‌ها بدون وعده منفعت."
       },
       "acceptance": {
         "en": "No external code/data merged without authorization/rights agreement; confidential details not disclosed in public issues.",
-        "fa": "���� 穟����? ?�/���� ����� ��� ���� ��� � ���㟢 ꥩ��� ����? �?���."
+        "fa": "بدون توافق حقوقی، کد و داده دیگران ادغام یا افشا نشود."
       },
       "dependencies": [
         "DEC-WP-034"
@@ -1557,7 +1557,7 @@
       "status": "planned",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": null
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/35"
     }
   ],
   "proposed_experiment_design": {
@@ -1583,5 +1583,11 @@
     "target_evidence": "E1 only upon actual execution"
   },
   "success_metrics_status": "provisional; not approved criteria until P0",
-  "execution_note": "No core selected or implementation made by roadmap publication."
+  "execution_note": "No core selected or implementation made by roadmap publication.",
+  "encoding_correction": {
+    "date": "2026-11-12",
+    "reason": "Correct loss of Persian characters in initial roadmap and GitHub work-item publication.",
+    "scope": "Only published roadmap text and issue/milestone labels; no experiments changed.",
+    "status": "Verified UTF-8"
+  }
 }
