@@ -40,6 +40,10 @@ We are investigating whether a **small, swappable language model** can solve dif
 
 [Controlled 60-request sampler ablation](docs/en/minicpm5-sampler-ablation.md) compares min_p-only greedy, manufacturer-recommended No-think, and No-think with repetition_penalty=1.05 on the same frozen general bilingual questions. Literal Persian loops declined, but correctness remained inadequate. This E1 observation does **not** approve or reject MiniCPM5 as DEC backbone.
 
+## Liquid AI candidate models — load and thinking-budget diagnostics
+
+[Full-load general bilingual screening of LFM3-1.7B and LFM2.5-1.2B-Thinking](docs/en/liquid-warmloaded-general20.md) records 40 requests after warm-up with model-specific settings. Many LFM2 Thinking requests exhausted the 512-token budget before a final answer; no fair final-answer accuracy ranking or DEC core selection follows.
+
 ## Research stages
 
 **P1: modular laboratory proof** → **P2: measured runtime/latent integration** → **P3: conditional investigation of a native learned integrated architecture**. No multi-tenant/multi-user/multi-server implementation is in current scope. Evidence gates and negative results are mandatory.

@@ -37,7 +37,7 @@ def check_docs() -> int:
             ids[lang] = field("doc_id")
             if field("language") != lang:
                 issue(f"Language incorrect: {p}")
-            expected_grade = "E1" if name.as_posix() in ("model-warmloaded-general20.md", "minicpm5-sampler-ablation.md") else "E0"
+            expected_grade = "E1" if name.as_posix() in ("model-warmloaded-general20.md", "minicpm5-sampler-ablation.md", "liquid-warmloaded-general20.md") else "E0"
             if field("evidence_level") != expected_grade:
                 issue(f"Incorrect scoped evidence grade in {p}: expected {expected_grade}")
             if not field("version") or not field("date"):
@@ -283,6 +283,40 @@ def check_minicpm_sampler_ablation() -> None:
             issue("MiniCPM sampler bilingual doc missing: "+lang)
 
 
+def check_liquid_model_warm20() -> None:
+    p=ROOT/"research/benchmarks/dec-liquid-warmloaded-fa-en-v1.json"
+    if not p.exists():
+        issue("Liquid 2-model warm20 file missing")
+        return
+    data=json.loads(p.read_text(encoding="utf8"))
+    if data.get("evidence_level")!="E1 model-only single-run feasibility; no quality benchmark accepted":
+        issue("Liquid screening evidence overclaimed")
+    if data.get("dec_evidence")!="E0 unchanged":
+        issue("DEC evidence incorrectly upgraded by Liquid load tests")
+    models=data.get("models",[])
+    if len(models)!=2 or sum(len(m.get("responses",[])) for m in models)!=40:
+        issue("Liquid screening requires 2 models x 20 general questions")
+        return
+    for m in models:
+        if not m.get("warmup_success"):
+            issue("Liquid evaluation occurred without successful warmup")
+        if not re.fullmatch(r"[a-f0-9]{64}",str(m.get("sha256",""))):
+            issue("Missing Liquid model pinned hash")
+        for lang in ("fa","en"):
+            rows=[r for r in m.get("responses",[]) if r.get("lang")==lang]
+            metrics=m.get("summary",{}).get(lang,{})
+            if len(rows)!=10 or any(r.get("http_status")!=200 for r in rows):
+                issue("Liquid general test incomplete "+m.get("id","?")+" "+lang)
+                continue
+            if metrics.get("empty_final")!=sum(not r.get("final_response","").strip() for r in rows):
+                issue("Liquid empty-final count inconsistent")
+            if metrics.get("length_capped")!=sum(r.get("finish_reason")=="length" for r in rows):
+                issue("Liquid length-cap count inconsistent")
+    for lang in ("en","fa"):
+        if not (ROOT/"docs"/lang/"liquid-warmloaded-general20.md").exists():
+            issue("Missing bilingual Liquid report "+lang)
+
+
 def check_rights_and_leaks() -> None:
     rights = (ROOT / "RIGHTS.md").read_text(encoding="utf-8")
     if "No blanket" not in rights or not (ROOT / "RIGHTS.fa.md").exists():
@@ -317,6 +351,7 @@ def main() -> int:
     check_model_preflight_integrity()
     check_bilingual_warmloaded_model_evaluation()
     check_minicpm_sampler_ablation()
+    check_liquid_model_warm20()
     check_rights_and_leaks()
     if issues:
         for x in issues:

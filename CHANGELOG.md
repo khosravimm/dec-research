@@ -2,6 +2,12 @@
 
 [English](CHANGELOG.md) · [فارسی](CHANGELOG.fa.md)
 
+## 0.2.7 — 2026-11-12
+
+- Add both official Liquid AI candidate GGUF models, checksum verified in isolated research storage.
+- Execute the same 10 general Persian and 10 English cases per fully loaded, warm LFM3-1.7B and LFM2.5-1.2B-Thinking. Record 40 responses and model-specific decoding settings.
+- Identify LFM2 Thinking final-answer truncation on 14/20 cases (512-token cap), and mixed LFM3 output/think-marker handling. No accuracy ranking; these are configuration-limited E1 results.
+
 ## 0.2.6 — 2026-11-12
 
 - Add bilingual MiniCPM5-1B repeated-output diagnosis, official sampler/llama.cpp references and 60 recorded general FA/EN responses across 3 controlled profiles after full model load and warm-up.

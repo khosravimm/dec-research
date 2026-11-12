@@ -26,5 +26,9 @@ jobs:
         run: |
           python tools/render_minicpm_sampler_ablation.py
           git diff --exit-code -- docs/en/minicpm5-sampler-ablation.md docs/fa/minicpm5-sampler-ablation.md
+      - name: Verify LiquidAI bilingual model report generation
+        run: |
+          python tools/render_liquid_warm20.py
+          git diff --exit-code -- docs/en/liquid-warmloaded-general20.md docs/fa/liquid-warmloaded-general20.md
       - name: Validate public research dossiers
         run: python tools/validate_public_docs.py
