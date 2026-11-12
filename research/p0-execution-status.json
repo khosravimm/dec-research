@@ -1,0 +1,30 @@
+{
+  "schema": "dec-public-p0-execution-v0.1",
+  "date": "2026-11-12",
+  "event_id": "DEC-P0-EVID-20261112-01",
+  "overall_dec_evidence_grade": "E0",
+  "observed_existing_service_grade": "E2-limited-operational-API-observation",
+  "p0_gate": "not_accepted",
+  "completed_scoped_check": "read-only local LDI integration smoke",
+  "test_summary": {
+    "api_http_200": 6,
+    "api_requests": 6,
+    "hybrid_search_result_count": 3,
+    "model_quality_tested": false,
+    "semantic_relevance_tested": false,
+    "corpus_or_service_mutated": false
+  },
+  "work_packages": {
+    "DEC-WP-002": "in_progress",
+    "DEC-WP-003": "in_progress"
+  },
+  "public_report": {
+    "fa": "docs/fa/progress.md",
+    "en": "docs/en/progress.md"
+  },
+  "evidence_visibility": "Original scripts and SHA-256 private; source texts, host paths, IPs and weights withheld",
+  "summary": {
+    "fa": "شروع P0 و تأیید مقدماتی فقط‌خواندنی API بازیابی؛ صحت معنایی و کارکرد DEC هنوز آزموده نشده‌اند.",
+    "en": "P0 started and read-only LDI API smoke succeeded; retrieval relevance and DEC model capability remain untested."
+  }
+}

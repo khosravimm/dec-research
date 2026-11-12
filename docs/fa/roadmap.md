@@ -2,7 +2,7 @@
 doc_id: DEC-DOC-007
 language: fa
 title: "رودمپ جامع پژوهش و اجرای DEC"
-version: 0.2.2
+version: 0.2.3
 date: 2026-11-12
 evidence_level: E0
 publication_status: public-research-draft
@@ -85,7 +85,7 @@ flowchart LR
 
 **شناسه اقدام قبلی:** DEC-BK-001
 
-**نقش مسئول:** research-engineering | **نفرروز برآوردی:** 4 نفرروز | **وضعیت:** planned (E0)
+**نقش مسئول:** research-engineering | **نفرروز برآوردی:** 4 نفرروز | **وضعیت:** in_progress (E0)
 
 #### DEC-WP-003 — صحت‌سنجی سخت‌افزار و مدل‌ها
 
@@ -101,7 +101,7 @@ flowchart LR
 
 **شناسه اقدام قبلی:** DEC-BK-002, DEC-BK-032
 
-**نقش مسئول:** research-engineering | **نفرروز برآوردی:** 3 نفرروز | **وضعیت:** planned (E0)
+**نقش مسئول:** research-engineering | **نفرروز برآوردی:** 3 نفرروز | **وضعیت:** in_progress (E0)
 
 #### DEC-WP-004 — مجموعه مرجع آزمون دوزبانه
 

@@ -92,8 +92,12 @@ def check_roadmap() -> tuple[int, int]:
         for d in w.get("dependencies", []):
             if d not in package_ids:
                 issue(f"Unknown work-package dependency {w['id']} -> {d}")
-        if w.get("status") not in ("planned","deferred"):
-            issue(f"Roadmap publication claims activity or results without evidence: {w['id']}")
+        if w.get("status") == "in_progress":
+            evidence_ref=w.get("public_evidence_ref")
+            if not evidence_ref or not (ROOT/evidence_ref).is_file():
+                issue(f"Running work package missing public evidence record: {w['id']}")
+        elif w.get("status") not in ("planned","deferred"):
+            issue(f"Roadmap publication claims unsupported completion: {w['id']}")
         legacy.update(w.get("legacy_backlog_ids", []))
     if len(package_ids) != len(packages):
         issue("Duplicate work-package IDs")
@@ -124,6 +128,13 @@ def check_roadmap() -> tuple[int, int]:
                 issue(f"Missing work-package in rendered {lang} roadmap: {w['id']}")
         if "version: "+data["version"] not in body:
             issue(f"Rendered roadmap stale in {lang}")
+    status_file=ROOT/"research/p0-execution-status.json"
+    if status_file.exists():
+        status=json.loads(status_file.read_text(encoding="utf-8"))
+        if status.get("overall_dec_evidence_grade") != "E0" or status.get("p0_gate") != "not_accepted":
+            issue("P0 public status falsely claims DEC success or gate acceptance")
+        if status.get("test_summary",{}).get("model_quality_tested") is not False:
+            issue("P0 integration smoke cannot claim model quality tests")
     if len(data.get("gates", [])) < 6 or len(data.get("risks", [])) < 10:
         issue("Roadmap risk or gate coverage low")
     return len(packages), len(legacy)

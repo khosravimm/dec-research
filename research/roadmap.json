@@ -1,6 +1,6 @@
 {
   "schema": "dec-roadmap-v1",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "created_at": "2026-11-12",
   "status": "owner-requested proposed implementation roadmap; phases not executed",
   "evidence_grade": "E0",
@@ -439,10 +439,11 @@
         "DEC-BK-001"
       ],
       "estimated_person_days": 4,
-      "status": "planned",
+      "status": "in_progress",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": "https://github.com/khosravimm/dec-research/issues/4"
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/4",
+      "public_evidence_ref": "research/p0-execution-status.json"
     },
     {
       "id": "DEC-WP-003",
@@ -473,10 +474,11 @@
         "DEC-BK-032"
       ],
       "estimated_person_days": 3,
-      "status": "planned",
+      "status": "in_progress",
       "evidence_grade": "E0",
       "public_disclosure": "summary-only, subject to publication gate",
-      "github_issue": "https://github.com/khosravimm/dec-research/issues/5"
+      "github_issue": "https://github.com/khosravimm/dec-research/issues/5",
+      "public_evidence_ref": "research/p0-execution-status.json"
     },
     {
       "id": "DEC-WP-004",
@@ -1583,7 +1585,7 @@
     "target_evidence": "E1 only upon actual execution"
   },
   "success_metrics_status": "provisional; not approved criteria until P0",
-  "execution_note": "No core selected or implementation made by roadmap publication.",
+  "execution_note": "P0 has started; only read-only LDI integration / initial host inventory observed. G0 not passed, DEC model remains E0.",
   "encoding_correction": {
     "date": "2026-11-12",
     "reason": "Correct loss of Persian characters in initial roadmap and GitHub work-item publication.",

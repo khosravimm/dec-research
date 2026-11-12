@@ -2,7 +2,7 @@
 doc_id: DEC-DOC-007
 language: en
 title: "Detailed research and implementation roadmap"
-version: 0.2.2
+version: 0.2.3
 date: 2026-11-12
 evidence_level: E0
 publication_status: public-research-draft
@@ -85,7 +85,7 @@ The critical path is: legally usable bilingual benchmark and actual hardware aud
 
 **Historical backlog IDs:** DEC-BK-001
 
-**Accountable role:** research-engineering | **Estimated effort:** 4 person-days | **State:** planned (E0)
+**Accountable role:** research-engineering | **Estimated effort:** 4 person-days | **State:** in_progress (E0)
 
 #### DEC-WP-003 — Verify compute, runtime and model inventory
 
@@ -101,7 +101,7 @@ The critical path is: legally usable bilingual benchmark and actual hardware aud
 
 **Historical backlog IDs:** DEC-BK-002, DEC-BK-032
 
-**Accountable role:** research-engineering | **Estimated effort:** 3 person-days | **State:** planned (E0)
+**Accountable role:** research-engineering | **Estimated effort:** 3 person-days | **State:** in_progress (E0)
 
 #### DEC-WP-004 — Create bilingual evaluation golden set
 

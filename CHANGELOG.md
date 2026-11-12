@@ -2,6 +2,12 @@
 
 [English](CHANGELOG.md) · [فارسی](CHANGELOG.fa.md)
 
+## 0.2.3 — 2026-11-12
+
+- P0 execution **started**: controlled read-only existing LDI integration smoke produced six successful API responses with no corpus mutation.
+- WP-002/WP-003 now in progress; P0 gate not accepted. Published bilingual sanitized progress document; DEC performance remains E0.
+- Public roadmap activity states require an explicit evidence link.
+
 ## 0.2.2 — 2026-11-12
 
 - Align provisional phase durations with person-day capacity assumptions: P0 5-7, P1A 4-6, P1B 6-8, P1C 6-8, conditional P2 10-14 and P3 12-20 weeks. No date commitments or test-status changes.
