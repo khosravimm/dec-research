@@ -1,0 +1,5400 @@
+{
+  "schema": "DEC-EN-INSTRUCTIONS-TOOLS-PUBLIC-v1",
+  "status": "E1 single-run, controlled synthetic tool use; NOT accepted DEC model benchmark",
+  "date": "2026-11-12",
+  "language": "English-only; no Persian tests",
+  "model_selected": null,
+  "baseline_two_question_test": "not used",
+  "source_sha256": "d63bfbaaa9f5fe7eb248856161f73bb07e122929cf2cfc1668360c120e4fc0a5",
+  "original_private_evidence_archive_sha256": "ab2a27cea86267073093778415b8c31650c8b0347350de970ed40418495c2dc8",
+  "posthoc_review_sha256": "1f280993d3413d4a4e0425a20e6f98b49d6d702047fdd23e2fbaba7e95483fe0",
+  "scoring_revision": "v1.1 posthoc; both original and corrected scores retained per case",
+  "description": {
+    "en": "Five small instruction models after complete loading and warm-up; 12 English exact-output tasks and 12 English API tool-use/no-tool tasks per model. Real structured tool_calls invoke deterministic synthetic functions and the results return to model history.",
+    "fa": "آزمون پنج مدل پس از بارگذاری کامل و Warm-up، شامل ۱۲ پرسش صرفاً انگلیسی برای پیروی از دستور و ۱۲ سناریوی انگلیسی Tool Calling و عدم‌فراخوانی ابزار برای هر مدل. فراخوانی واقعی ابزار ساختاریافته با اجرای تابع روی داده مصنوعی و بازگرداندن نتیجه به مدل انجام شد."
+  },
+  "environment": {
+    "model_execution_host": "authorized CPU-only laboratory host, private details withheld",
+    "runtime": "llama.cpp 0.9.0-dev aa75ff3; OpenAI-compatible /v1/chat/completions; --jinja",
+    "isolation": "separate ephemeral localhost model server per candidate",
+    "sampling": "manufacturer-aware; settings retained per model, not uniform across checkpoints",
+    "parallelism": "LFM3 originally ran first; other four tests were concurrent on distinct ports with each 4 CPU threads. Do not directly rank observed latency.",
+    "security": "Only fictional fixtures, no real weather/order/store, no LDI access, no production tool execution, no other services changed"
+  },
+  "tool_execution_criteria": [
+    "Model must emit a structured tool_calls API entry (not JSON/XML/plain text)",
+    "Function names and all required typed arguments must match expected task",
+    "Harness dispatches function to a deterministic synthetic fixture and sends its result to the model",
+    "Model must generate factually correct final message from the fixture; two control tasks must not call a tool",
+    "Posthoc fixture rule correction accepts semantically correct answers without redundant city/order/item names where prompt did not require them"
+  ],
+  "evaluation": {
+    "level": "E1 limited real-host implementation feasibility",
+    "instruction_exact": "one point for exact expected format and content, no extra text",
+    "original_tool_strict": "runner's first-pass exact answer substring rule",
+    "revised_tool_criterion": "posthoc v1.1 transparent deterministic fixture relevance rule",
+    "limits": [
+      "one run per scenario and model, unblinded criterion revision after output inspection",
+      "simple synthetic English questions and functions are not representative of full agent reliability",
+      "heuristic final answer validation can misclassify semantic equivalents, independent review required",
+      "model-specific sampling, reasoning caps, prompt templates, GGUF quantization and mixed concurrent host load",
+      "Tool schema parser compatibility is runtime-dependent (MiniCPM vendor recommends SGLang parser)",
+      "No RAG/LDI, LoRA, specialist domain evaluations or actual DEC cognitive council tested"
+    ]
+  },
+  "tool_definitions": [
+    {
+      "name": "get_city_weather",
+      "description": "Return simulated current weather for a named city. Values are fictional benchmark fixtures, not live data.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "description": "City name"
+          }
+        },
+        "required": [
+          "city"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_store_stock",
+      "description": "Return inventory quantity for a named fictional shop item.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "description": "Exact item name"
+          }
+        },
+        "required": [
+          "item"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "lookup_delivery",
+      "description": "Return the simulated status of a specified sample order identifier.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "description": "Order ID such as ORD-104"
+          }
+        },
+        "required": [
+          "order_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "calculate_total",
+      "description": "Calculate total price for a unit price and integer quantity.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "unit_price": {
+            "type": "number"
+          },
+          "quantity": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "unit_price",
+          "quantity"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "convert_units",
+      "description": "Convert a value between kg and grams, supported conversions kg to g and g to kg.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "from_unit": {
+            "type": "string",
+            "enum": [
+              "kg",
+              "g"
+            ]
+          },
+          "to_unit": {
+            "type": "string",
+            "enum": [
+              "kg",
+              "g"
+            ]
+          }
+        },
+        "required": [
+          "value",
+          "from_unit",
+          "to_unit"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "fictional_tool_fixtures": {
+    "weather": {
+      "Oslo": {
+        "condition": "cloudy",
+        "temperature_c": 4
+      },
+      "Amsterdam": {
+        "condition": "rainy",
+        "temperature_c": 11
+      }
+    },
+    "inventory": {
+      "blue notebook": {
+        "quantity": 7
+      },
+      "red mug": {
+        "quantity": 0
+      }
+    },
+    "delivery": {
+      "ORD-104": {
+        "status": "delivered",
+        "delivery_weekday": "Wednesday"
+      },
+      "ORD-220": {
+        "status": "in transit",
+        "expected_weekday": "Friday"
+      }
+    }
+  },
+  "frozen_test_cases": [
+    {
+      "id": "I01",
+      "kind": "instruction",
+      "category": "exact_format",
+      "prompt": "Reply with exactly these two words, without punctuation: Good morning",
+      "expected": "Good morning",
+      "rule": "exact"
+    },
+    {
+      "id": "I02",
+      "kind": "instruction",
+      "category": "arithmetic",
+      "prompt": "There are 6 boxes holding 4 pens each. Three pens are removed. Give only the remaining number.",
+      "expected": "21",
+      "rule": "integer"
+    },
+    {
+      "id": "I03",
+      "kind": "instruction",
+      "category": "time",
+      "prompt": "A train leaves at 09:45 and arrives 35 minutes later. Reply with the arrival time only in HH:MM 24-hour format.",
+      "expected": "10:20",
+      "rule": "exact"
+    },
+    {
+      "id": "I04",
+      "kind": "instruction",
+      "category": "reading",
+      "prompt": "Nora visited the library on Monday and the museum on Friday. On which day did she visit the museum? Give only the weekday.",
+      "expected": "Friday",
+      "rule": "exact"
+    },
+    {
+      "id": "I05",
+      "kind": "instruction",
+      "category": "logic",
+      "prompt": "Ada is older than Ben. Ben is older than Cal. Who is youngest? Give just the name.",
+      "expected": "Cal",
+      "rule": "exact"
+    },
+    {
+      "id": "I06",
+      "kind": "instruction",
+      "category": "classification",
+      "prompt": "From piano, violin, carrot and flute, choose the vegetable. Return one lowercase word.",
+      "expected": "carrot",
+      "rule": "exact"
+    },
+    {
+      "id": "I07",
+      "kind": "instruction",
+      "category": "json_structure",
+      "prompt": "Return valid JSON only, with exactly two keys in this order: \"color\" set to \"blue\", and \"count\" set to the integer 3. No markdown.",
+      "expected": {
+        "color": "blue",
+        "count": 3
+      },
+      "rule": "json_exact"
+    },
+    {
+      "id": "I08",
+      "kind": "instruction",
+      "category": "case_transform",
+      "prompt": "Convert 'quiet river' to uppercase. Output only the transformed text.",
+      "expected": "QUIET RIVER",
+      "rule": "exact"
+    },
+    {
+      "id": "I09",
+      "kind": "instruction",
+      "category": "grammar",
+      "prompt": "Correct the grammar and return only the corrected sentence: 'Yesterday she go to the park.'",
+      "expected": "Yesterday she went to the park.",
+      "rule": "exact"
+    },
+    {
+      "id": "I10",
+      "kind": "instruction",
+      "category": "sorting",
+      "prompt": "Sort these words alphabetically. Return a comma-separated list and nothing else: pear, apple, banana",
+      "expected": "apple, banana, pear",
+      "rule": "exact"
+    },
+    {
+      "id": "I11",
+      "kind": "instruction",
+      "category": "constraints",
+      "prompt": "Write exactly three lowercase words, separated by single spaces, naming the three primary colors of light in this order: red then green then blue.",
+      "expected": "red green blue",
+      "rule": "exact"
+    },
+    {
+      "id": "I12",
+      "kind": "instruction",
+      "category": "multiple_constraints",
+      "prompt": "Reply on one line only. Write the exact string 'OK-17' with no extra spaces, quotes or explanation.",
+      "expected": "OK-17",
+      "rule": "exact"
+    },
+    {
+      "id": "T01",
+      "kind": "tool",
+      "category": "tool_selection",
+      "prompt": "Use the available weather tool to check the simulated current weather in Oslo. Report the condition and temperature in one sentence.",
+      "expected_calls": [
+        {
+          "name": "get_city_weather",
+          "args": {
+            "city": "Oslo"
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "Oslo",
+        "4",
+        "cloudy"
+      ]
+    },
+    {
+      "id": "T02",
+      "kind": "tool",
+      "category": "tool_selection",
+      "prompt": "Use the inventory tool to check whether the simulated store has blue notebook units in stock. Report the quantity.",
+      "expected_calls": [
+        {
+          "name": "get_store_stock",
+          "args": {
+            "item": "blue notebook"
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "blue notebook",
+        "7"
+      ]
+    },
+    {
+      "id": "T03",
+      "kind": "tool",
+      "category": "parameter_extraction",
+      "prompt": "Check the simulated delivery status of order ORD-104 using the order tool. Give the status and delivery weekday.",
+      "expected_calls": [
+        {
+          "name": "lookup_delivery",
+          "args": {
+            "order_id": "ORD-104"
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "ORD-104",
+        "delivered",
+        "Wednesday"
+      ]
+    },
+    {
+      "id": "T04",
+      "kind": "tool",
+      "category": "arithmetic_tool",
+      "prompt": "Use the total calculator tool to calculate the price for seven items costing 6 currency units each. Return the total.",
+      "expected_calls": [
+        {
+          "name": "calculate_total",
+          "args": {
+            "unit_price": 6,
+            "quantity": 7
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "42"
+      ]
+    },
+    {
+      "id": "T05",
+      "kind": "tool",
+      "category": "unit_conversion",
+      "prompt": "Use the conversion tool to convert 3 kilograms to grams. State the numerical result and unit.",
+      "expected_calls": [
+        {
+          "name": "convert_units",
+          "args": {
+            "value": 3,
+            "from_unit": "kg",
+            "to_unit": "g"
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "3000",
+        "g"
+      ]
+    },
+    {
+      "id": "T06",
+      "kind": "tool",
+      "category": "tool_selection",
+      "prompt": "Use the available weather tool to check the simulated current weather in Amsterdam. Report the condition and temperature.",
+      "expected_calls": [
+        {
+          "name": "get_city_weather",
+          "args": {
+            "city": "Amsterdam"
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "Amsterdam",
+        "11",
+        "rainy"
+      ]
+    },
+    {
+      "id": "T07",
+      "kind": "tool",
+      "category": "tool_selection",
+      "prompt": "Look up the simulated store inventory for red mug using the stock tool. Tell me if it is available.",
+      "expected_calls": [
+        {
+          "name": "get_store_stock",
+          "args": {
+            "item": "red mug"
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "red mug",
+        "0"
+      ]
+    },
+    {
+      "id": "T08",
+      "kind": "tool",
+      "category": "parameter_extraction",
+      "prompt": "Use the delivery tool to check simulated order ORD-220. Report its status and expected arrival weekday.",
+      "expected_calls": [
+        {
+          "name": "lookup_delivery",
+          "args": {
+            "order_id": "ORD-220"
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "ORD-220",
+        "in transit",
+        "Friday"
+      ]
+    },
+    {
+      "id": "T09",
+      "kind": "tool",
+      "category": "correct_no_tool",
+      "prompt": "Without using any tools, reply with exactly these words: No lookup required",
+      "expected_calls": [],
+      "expected_final": "No lookup required"
+    },
+    {
+      "id": "T10",
+      "kind": "tool",
+      "category": "correct_no_tool",
+      "prompt": "Do not use tools. Write the word 'orange' backwards, lowercase, with no punctuation.",
+      "expected_calls": [],
+      "expected_final": "egnaro"
+    },
+    {
+      "id": "T11",
+      "kind": "tool",
+      "category": "multi_tool",
+      "prompt": "The simulated shop sells a blue notebook for 4.5 currency units. Use the tools to check inventory and calculate the total for 3 notebooks. Tell me how many are in stock and the price for 3.",
+      "expected_calls": [
+        {
+          "name": "get_store_stock",
+          "args": {
+            "item": "blue notebook"
+          }
+        },
+        {
+          "name": "calculate_total",
+          "args": {
+            "unit_price": 4.5,
+            "quantity": 3
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "7",
+        "13.5"
+      ]
+    },
+    {
+      "id": "T12",
+      "kind": "tool",
+      "category": "multi_tool",
+      "prompt": "Use the weather tool for both Oslo and Amsterdam in this simulated dataset. Compare their temperatures and say which city is colder.",
+      "expected_calls": [
+        {
+          "name": "get_city_weather",
+          "args": {
+            "city": "Oslo"
+          }
+        },
+        {
+          "name": "get_city_weather",
+          "args": {
+            "city": "Amsterdam"
+          }
+        }
+      ],
+      "expected_final_tokens": [
+        "Oslo"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "id": "Qwen2.5-3B-Q4",
+      "model_sha256": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+      "raw_evidence_sha256": "09b62005b54d4dd51fd8bb4016d69d8b31a32eb433bfd1ad46657861e46664e9",
+      "server_version": "llama.cpp 0.9.0-dev aa75ff3",
+      "sampling_and_context": {
+        "cpu_threads": 4,
+        "ctx_size": 4096,
+        "parallel": 1,
+        "temperature": 0,
+        "top_p": 1.0,
+        "min_p": 0.0,
+        "repeat_penalty": 1.0,
+        "max_tokens": 192,
+        "reasoning": "off"
+      },
+      "preload_ms_excluded": 2737.4,
+      "warmup_ms_excluded": 843.0,
+      "verified_postload_warmup": true,
+      "peak_sampled_process_rss_bytes": 3604516864,
+      "summary": {
+        "instruction_exact_pass": 11,
+        "instruction_cases": 12,
+        "tool_end_to_end_pass": 11,
+        "tool_cases": 12,
+        "positive_tool_end_to_end_pass": 10,
+        "positive_tool_cases": 10,
+        "no_tool_decision_and_exact_final_pass": 1,
+        "no_tool_cases": 2,
+        "exact_valid_tool_selection": 12,
+        "original_tool_strict_pass": 11,
+        "all_http_ok": 24,
+        "all_cases": 24,
+        "api_structured_calls": 12,
+        "format_errors_instruction": 1
+      },
+      "cases": [
+        {
+          "case_id": "I01",
+          "kind": "instruction",
+          "category": "exact_format",
+          "question": "Reply with exactly these two words, without punctuation: Good morning",
+          "expected": "Good morning",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Good morning",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1905.7
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I02",
+          "kind": "instruction",
+          "category": "arithmetic",
+          "question": "There are 6 boxes holding 4 pens each. Three pens are removed. Give only the remaining number.",
+          "expected": "21",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "15",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            2163.5
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I03",
+          "kind": "instruction",
+          "category": "time",
+          "question": "A train leaves at 09:45 and arrives 35 minutes later. Reply with the arrival time only in HH:MM 24-hour format.",
+          "expected": "10:20",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "10:20",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            2690.8
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I04",
+          "kind": "instruction",
+          "category": "reading",
+          "question": "Nora visited the library on Monday and the museum on Friday. On which day did she visit the museum? Give only the weekday.",
+          "expected": "Friday",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Friday",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1950.6
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I05",
+          "kind": "instruction",
+          "category": "logic",
+          "question": "Ada is older than Ben. Ben is older than Cal. Who is youngest? Give just the name.",
+          "expected": "Cal",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Cal",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1859.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I06",
+          "kind": "instruction",
+          "category": "classification",
+          "question": "From piano, violin, carrot and flute, choose the vegetable. Return one lowercase word.",
+          "expected": "carrot",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "carrot",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            2097.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I07",
+          "kind": "instruction",
+          "category": "json_structure",
+          "question": "Return valid JSON only, with exactly two keys in this order: \"color\" set to \"blue\", and \"count\" set to the integer 3. No markdown.",
+          "expected": {
+            "color": "blue",
+            "count": 3
+          },
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "{\"color\": \"blue\", \"count\": 3}",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            4397.8
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I08",
+          "kind": "instruction",
+          "category": "case_transform",
+          "question": "Convert 'quiet river' to uppercase. Output only the transformed text.",
+          "expected": "QUIET RIVER",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "QUIET RIVER",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            2256.6
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I09",
+          "kind": "instruction",
+          "category": "grammar",
+          "question": "Correct the grammar and return only the corrected sentence: 'Yesterday she go to the park.'",
+          "expected": "Yesterday she went to the park.",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Yesterday she went to the park.",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            2856.8
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I10",
+          "kind": "instruction",
+          "category": "sorting",
+          "question": "Sort these words alphabetically. Return a comma-separated list and nothing else: pear, apple, banana",
+          "expected": "apple, banana, pear",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "apple, banana, pear",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            2860.6
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I11",
+          "kind": "instruction",
+          "category": "constraints",
+          "question": "Write exactly three lowercase words, separated by single spaces, naming the three primary colors of light in this order: red then green then blue.",
+          "expected": "red green blue",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "red green blue",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            2535.0
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I12",
+          "kind": "instruction",
+          "category": "multiple_constraints",
+          "question": "Reply on one line only. Write the exact string 'OK-17' with no extra spaces, quotes or explanation.",
+          "expected": "OK-17",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "OK-17",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            2531.7
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T01",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Oslo. Report the condition and temperature in one sentence.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The simulated current weather in Oslo is cloudy with a temperature of 4 degrees Celsius.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            14584.8,
+            14409.9
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T02",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the inventory tool to check whether the simulated store has blue notebook units in stock. Report the quantity.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The simulated store has 7 units of blue notebook in stock.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            14234.0,
+            13044.6
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T03",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Check the simulated delivery status of order ORD-104 using the order tool. Give the status and delivery weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-104"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The order ORD-104 has been delivered and the delivery was made on Wednesday.",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-104"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "delivered",
+                "delivery_weekday": "Wednesday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            15203.1,
+            14583.0
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T04",
+          "kind": "tool",
+          "category": "arithmetic_tool",
+          "question": "Use the total calculator tool to calculate the price for seven items costing 6 currency units each. Return the total.",
+          "expected": [
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 6,
+                "quantity": 7
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The total price for seven items costing 6 currency units each is 42.0.",
+          "structured_calls": [
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 6.0,
+                "quantity": 7
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 42.0,
+                "quantity": 7,
+                "unit_price": 6.0
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            17646.5,
+            14218.7
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T05",
+          "kind": "tool",
+          "category": "unit_conversion",
+          "question": "Use the conversion tool to convert 3 kilograms to grams. State the numerical result and unit.",
+          "expected": [
+            {
+              "name": "convert_units",
+              "args": {
+                "value": 3,
+                "from_unit": "kg",
+                "to_unit": "g"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The conversion result is 3000 grams.",
+          "structured_calls": [
+            {
+              "function": "convert_units",
+              "arguments": {
+                "value": 3,
+                "from_unit": "kg",
+                "to_unit": "g"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "convert_units",
+              "result": {
+                "value": 3000,
+                "unit": "g"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            15625.5,
+            12938.0
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T06",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Amsterdam. Report the condition and temperature.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The current weather in Amsterdam is rainy with a temperature of 11°C.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            13322.2,
+            13262.2
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T07",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Look up the simulated store inventory for red mug using the stock tool. Tell me if it is available.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "red mug"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The red mug is not available in the store as the inventory quantity is 0.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "red mug"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 0
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            13218.7,
+            13334.4
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T08",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Use the delivery tool to check simulated order ORD-220. Report its status and expected arrival weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-220"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The order ORD-220 is currently in transit and is expected to arrive on a Friday.",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-220"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "in transit",
+                "expected_weekday": "Friday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            13688.8,
+            13967.5
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T09",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Without using any tools, reply with exactly these words: No lookup required",
+          "expected": [],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "No lookup required",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            10066.4
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T10",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Do not use tools. Write the word 'orange' backwards, lowercase, with no punctuation.",
+          "expected": [],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": false,
+          "status": "FINISHED",
+          "final_answer": "uqeroc",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            10336.0
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T11",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "The simulated shop sells a blue notebook for 4.5 currency units. Use the tools to check inventory and calculate the total for 3 notebooks. Tell me how many are in stock and the price for 3.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            },
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 4.5,
+                "quantity": 3
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The blue notebook is in stock and there are 7 of them. The total price for 3 blue notebooks is 13.5 currency units.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 4.5,
+                "quantity": 3
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            },
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 13.5,
+                "quantity": 3,
+                "unit_price": 4.5
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            18017.2,
+            16906.6
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T12",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "Use the weather tool for both Oslo and Amsterdam in this simulated dataset. Compare their temperatures and say which city is colder.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            },
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The temperature in Oslo is 4°C and it's cloudy, while Amsterdam's temperature is 11°C and it's rainy. Therefore, Oslo is colder than Amsterdam.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            },
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            21085.6,
+            21397.6
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        }
+      ]
+    },
+    {
+      "id": "MiniCPM5-1B-Q4",
+      "model_sha256": "81b64d05a23b17b34c475f42b3e72fbde62d4b92cc34541f7a8031d0752deafa",
+      "raw_evidence_sha256": "40d08805762ad687c5ab06d9cf2e9d14865f3a30b72771665cf051d603d378e5",
+      "server_version": "llama.cpp 0.9.0-dev aa75ff3",
+      "sampling_and_context": {
+        "cpu_threads": 4,
+        "ctx_size": 4096,
+        "parallel": 1,
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "min_p": 0.0,
+        "repeat_penalty": 1.05,
+        "max_tokens": 192,
+        "reasoning": "off"
+      },
+      "preload_ms_excluded": 922.1,
+      "warmup_ms_excluded": 262.2,
+      "verified_postload_warmup": true,
+      "peak_sampled_process_rss_bytes": 1252642816,
+      "summary": {
+        "instruction_exact_pass": 8,
+        "instruction_cases": 12,
+        "tool_end_to_end_pass": 9,
+        "tool_cases": 12,
+        "positive_tool_end_to_end_pass": 8,
+        "positive_tool_cases": 10,
+        "no_tool_decision_and_exact_final_pass": 1,
+        "no_tool_cases": 2,
+        "exact_valid_tool_selection": 10,
+        "original_tool_strict_pass": 8,
+        "all_http_ok": 24,
+        "all_cases": 24,
+        "api_structured_calls": 15,
+        "format_errors_instruction": 4
+      },
+      "cases": [
+        {
+          "case_id": "I01",
+          "kind": "instruction",
+          "category": "exact_format",
+          "question": "Reply with exactly these two words, without punctuation: Good morning",
+          "expected": "Good morning",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Good morning",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            595.7
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I02",
+          "kind": "instruction",
+          "category": "arithmetic",
+          "question": "There are 6 boxes holding 4 pens each. Three pens are removed. Give only the remaining number.",
+          "expected": "21",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "3",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            614.5
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I03",
+          "kind": "instruction",
+          "category": "time",
+          "question": "A train leaves at 09:45 and arrives 35 minutes later. Reply with the arrival time only in HH:MM 24-hour format.",
+          "expected": "10:20",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "19:35",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            788.8
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I04",
+          "kind": "instruction",
+          "category": "reading",
+          "question": "Nora visited the library on Monday and the museum on Friday. On which day did she visit the museum? Give only the weekday.",
+          "expected": "Friday",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Tuesday",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            636.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I05",
+          "kind": "instruction",
+          "category": "logic",
+          "question": "Ada is older than Ben. Ben is older than Cal. Who is youngest? Give just the name.",
+          "expected": "Cal",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Cal",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            624.0
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I06",
+          "kind": "instruction",
+          "category": "classification",
+          "question": "From piano, violin, carrot and flute, choose the vegetable. Return one lowercase word.",
+          "expected": "carrot",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "carrot",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            643.4
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I07",
+          "kind": "instruction",
+          "category": "json_structure",
+          "question": "Return valid JSON only, with exactly two keys in this order: \"color\" set to \"blue\", and \"count\" set to the integer 3. No markdown.",
+          "expected": {
+            "color": "blue",
+            "count": 3
+          },
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "```json\n{\"color\": \"blue\", \"count\": 3}\n```",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1601.5
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I08",
+          "kind": "instruction",
+          "category": "case_transform",
+          "question": "Convert 'quiet river' to uppercase. Output only the transformed text.",
+          "expected": "QUIET RIVER",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "QUIET RIVER",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            686.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I09",
+          "kind": "instruction",
+          "category": "grammar",
+          "question": "Correct the grammar and return only the corrected sentence: 'Yesterday she go to the park.'",
+          "expected": "Yesterday she went to the park.",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Yesterday she went to the park.",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            995.5
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I10",
+          "kind": "instruction",
+          "category": "sorting",
+          "question": "Sort these words alphabetically. Return a comma-separated list and nothing else: pear, apple, banana",
+          "expected": "apple, banana, pear",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "apple, banana, pear",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            851.5
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I11",
+          "kind": "instruction",
+          "category": "constraints",
+          "question": "Write exactly three lowercase words, separated by single spaces, naming the three primary colors of light in this order: red then green then blue.",
+          "expected": "red green blue",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "red green blue",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            761.2
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I12",
+          "kind": "instruction",
+          "category": "multiple_constraints",
+          "question": "Reply on one line only. Write the exact string 'OK-17' with no extra spaces, quotes or explanation.",
+          "expected": "OK-17",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "OK-17",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            800.2
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T01",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Oslo. Report the condition and temperature in one sentence.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "I have the information from the get_city_weather function call and can report the current weather conditions in Oslo.\n\nThe current weather in Oslo is: cloudy with a temperature of 4°C.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            6058.4,
+            6865.7
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T02",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the inventory tool to check whether the simulated store has blue notebook units in stock. Report the quantity.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The simulated store has 7 blue notebook units in stock.\n\nThe question asked for the quantity of blue notebook, so I will use get_store_stock tool and report the result.\n\nThe simulated store has 7 blue notebook units in stock.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            4442.4,
+            7553.4
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T03",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Check the simulated delivery status of order ORD-104 using the order tool. Give the status and delivery weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-104"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The order with ID ORD-104 has been delivered on Wednesday. The total cost of the order is $100, which includes 2 unit prices of $50 each totaling $100.\n\nThe simulated delivery status of order ORD-104 is: delivered, and the delivery weekday is: Wednesday.\n\nTotal cost of order: $100\n\nNote: The order was delivered successfully. The user asked for a summary of the order status and cost. I'm providing that information now. If there's anything more to add or any other question, I'll respond accordingly.\n\nI've completed the request by providing the order status and cost. The order was delivered on Wednesday, and the total cost is $100. If there were additional requirements, I would address them.\n\nI'm ready to assist with any future requests from the user.\nI don't need to consider any additional parameters or simulated inputs since I've already completed the task outlined in the current message.\n",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-104"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "delivered",
+                "delivery_weekday": "Wednesday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            4504.7,
+            16868.1
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T04",
+          "kind": "tool",
+          "category": "arithmetic_tool",
+          "question": "Use the total calculator tool to calculate the price for seven items costing 6 currency units each. Return the total.",
+          "expected": [
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 6,
+                "quantity": 7
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The total calculated using the provided unit price and quantity is 42.00 currency units.\n\nThe total for the seven items costing 6 currency units each is 42.00 currency units.",
+          "structured_calls": [
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 6.0,
+                "quantity": 7
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 42.0,
+                "quantity": 7,
+                "unit_price": 6.0
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            4733.2,
+            6309.8
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T05",
+          "kind": "tool",
+          "category": "unit_conversion",
+          "question": "Use the conversion tool to convert 3 kilograms to grams. State the numerical result and unit.",
+          "expected": [
+            {
+              "name": "convert_units",
+              "args": {
+                "value": 3,
+                "from_unit": "kg",
+                "to_unit": "g"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The numerical result of converting 3 kilograms to grams is 3000.0 grams.\n\nThe unit for converting 3 kilograms to grams is \"g\".",
+          "structured_calls": [
+            {
+              "function": "convert_units",
+              "arguments": {
+                "value": 3.0,
+                "from_unit": "kg",
+                "to_unit": "g"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "convert_units",
+              "result": {
+                "value": 3000.0,
+                "unit": "g"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5156.9,
+            5840.0
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T06",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Amsterdam. Report the condition and temperature.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "I have the information from the get_city_weather function call for Amsterdam's simulated current weather.\n\nThe current conditions in Amsterdam are: rain, and the temperature is 11 degrees Celsius.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5711.7,
+            5919.8
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T07",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Look up the simulated store inventory for red mug using the stock tool. Tell me if it is available.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "red mug"
+              }
+            }
+          ],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": false,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "I will call the get_store_stock function with the item \"mug\" to check its inventory.\n\nThe simulated store inventory for a red mug is not available.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "red mug"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "red mug"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 0
+              }
+            },
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 0
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5381.0,
+            6116.5,
+            6507.2
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T08",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Use the delivery tool to check simulated order ORD-220. Report its status and expected arrival weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-220"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The simulated order ORD-220 is currently in transit and is expected to arrive on Friday.\n\n- Order ID: ORD-220\n- Status: In Transit\n- Expected Arrival Weekday: Friday",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-220"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "in transit",
+                "expected_weekday": "Friday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            4547.2,
+            5970.3
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T09",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Without using any tools, reply with exactly these words: No lookup required",
+          "expected": [],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "No lookup required",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            3388.1
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T10",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Do not use tools. Write the word 'orange' backwards, lowercase, with no punctuation.",
+          "expected": [],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": false,
+          "status": "FINISHED",
+          "final_answer": "orange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\norange\n",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            17105.0
+          ],
+          "finish_reasons": [
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T11",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "The simulated shop sells a blue notebook for 4.5 currency units. Use the tools to check inventory and calculate the total for 3 notebooks. Tell me how many are in stock and the price for 3.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            },
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 4.5,
+                "quantity": 3
+              }
+            }
+          ],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": false,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The user requested two pieces of information: the inventory quantity for the blue notebook and the total price for 3 notebooks. I have obtained this information from the tool responses by calling the `get_store_stock` function with the item \"blue notebook\" and the `calculate_total` function using the unit price and quantity provided.\n\nThe simulated shop has 7 blue notebooks in stock and the price for 3 notebooks is $13.5.\nI should provide a concise answer that includes both pieces of information obtained from the tool responses.\nAnswer: The simulated shop has 7 blue notebooks in stock, and the price for 3 notebooks is $13.5.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 4.5,
+                "quantity": 3
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 4.5,
+                "quantity": 3
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            },
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 13.5,
+                "quantity": 3,
+                "unit_price": 4.5
+              }
+            },
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            },
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 13.5,
+                "quantity": 3,
+                "unit_price": 4.5
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            9001.8,
+            9633.7,
+            13443.5
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T12",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "Use the weather tool for both Oslo and Amsterdam in this simulated dataset. Compare their temperatures and say which city is colder.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            },
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "I will use the get_city_weather tool to retrieve the current weather for Oslo and Amsterdam, then compare the temperature data to determine which city is colder.\n\nThe simulated weather data shows that Oslo has a temperature of 4°C (cloudy), while Amsterdam has a temperature of 11°C (rainy). Based on this information, Amsterdam is the colder city.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            },
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            6771.2,
+            8140.9
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        }
+      ]
+    },
+    {
+      "id": "Qwen3.5-0.8B-Q4",
+      "model_sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
+      "raw_evidence_sha256": "0da2fc0e64df7fc19ca4753f818ab56da43999067b6acf947036321ecd7f9ca4",
+      "server_version": "llama.cpp 0.9.0-dev aa75ff3",
+      "sampling_and_context": {
+        "cpu_threads": 4,
+        "ctx_size": 4096,
+        "parallel": 1,
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "min_p": 0.0,
+        "repeat_penalty": 1.05,
+        "max_tokens": 192,
+        "reasoning": "off"
+      },
+      "preload_ms_excluded": 1372.5,
+      "warmup_ms_excluded": 514.1,
+      "verified_postload_warmup": true,
+      "peak_sampled_process_rss_bytes": 1108205568,
+      "summary": {
+        "instruction_exact_pass": 9,
+        "instruction_cases": 12,
+        "tool_end_to_end_pass": 9,
+        "tool_cases": 12,
+        "positive_tool_end_to_end_pass": 9,
+        "positive_tool_cases": 10,
+        "no_tool_decision_and_exact_final_pass": 0,
+        "no_tool_cases": 2,
+        "exact_valid_tool_selection": 12,
+        "original_tool_strict_pass": 9,
+        "all_http_ok": 24,
+        "all_cases": 24,
+        "api_structured_calls": 12,
+        "format_errors_instruction": 3
+      },
+      "cases": [
+        {
+          "case_id": "I01",
+          "kind": "instruction",
+          "category": "exact_format",
+          "question": "Reply with exactly these two words, without punctuation: Good morning",
+          "expected": "Good morning",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Good morning",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            836.4
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I02",
+          "kind": "instruction",
+          "category": "arithmetic",
+          "question": "There are 6 boxes holding 4 pens each. Three pens are removed. Give only the remaining number.",
+          "expected": "21",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "4",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            856.2
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I03",
+          "kind": "instruction",
+          "category": "time",
+          "question": "A train leaves at 09:45 and arrives 35 minutes later. Reply with the arrival time only in HH:MM 24-hour format.",
+          "expected": "10:20",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "13:45",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1210.1
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I04",
+          "kind": "instruction",
+          "category": "reading",
+          "question": "Nora visited the library on Monday and the museum on Friday. On which day did she visit the museum? Give only the weekday.",
+          "expected": "Friday",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Friday",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            822.0
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I05",
+          "kind": "instruction",
+          "category": "logic",
+          "question": "Ada is older than Ben. Ben is older than Cal. Who is youngest? Give just the name.",
+          "expected": "Cal",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Ben",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            820.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I06",
+          "kind": "instruction",
+          "category": "classification",
+          "question": "From piano, violin, carrot and flute, choose the vegetable. Return one lowercase word.",
+          "expected": "carrot",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "carrot",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            861.7
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I07",
+          "kind": "instruction",
+          "category": "json_structure",
+          "question": "Return valid JSON only, with exactly two keys in this order: \"color\" set to \"blue\", and \"count\" set to the integer 3. No markdown.",
+          "expected": {
+            "color": "blue",
+            "count": 3
+          },
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "{\"color\": \"blue\", \"count\": 3}",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1698.3
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I08",
+          "kind": "instruction",
+          "category": "case_transform",
+          "question": "Convert 'quiet river' to uppercase. Output only the transformed text.",
+          "expected": "QUIET RIVER",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "QUIET RIVER",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            990.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I09",
+          "kind": "instruction",
+          "category": "grammar",
+          "question": "Correct the grammar and return only the corrected sentence: 'Yesterday she go to the park.'",
+          "expected": "Yesterday she went to the park.",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Yesterday she went to the park.",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1356.7
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I10",
+          "kind": "instruction",
+          "category": "sorting",
+          "question": "Sort these words alphabetically. Return a comma-separated list and nothing else: pear, apple, banana",
+          "expected": "apple, banana, pear",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "apple, banana, pear",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1146.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I11",
+          "kind": "instruction",
+          "category": "constraints",
+          "question": "Write exactly three lowercase words, separated by single spaces, naming the three primary colors of light in this order: red then green then blue.",
+          "expected": "red green blue",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "red green blue",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            986.5
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I12",
+          "kind": "instruction",
+          "category": "multiple_constraints",
+          "question": "Reply on one line only. Write the exact string 'OK-17' with no extra spaces, quotes or explanation.",
+          "expected": "OK-17",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "OK-17",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1042.3
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T01",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Oslo. Report the condition and temperature in one sentence.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            }
+          ],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "Cloudy at 4°C.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            6208.4,
+            5234.9
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T02",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the inventory tool to check whether the simulated store has blue notebook units in stock. Report the quantity.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The simulated store has **7** blue notebook units in stock.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            6411.2,
+            5645.2
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T03",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Check the simulated delivery status of order ORD-104 using the order tool. Give the status and delivery weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-104"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "Order ORD-104 has a status of **delivered** on the delivery weekday of **Wednesday**.",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-104"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "delivered",
+                "delivery_weekday": "Wednesday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            6409.1,
+            5755.3
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T04",
+          "kind": "tool",
+          "category": "arithmetic_tool",
+          "question": "Use the total calculator tool to calculate the price for seven items costing 6 currency units each. Return the total.",
+          "expected": [
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 6,
+                "quantity": 7
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The total price for seven items costing 6 currency units each is **42**.",
+          "structured_calls": [
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 6,
+                "quantity": 7
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 42,
+                "quantity": 7,
+                "unit_price": 6
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            6714.2,
+            5251.8
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T05",
+          "kind": "tool",
+          "category": "unit_conversion",
+          "question": "Use the conversion tool to convert 3 kilograms to grams. State the numerical result and unit.",
+          "expected": [
+            {
+              "name": "convert_units",
+              "args": {
+                "value": 3,
+                "from_unit": "kg",
+                "to_unit": "g"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The conversion of 3 kilograms to grams is **3000** grams.",
+          "structured_calls": [
+            {
+              "function": "convert_units",
+              "arguments": {
+                "value": 3,
+                "from_unit": "kg",
+                "to_unit": "g"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "convert_units",
+              "result": {
+                "value": 3000,
+                "unit": "g"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            7000.3,
+            5210.8
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T06",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Amsterdam. Report the condition and temperature.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The simulated current weather in Amsterdam is **rainy** at **11°C**.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5785.2,
+            5119.5
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T07",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Look up the simulated store inventory for red mug using the stock tool. Tell me if it is available.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "red mug"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The simulated store inventory for red mug shows a quantity of 0, indicating it is not currently available.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "red mug"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 0
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5383.8,
+            5428.3
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T08",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Use the delivery tool to check simulated order ORD-220. Report its status and expected arrival weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-220"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "Order ORD-220 is currently **in transit**. It is scheduled to arrive on **Friday**.",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-220"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "in transit",
+                "expected_weekday": "Friday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5681.2,
+            5568.0
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T09",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Without using any tools, reply with exactly these words: No lookup required",
+          "expected": [],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": false,
+          "status": "FINISHED",
+          "final_answer": "I cannot use tools to fulfill this request. I can help with things that require tools like looking up delivery statuses, checking store stock, and getting city weather data. To provide accurate information, please use the available tools.",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            6902.0
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T10",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Do not use tools. Write the word 'orange' backwards, lowercase, with no punctuation.",
+          "expected": [],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": false,
+          "status": "FINISHED",
+          "final_answer": "gnoarlo",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            3938.1
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T11",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "The simulated shop sells a blue notebook for 4.5 currency units. Use the tools to check inventory and calculate the total for 3 notebooks. Tell me how many are in stock and the price for 3.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            },
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 4.5,
+                "quantity": 3
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": false,
+          "status": "FINISHED",
+          "final_answer": "Here are the results for the blue notebook:\n*   **In stock:** 7 notebooks\n*   **Total price for 3 notebooks:** $13.50",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 4.5,
+                "quantity": 3
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            },
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 13.5,
+                "quantity": 3,
+                "unit_price": 4.5
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5919.7,
+            7107.4,
+            9410.8
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T12",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "Use the weather tool for both Oslo and Amsterdam in this simulated dataset. Compare their temperatures and say which city is colder.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            },
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "**Oslo:** 4°C (Cloudy)  \n**Amsterdam:** 11°C (Rainy)\n\nComparing their temperatures: Oslo is colder (4°C) than Amsterdam (11°C).",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            },
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            7846.5,
+            7921.3
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        }
+      ]
+    },
+    {
+      "id": "LFM3-1.7B-Q4",
+      "model_sha256": "3793e1e6e2266919d6e015287221b41100175a98eddaba92e111aed3b05c93c4",
+      "raw_evidence_sha256": "901276294c45c5f2d5b4f5438c350f7cb3ddea6308b7b9dc7197f1b9ab0ea96f",
+      "server_version": "llama.cpp 0.9.0-dev aa75ff3",
+      "sampling_and_context": {
+        "cpu_threads": 4,
+        "ctx_size": 4096,
+        "parallel": 1,
+        "temperature": 0.1,
+        "top_p": 0.95,
+        "min_p": 0.05,
+        "repeat_penalty": 1.1,
+        "max_tokens": 192,
+        "reasoning": "off"
+      },
+      "preload_ms_excluded": 1372.9,
+      "warmup_ms_excluded": 494.5,
+      "verified_postload_warmup": true,
+      "peak_sampled_process_rss_bytes": 2044911616,
+      "summary": {
+        "instruction_exact_pass": 9,
+        "instruction_cases": 12,
+        "tool_end_to_end_pass": 11,
+        "tool_cases": 12,
+        "positive_tool_end_to_end_pass": 10,
+        "positive_tool_cases": 10,
+        "no_tool_decision_and_exact_final_pass": 1,
+        "no_tool_cases": 2,
+        "exact_valid_tool_selection": 12,
+        "original_tool_strict_pass": 11,
+        "all_http_ok": 24,
+        "all_cases": 24,
+        "api_structured_calls": 12,
+        "format_errors_instruction": 3
+      },
+      "cases": [
+        {
+          "case_id": "I01",
+          "kind": "instruction",
+          "category": "exact_format",
+          "question": "Reply with exactly these two words, without punctuation: Good morning",
+          "expected": "Good morning",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Good morning",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1108.1
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I02",
+          "kind": "instruction",
+          "category": "arithmetic",
+          "question": "There are 6 boxes holding 4 pens each. Three pens are removed. Give only the remaining number.",
+          "expected": "21",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "The total number of pens is $6 \\times 4 = 24$. After removing 3 pens, the remaining number is $24 - 3 = 21$.\n\n21",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            3689.7
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I03",
+          "kind": "instruction",
+          "category": "time",
+          "question": "A train leaves at 09:45 and arrives 35 minutes later. Reply with the arrival time only in HH:MM 24-hour format.",
+          "expected": "10:20",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "09:50\n\nLet's verify: Start time 09:45, add 35 minutes.\n- 09:45 + 6 min = 10:00\n- Remaining 29 min after that? Wait, let's do it properly.\n\nFrom 09:45, adding 35 minutes:\n- 09:45 to 10:00 is 15 minutes.\n- 35 - 15 = 20 more minutes.\n- So 10:00 + 20 min = 10:20? That doesn't match my earlier thought. Let me recalc.\n\nActually: 09:45 + 35 minutes:\n- 9 hours, 45 minutes plus 0:35.\n- 45 + 35 = 80 minutes total past 9:00.\n- 80 - 60 = 20 minutes into the next hour? Wait no: 9:45 + 35 min.\n\nBetter: ",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            15239.2
+          ],
+          "finish_reasons": [
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I04",
+          "kind": "instruction",
+          "category": "reading",
+          "question": "Nora visited the library on Monday and the museum on Friday. On which day did she visit the museum? Give only the weekday.",
+          "expected": "Friday",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Friday",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1204.0
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I05",
+          "kind": "instruction",
+          "category": "logic",
+          "question": "Ada is older than Ben. Ben is older than Cal. Who is youngest? Give just the name.",
+          "expected": "Cal",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Cal is the youngest.\n\nBen > Cal, and Ada > Ben, so the order from oldest to youngest is Ada > Ben > Cal. Thus, Cal is the youngest.</think>Cal",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            3838.0
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I06",
+          "kind": "instruction",
+          "category": "classification",
+          "question": "From piano, violin, carrot and flute, choose the vegetable. Return one lowercase word.",
+          "expected": "carrot",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "carrot",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1201.3
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I07",
+          "kind": "instruction",
+          "category": "json_structure",
+          "question": "Return valid JSON only, with exactly two keys in this order: \"color\" set to \"blue\", and \"count\" set to the integer 3. No markdown.",
+          "expected": {
+            "color": "blue",
+            "count": 3
+          },
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "{\n  \"color\": \"blue\",\n  \"count\": 3\n}",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            2363.8
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I08",
+          "kind": "instruction",
+          "category": "case_transform",
+          "question": "Convert 'quiet river' to uppercase. Output only the transformed text.",
+          "expected": "QUIET RIVER",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "QUIET RIVER",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1358.5
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I09",
+          "kind": "instruction",
+          "category": "grammar",
+          "question": "Correct the grammar and return only the corrected sentence: 'Yesterday she go to the park.'",
+          "expected": "Yesterday she went to the park.",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "Yesterday she went to the park.",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1652.5
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I10",
+          "kind": "instruction",
+          "category": "sorting",
+          "question": "Sort these words alphabetically. Return a comma-separated list and nothing else: pear, apple, banana",
+          "expected": "apple, banana, pear",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "apple, banana, pear",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1461.1
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I11",
+          "kind": "instruction",
+          "category": "constraints",
+          "question": "Write exactly three lowercase words, separated by single spaces, naming the three primary colors of light in this order: red then green then blue.",
+          "expected": "red green blue",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "red green blue",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1353.0
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I12",
+          "kind": "instruction",
+          "category": "multiple_constraints",
+          "question": "Reply on one line only. Write the exact string 'OK-17' with no extra spaces, quotes or explanation.",
+          "expected": "OK-17",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "OK-17",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            1344.6
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T01",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Oslo. Report the condition and temperature in one sentence.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The current weather in Oslo is cloudy with a temperature of 4 °C.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5639.6,
+            5753.2
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T02",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the inventory tool to check whether the simulated store has blue notebook units in stock. Report the quantity.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The simulated store currently has **7** units of \"blue notebook\" in stock.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5459.4,
+            5712.5
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T03",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Check the simulated delivery status of order ORD-104 using the order tool. Give the status and delivery weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-104"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The order **ORD-104** has a status of **delivered**, and it was delivered on **Wednesday**.",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-104"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "delivered",
+                "delivery_weekday": "Wednesday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5667.4,
+            6430.7
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T04",
+          "kind": "tool",
+          "category": "arithmetic_tool",
+          "question": "Use the total calculator tool to calculate the price for seven items costing 6 currency units each. Return the total.",
+          "expected": [
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 6,
+                "quantity": 7
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The total price for seven items at 6 currency units each is **42**.",
+          "structured_calls": [
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 6,
+                "quantity": 7
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 42,
+                "quantity": 7,
+                "unit_price": 6
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5817.0,
+            5773.8
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T05",
+          "kind": "tool",
+          "category": "unit_conversion",
+          "question": "Use the conversion tool to convert 3 kilograms to grams. State the numerical result and unit.",
+          "expected": [
+            {
+              "name": "convert_units",
+              "args": {
+                "value": 3,
+                "from_unit": "kg",
+                "to_unit": "g"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The conversion result is **3000 grams**.",
+          "structured_calls": [
+            {
+              "function": "convert_units",
+              "arguments": {
+                "value": 3,
+                "from_unit": "kg",
+                "to_unit": "g"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "convert_units",
+              "result": {
+                "value": 3000,
+                "unit": "g"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            6576.6,
+            5361.2
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T06",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Amsterdam. Report the condition and temperature.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The current weather in Amsterdam is **rainy** with a temperature of **11°C**.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5504.0,
+            5913.3
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T07",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Look up the simulated store inventory for red mug using the stock tool. Tell me if it is available.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "red mug"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The simulated inventory for **red mug** shows a quantity of **0**, so it is **not available**.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "red mug"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 0
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5550.0,
+            6289.4
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T08",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Use the delivery tool to check simulated order ORD-220. Report its status and expected arrival weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-220"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "The order **ORD-220** is currently **in transit**, and its expected arrival weekday is **Friday**.",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-220"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "in transit",
+                "expected_weekday": "Friday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            5801.6,
+            6365.3
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T09",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Without using any tools, reply with exactly these words: No lookup required",
+          "expected": [],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "No lookup required",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            4263.2
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T10",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Do not use tools. Write the word 'orange' backwards, lowercase, with no punctuation.",
+          "expected": [],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": false,
+          "status": "FINISHED",
+          "final_answer": "orange",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            4279.6
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T11",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "The simulated shop sells a blue notebook for 4.5 currency units. Use the tools to check inventory and calculate the total for 3 notebooks. Tell me how many are in stock and the price for 3.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            },
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 4.5,
+                "quantity": 3
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "- Inventory for the **blue notebook**: **7** units in stock.  \n- Total price for **3 notebooks** at **4.5** each: **13.5** currency units.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 4.5,
+                "quantity": 3
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            },
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 13.5,
+                "quantity": 3,
+                "unit_price": 4.5
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            6702.9,
+            8520.0,
+            11460.2
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T12",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "Use the weather tool for both Oslo and Amsterdam in this simulated dataset. Compare their temperatures and say which city is colder.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            },
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "Oslo: 4 °C (cloudy)  \nAmsterdam: 11 °C (rainy)\n\nSince 4 °C is lower than 11 °C, **Oslo is colder** than Amsterdam.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            },
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            10092.8,
+            11221.1
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        }
+      ]
+    },
+    {
+      "id": "LFM2.5-1.2B-Thinking-Q4",
+      "model_sha256": "4a1e1824f71091f368137b6966094461019f6af3a5aadd96033bee59fc9eaeea",
+      "raw_evidence_sha256": "b42f8eda1739f5e12441da6f346ca732dbf9dc0b3e615f47748da162c7750251",
+      "server_version": "llama.cpp 0.9.0-dev aa75ff3",
+      "sampling_and_context": {
+        "cpu_threads": 4,
+        "ctx_size": 4096,
+        "parallel": 1,
+        "temperature": 0.05,
+        "top_p": 0.95,
+        "min_p": 0.05,
+        "repeat_penalty": 1.05,
+        "max_tokens": 512,
+        "reasoning": "auto"
+      },
+      "preload_ms_excluded": 920.4,
+      "warmup_ms_excluded": 37853.7,
+      "verified_postload_warmup": true,
+      "peak_sampled_process_rss_bytes": 1518206976,
+      "summary": {
+        "instruction_exact_pass": 6,
+        "instruction_cases": 12,
+        "tool_end_to_end_pass": 9,
+        "tool_cases": 12,
+        "positive_tool_end_to_end_pass": 9,
+        "positive_tool_cases": 10,
+        "no_tool_decision_and_exact_final_pass": 0,
+        "no_tool_cases": 2,
+        "exact_valid_tool_selection": 11,
+        "original_tool_strict_pass": 9,
+        "all_http_ok": 24,
+        "all_cases": 24,
+        "api_structured_calls": 11,
+        "format_errors_instruction": 6
+      },
+      "cases": [
+        {
+          "case_id": "I01",
+          "kind": "instruction",
+          "category": "exact_format",
+          "question": "Reply with exactly these two words, without punctuation: Good morning",
+          "expected": "Good morning",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            36190.4
+          ],
+          "finish_reasons": [
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I02",
+          "kind": "instruction",
+          "category": "arithmetic",
+          "question": "There are 6 boxes holding 4 pens each. Three pens are removed. Give only the remaining number.",
+          "expected": "21",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "\n\n21",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            22360.2
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I03",
+          "kind": "instruction",
+          "category": "time",
+          "question": "A train leaves at 09:45 and arrives 35 minutes later. Reply with the arrival time only in HH:MM 24-hour format.",
+          "expected": "10:20",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            34520.0
+          ],
+          "finish_reasons": [
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I04",
+          "kind": "instruction",
+          "category": "reading",
+          "question": "Nora visited the library on Monday and the museum on Friday. On which day did she visit the museum? Give only the weekday.",
+          "expected": "Friday",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "\n\nFriday",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            22930.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I05",
+          "kind": "instruction",
+          "category": "logic",
+          "question": "Ada is older than Ben. Ben is older than Cal. Who is youngest? Give just the name.",
+          "expected": "Cal",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "\n\nCal",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            28425.5
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I06",
+          "kind": "instruction",
+          "category": "classification",
+          "question": "From piano, violin, carrot and flute, choose the vegetable. Return one lowercase word.",
+          "expected": "carrot",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            26655.4
+          ],
+          "finish_reasons": [
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I07",
+          "kind": "instruction",
+          "category": "json_structure",
+          "question": "Return valid JSON only, with exactly two keys in this order: \"color\" set to \"blue\", and \"count\" set to the integer 3. No markdown.",
+          "expected": {
+            "color": "blue",
+            "count": 3
+          },
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "\n\n{\"color\": \"blue\", \"count\": 3}",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            14568.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I08",
+          "kind": "instruction",
+          "category": "case_transform",
+          "question": "Convert 'quiet river' to uppercase. Output only the transformed text.",
+          "expected": "QUIET RIVER",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            26278.8
+          ],
+          "finish_reasons": [
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I09",
+          "kind": "instruction",
+          "category": "grammar",
+          "question": "Correct the grammar and return only the corrected sentence: 'Yesterday she go to the park.'",
+          "expected": "Yesterday she went to the park.",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "\n\nYesterday she went to the park.",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            15408.1
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I10",
+          "kind": "instruction",
+          "category": "sorting",
+          "question": "Sort these words alphabetically. Return a comma-separated list and nothing else: pear, apple, banana",
+          "expected": "apple, banana, pear",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            21370.4
+          ],
+          "finish_reasons": [
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I11",
+          "kind": "instruction",
+          "category": "constraints",
+          "question": "Write exactly three lowercase words, separated by single spaces, naming the three primary colors of light in this order: red then green then blue.",
+          "expected": "red green blue",
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            27064.7
+          ],
+          "finish_reasons": [
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "I12",
+          "kind": "instruction",
+          "category": "multiple_constraints",
+          "question": "Reply on one line only. Write the exact string 'OK-17' with no extra spaces, quotes or explanation.",
+          "expected": "OK-17",
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": null,
+          "final_answer_fixture_correct_v1_1": null,
+          "status": "FINISHED",
+          "final_answer": "\n\nOK-17",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            11640.9
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T01",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Oslo. Report the condition and temperature in one sentence.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "\n\nThe current weather in Oslo is cloudy with a temperature of 4°C.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            19073.9,
+            21483.4
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T02",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the inventory tool to check whether the simulated store has blue notebook units in stock. Report the quantity.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "\n\nThe store has 7 blue notebook units in stock.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            20808.3,
+            9567.9
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T03",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Check the simulated delivery status of order ORD-104 using the order tool. Give the status and delivery weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-104"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "\n\nThe order ORD-104 has a status of **delivered** with delivery on **Wednesday**.",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-104"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "delivered",
+                "delivery_weekday": "Wednesday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            21827.7,
+            16201.7
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T04",
+          "kind": "tool",
+          "category": "arithmetic_tool",
+          "question": "Use the total calculator tool to calculate the price for seven items costing 6 currency units each. Return the total.",
+          "expected": [
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 6,
+                "quantity": 7
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "\n\nThe total price for seven items at 6 currency units each is $42.",
+          "structured_calls": [
+            {
+              "function": "calculate_total",
+              "arguments": {
+                "unit_price": 6,
+                "quantity": 7
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "calculate_total",
+              "result": {
+                "total": 42,
+                "quantity": 7,
+                "unit_price": 6
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            26425.8,
+            12096.9
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T05",
+          "kind": "tool",
+          "category": "unit_conversion",
+          "question": "Use the conversion tool to convert 3 kilograms to grams. State the numerical result and unit.",
+          "expected": [
+            {
+              "name": "convert_units",
+              "args": {
+                "value": 3,
+                "from_unit": "kg",
+                "to_unit": "g"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "\n\nThe conversion of 3 kilograms to grams results in **3000 grams**.",
+          "structured_calls": [
+            {
+              "function": "convert_units",
+              "arguments": {
+                "from_unit": "kg",
+                "value": 3,
+                "to_unit": "g"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "convert_units",
+              "result": {
+                "value": 3000,
+                "unit": "g"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            12637.3,
+            11615.3
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T06",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Use the available weather tool to check the simulated current weather in Amsterdam. Report the condition and temperature.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "\n\nThe simulated current weather in Amsterdam is **rainy** with a temperature of **11°C**.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            21097.1,
+            10621.5
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T07",
+          "kind": "tool",
+          "category": "tool_selection",
+          "question": "Look up the simulated store inventory for red mug using the stock tool. Tell me if it is available.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "red mug"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "\n\nThe simulated inventory for \"red mug\" shows 0 units available. It is currently unavailable.",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "red mug"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 0
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            12222.8,
+            11069.3
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T08",
+          "kind": "tool",
+          "category": "parameter_extraction",
+          "question": "Use the delivery tool to check simulated order ORD-220. Report its status and expected arrival weekday.",
+          "expected": [
+            {
+              "name": "lookup_delivery",
+              "args": {
+                "order_id": "ORD-220"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "\n\nThe order ORD-220 is currently **in transit** with an expected arrival on **Friday**.",
+          "structured_calls": [
+            {
+              "function": "lookup_delivery",
+              "arguments": {
+                "order_id": "ORD-220"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "lookup_delivery",
+              "result": {
+                "status": "in transit",
+                "expected_weekday": "Friday"
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            21666.8,
+            16804.2
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T09",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Without using any tools, reply with exactly these words: No lookup required",
+          "expected": [],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": false,
+          "status": "FINISHED",
+          "final_answer": "",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            28706.6
+          ],
+          "finish_reasons": [
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T10",
+          "kind": "tool",
+          "category": "correct_no_tool",
+          "question": "Do not use tools. Write the word 'orange' backwards, lowercase, with no punctuation.",
+          "expected": [],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": false,
+          "status": "FINISHED",
+          "final_answer": "\n\negnora",
+          "structured_calls": [],
+          "simulated_tool_executions": [],
+          "api_response_statuses": [
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            15340.6
+          ],
+          "finish_reasons": [
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T11",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "The simulated shop sells a blue notebook for 4.5 currency units. Use the tools to check inventory and calculate the total for 3 notebooks. Tell me how many are in stock and the price for 3.",
+          "expected": [
+            {
+              "name": "get_store_stock",
+              "args": {
+                "item": "blue notebook"
+              }
+            },
+            {
+              "name": "calculate_total",
+              "args": {
+                "unit_price": 4.5,
+                "quantity": 3
+              }
+            }
+          ],
+          "initial_strict_pass": false,
+          "criterion_aligned_pass_v1_1": false,
+          "schema_and_arguments_correct": false,
+          "final_answer_fixture_correct_v1_1": false,
+          "status": "FINISHED",
+          "final_answer": "\n",
+          "structured_calls": [
+            {
+              "function": "get_store_stock",
+              "arguments": {
+                "item": "blue notebook"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_store_stock",
+              "result": {
+                "quantity": 7
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            28453.4,
+            29050.9
+          ],
+          "finish_reasons": [
+            "length",
+            "length"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        },
+        {
+          "case_id": "T12",
+          "kind": "tool",
+          "category": "multi_tool",
+          "question": "Use the weather tool for both Oslo and Amsterdam in this simulated dataset. Compare their temperatures and say which city is colder.",
+          "expected": [
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Oslo"
+              }
+            },
+            {
+              "name": "get_city_weather",
+              "args": {
+                "city": "Amsterdam"
+              }
+            }
+          ],
+          "initial_strict_pass": true,
+          "criterion_aligned_pass_v1_1": true,
+          "schema_and_arguments_correct": true,
+          "final_answer_fixture_correct_v1_1": true,
+          "status": "FINISHED",
+          "final_answer": "\n\nOslo has a temperature of 4°C, while Amsterdam is 11°C. Oslo is colder.",
+          "structured_calls": [
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Oslo"
+              },
+              "arguments_schema_valid": true
+            },
+            {
+              "function": "get_city_weather",
+              "arguments": {
+                "city": "Amsterdam"
+              },
+              "arguments_schema_valid": true
+            }
+          ],
+          "simulated_tool_executions": [
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "cloudy",
+                "temperature_c": 4
+              }
+            },
+            {
+              "function": "get_city_weather",
+              "result": {
+                "condition": "rainy",
+                "temperature_c": 11
+              }
+            }
+          ],
+          "api_response_statuses": [
+            200,
+            200
+          ],
+          "request_times_ms_after_warmup": [
+            24254.8,
+            16295.8
+          ],
+          "finish_reasons": [
+            "tool_calls",
+            "stop"
+          ],
+          "unparsed_tool_xml_detected": false,
+          "diagnostics": null
+        }
+      ]
+    }
+  ]
+}

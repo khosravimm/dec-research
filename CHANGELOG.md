@@ -2,6 +2,13 @@
 
 [English](CHANGELOG.md) · [فارسی](CHANGELOG.fa.md)
 
+## 0.2.8 — 2026-11-12
+
+- Owner-directed: remove all Persian prompts from DEC backbone model testing and focus on general English instruction following, typed Tool Calling, end-to-end synthetic tool execution and correct no-tool abstention.
+- Complete 24 English cases per model (12 exact-instruction + 12 tool/no-tool), 5 pinned GGUF weights, 120 recorded cases, after confirmed full loading and warm-up.
+- Preserve both original scoring and explicit posthoc fixture-aligned correction across all models. Results E1, no model selected; latency invalid for direct cross-model ranking due concurrent host load.
+- Add bilingual scientific reports, machine-readable full responses, fixtures/tool schemas, source hashes, and automated validation.
+
 ## 0.2.7 — 2026-11-12
 
 - Add both official Liquid AI candidate GGUF models, checksum verified in isolated research storage.

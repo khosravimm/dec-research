@@ -30,5 +30,9 @@ jobs:
         run: |
           python tools/render_liquid_warm20.py
           git diff --exit-code -- docs/en/liquid-warmloaded-general20.md docs/fa/liquid-warmloaded-general20.md
+      - name: Verify English-only tool and instruction bilingual report
+        run: |
+          python tools/render_english_instruction_tools.py
+          git diff --exit-code -- docs/en/model-english-instruction-tools.md docs/fa/model-english-instruction-tools.md
       - name: Validate public research dossiers
         run: python tools/validate_public_docs.py

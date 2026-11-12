@@ -44,6 +44,10 @@ We are investigating whether a **small, swappable language model** can solve dif
 
 [Full-load general bilingual screening of LFM3-1.7B and LFM2.5-1.2B-Thinking](docs/en/liquid-warmloaded-general20.md) records 40 requests after warm-up with model-specific settings. Many LFM2 Thinking requests exhausted the 512-token budget before a final answer; no fair final-answer accuracy ranking or DEC core selection follows.
 
+## English-only instruction following and real tool-call testing
+
+[English-only 24-case tool and instruction evaluation](docs/en/model-english-instruction-tools.md) supersedes Persian-language criteria for this research track. The suite includes 12 exact English instructions and 12 structured function-calling/no-tool cases per model, with 120 saved results across five pinned models, loaded and warmed before all questions. Scores are E1 and include both the original rule and a transparent posthoc fixture-aligned correction; no DEC core accepted.
+
 ## Research stages
 
 **P1: modular laboratory proof** → **P2: measured runtime/latent integration** → **P3: conditional investigation of a native learned integrated architecture**. No multi-tenant/multi-user/multi-server implementation is in current scope. Evidence gates and negative results are mandatory.

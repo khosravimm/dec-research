@@ -37,7 +37,7 @@ def check_docs() -> int:
             ids[lang] = field("doc_id")
             if field("language") != lang:
                 issue(f"Language incorrect: {p}")
-            expected_grade = "E1" if name.as_posix() in ("model-warmloaded-general20.md", "minicpm5-sampler-ablation.md", "liquid-warmloaded-general20.md") else "E0"
+            expected_grade = "E1" if name.as_posix() in ("model-warmloaded-general20.md", "minicpm5-sampler-ablation.md", "liquid-warmloaded-general20.md", "model-english-instruction-tools.md") else "E0"
             if field("evidence_level") != expected_grade:
                 issue(f"Incorrect scoped evidence grade in {p}: expected {expected_grade}")
             if not field("version") or not field("date"):
@@ -317,6 +317,64 @@ def check_liquid_model_warm20() -> None:
             issue("Missing bilingual Liquid report "+lang)
 
 
+def check_english_instructions_and_tools() -> None:
+    path=ROOT/"research/benchmarks/dec-english-instruction-tools-v1.json"
+    if not path.exists():
+        issue("Missing English tools and instruction dataset")
+        return
+    data=json.loads(path.read_text(encoding="utf8"))
+    cases=data.get("frozen_test_cases",[])
+    models=data.get("models",[])
+    if len(cases)!=24 or len(models)!=5:
+        issue("English tool benchmark must contain 24 questions and 5 models")
+        return
+    if data.get("model_selected") is not None or data.get("evaluation",{}).get("level") != "E1 limited real-host implementation feasibility":
+        issue("DEC model selection or E1 evidence overclaimed")
+    if sum(c.get("kind")=="instruction" for c in cases)!=12 or sum(c.get("kind")=="tool" for c in cases)!=12:
+        issue("English instruction/tool split wrong")
+    if len({c.get("id") for c in cases})!=24:
+        issue("Duplicate English benchmark case IDs")
+    if any(not str(c.get("prompt","")).isascii() for c in cases):
+        issue("English-only benchmark has non-ASCII or Persian test prompts")
+    for key in ("source_sha256","original_private_evidence_archive_sha256","posthoc_review_sha256"):
+        if not re.fullmatch(r"[a-f0-9]{64}",str(data.get(key,""))):
+            issue("Broken benchmark evidence chain: "+key)
+    for model in models:
+        name=model.get("id","unknown")
+        rs=model.get("cases",[])
+        s=model.get("summary",{})
+        if len(rs)!=24 or not model.get("verified_postload_warmup"):
+            issue("Model test incomplete/not warmloaded: "+name)
+            continue
+        if not re.fullmatch(r"[a-f0-9]{64}",str(model.get("model_sha256",""))):
+            issue("Missing pinned model weight hash: "+name)
+        if not re.fullmatch(r"[a-f0-9]{64}",str(model.get("raw_evidence_sha256",""))):
+            issue("Missing model raw evidence SHA: "+name)
+        if {x.get("case_id") for x in rs}!={c["id"] for c in cases}:
+            issue("Model did not answer all frozen questions: "+name)
+        instructions=[x for x in rs if x.get("kind")=="instruction"]
+        tools=[x for x in rs if x.get("kind")=="tool"]
+        if len(instructions)!=12 or len(tools)!=12:
+            issue("Invalid model question group sizes: "+name)
+            continue
+        strict=sum(x.get("criterion_aligned_pass_v1_1") is True for x in instructions)
+        original=sum(x.get("initial_strict_pass") is True for x in tools)
+        revised=sum(x.get("criterion_aligned_pass_v1_1") is True for x in tools)
+        positive=sum(x.get("criterion_aligned_pass_v1_1") is True for x in tools if x.get("case_id") not in ("T09","T10"))
+        negative=sum(x.get("criterion_aligned_pass_v1_1") is True for x in tools if x.get("case_id") in ("T09","T10"))
+        if strict!=s.get("instruction_exact_pass") or original!=s.get("original_tool_strict_pass") or revised!=s.get("tool_end_to_end_pass"):
+            issue("Model scores inconsistent with case rows: "+name)
+        if positive!=s.get("positive_tool_end_to_end_pass") or negative!=s.get("no_tool_decision_and_exact_final_pass"):
+            issue("Tool/non-tool scores inconsistent: "+name)
+        if any(r.get("api_response_statuses") is None or not r.get("final_answer") is not None for r in rs):
+            issue("Missing case-level model output: "+name)
+        if s.get("all_http_ok")!=24:
+            issue("Reported 24 successful API requests inconsistent: "+name)
+    for lang in ("en","fa"):
+        if not (ROOT/"docs"/lang/"model-english-instruction-tools.md").is_file():
+            issue("Missing bilingual English-only test report: "+lang)
+
+
 def check_rights_and_leaks() -> None:
     rights = (ROOT / "RIGHTS.md").read_text(encoding="utf-8")
     if "No blanket" not in rights or not (ROOT / "RIGHTS.fa.md").exists():
@@ -352,6 +410,7 @@ def main() -> int:
     check_bilingual_warmloaded_model_evaluation()
     check_minicpm_sampler_ablation()
     check_liquid_model_warm20()
+    check_english_instructions_and_tools()
     check_rights_and_leaks()
     if issues:
         for x in issues:
