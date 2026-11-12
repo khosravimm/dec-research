@@ -2,6 +2,12 @@
 
 [English](CHANGELOG.md) · [فارسی](CHANGELOG.fa.md)
 
+## 0.2.5 — 2026-11-12
+
+- User rejected previous two-question model evaluation; publish a new 20-question per model (10 FA, 10 EN) all-general benchmark after verified full loading and explicit warm-up.
+- Tested 3 instruction models, all 60 calls succeeded; retain 60 full answers, reference cases, per-language scores, CPU RSS and post-warm-up timings.
+- Results are scoped E1 first-pass review; model selection and DEC architecture tests remain pending.
+
 ## 0.2.4 — 2026-11-12
 
 - Add bilingual model-only CPU preflight report for four locally tested weight families, verified hashes, tool versions, narrow method and negative findings.

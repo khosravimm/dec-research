@@ -32,6 +32,10 @@ We are investigating whether a **small, swappable language model** can solve dif
 
 [CPU-only model preflight](docs/en/model-preflight.md): Qwen2.5:3B, MiniCPM5-1B, Qwen3.5-0.8B and LFM3-1.7B-Base were probed locally with pinned weights. No model selected, Persian technical performance remained problematic in the tiny sample, and DEC architecture remains E0.
 
+## Repeatable general-language model benchmark
+
+[20-question warm-loaded bilingual evaluation](docs/en/model-warmloaded-general20.md) replaces the rejected two-question decision basis: 10 Persian and 10 English **general** tasks per instruction model, with a separate load, verified warm-up, 60 saved answers, reference judgments, and post-load latencies. Results are E1 and **do not select a DEC core**.
+
 ## Research stages
 
 **P1: modular laboratory proof** → **P2: measured runtime/latent integration** → **P3: conditional investigation of a native learned integrated architecture**. No multi-tenant/multi-user/multi-server implementation is in current scope. Evidence gates and negative results are mandatory.

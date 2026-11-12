@@ -18,5 +18,9 @@ jobs:
         run: |
           python tools/render_roadmap.py
           git diff --exit-code -- docs/en/roadmap.md docs/fa/roadmap.md
+      - name: Verify warmloaded bilingual model report from experiment JSON
+        run: |
+          python tools/render_model_warm20.py
+          git diff --exit-code -- docs/en/model-warmloaded-general20.md docs/fa/model-warmloaded-general20.md
       - name: Validate public research dossiers
         run: python tools/validate_public_docs.py

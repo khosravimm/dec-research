@@ -36,8 +36,9 @@ def check_docs() -> int:
             ids[lang] = field("doc_id")
             if field("language") != lang:
                 issue(f"Language incorrect: {p}")
-            if field("evidence_level") != "E0":
-                issue(f"Non-E0 doc (no DEC local results published): {p}")
+            expected_grade = "E1" if name.as_posix() == "model-warmloaded-general20.md" else "E0"
+            if field("evidence_level") != expected_grade:
+                issue(f"Incorrect scoped evidence grade in {p}: expected {expected_grade}")
             if not field("version") or not field("date"):
                 issue(f"Missing version/date: {p}")
             if len(s) < 600:
@@ -186,6 +187,62 @@ def check_model_preflight_integrity() -> None:
                 issue("Model omitted from "+lang+" preflight: "+m["id"])
 
 
+def check_bilingual_warmloaded_model_evaluation() -> None:
+    path=ROOT/"research/benchmarks/dec-general-warmloaded-fa-en-v1.json"
+    if not path.exists():
+        issue("Bilingual warmloaded evaluation JSON missing")
+        return
+    data=json.loads(path.read_text(encoding="utf-8"))
+    questions=data.get("reference_questions",[])
+    models=data.get("models",[])
+    if len(questions)!=20 or len(models)!=3:
+        issue("Warmloaded test must contain 20 questions and 3 candidate models")
+        return
+    ids={q.get("id") for q in questions}
+    if len(ids)!=20 or sum(q.get("language")=="fa" for q in questions)!=10 or sum(q.get("language")=="en" for q in questions)!=10:
+        issue("Question count, IDs, or bilingual balance invalid")
+    forbidden=("cybersecurity","networking","programming","شبکه","امنیت اطلاعات","رمزنگاری")
+    for q in questions:
+        if any(term.lower() in q.get("prompt","").lower() for term in forbidden):
+            issue("Specialist question in general-purpose test: "+q.get("id","?"))
+        if not q.get("prompt") or not q.get("reference"):
+            issue("Incomplete question or reference")
+    if data.get("prior_two_question_test_accepted") is not False or data.get("selection",{}).get("backbone") is not None:
+        issue("Rejected prior two-item test or backbone selection misrepresented")
+    if not re.fullmatch(r"[a-f0-9]{64}",str(data.get("questions_sha256",""))):
+        issue("Missing source gold-set integrity hash")
+    for m in models:
+        if m.get("warmup_success") is not True:
+            issue("Model was tested without successful warmup: "+m.get("id","?"))
+        responses=m.get("responses",[])
+        if len(responses)!=20:
+            issue("Incomplete loaded-model set: "+m.get("id","?"))
+            continue
+        if len({r.get("case_id") for r in responses}) != 20:
+            issue("Duplicate case for model: "+m.get("id","?"))
+        for lang in ("fa","en"):
+            rs=[r for r in responses if r.get("language")==lang]
+            if len(rs)!=10 or any(r.get("http_status")!=200 for r in rs):
+                issue("Noncompliant language request count/HTTP: "+m.get("id","?")+" "+lang)
+            count=sum(r.get("strict_correct_first_review") is True for r in rs)
+            content=sum(r.get("semantic_correct_first_review") is True for r in rs)
+            metrics=m.get("metrics",{}).get(lang,{})
+            if count!=metrics.get("strict_pass") or content!=metrics.get("semantic_pass"):
+                issue("Scores inconsistent with case-level judgments: "+m.get("id","?")+" "+lang)
+            if count>content:
+                issue("Strict score exceeds semantic score")
+        for r in responses:
+            if r.get("case_id") not in ids:
+                issue("Unknown model question ID")
+            if not isinstance(r.get("response"),str) or not r.get("review_reason"):
+                issue("Missing model output or audit rationale")
+        if not re.fullmatch(r"[a-f0-9]{64}",str(m.get("sha256",""))):
+            issue("Missing weight SHA256: "+m.get("id","?"))
+    for lang in ("fa","en"):
+        if not (ROOT/"docs"/lang/"model-warmloaded-general20.md").exists():
+            issue("Bilingual warmloaded report missing: "+lang)
+
+
 def check_rights_and_leaks() -> None:
     rights = (ROOT / "RIGHTS.md").read_text(encoding="utf-8")
     if "No blanket" not in rights or not (ROOT / "RIGHTS.fa.md").exists():
@@ -218,12 +275,13 @@ def main() -> int:
     n_work,n_backlog = check_roadmap()
     check_utf8_integrity()
     check_model_preflight_integrity()
+    check_bilingual_warmloaded_model_evaluation()
     check_rights_and_leaks()
     if issues:
         for x in issues:
             print("ERROR:", x)
         return 1
-    print(f"PASS: {n_docs} bilingual pairs; {n_sources} public sources; {n_experiments} experiments; {n_work} roadmap packages linked to {n_backlog} historical tasks; no DEC results.")
+    print(f"PASS: {n_docs} bilingual pairs; {n_sources} public sources; {n_experiments} experiments; {n_work} roadmap packages linked to {n_backlog} historical tasks; DEC cognitive-model experiments not yet accepted; E1-only local model screening recorded.")
     print("NOTE: structural and basic leak checks only; copyright, inventorship, translation and patent novelty need independent review.")
     return 0
 
