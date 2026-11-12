@@ -157,6 +157,35 @@ def check_utf8_integrity() -> None:
             issue(f"Invalid Persian title in {w['id']}")
 
 
+def check_model_preflight_integrity() -> None:
+    path=ROOT/"research/model-preflight.json"
+    if not path.exists():
+        return
+    import json
+    x=json.loads(path.read_text(encoding="utf-8"))
+    if x.get("evidence_level_DEC_architecture")!="E0":
+        issue("Model preflight cannot upgrade DEC architecture evidence")
+    if x.get("evidence_level_model_runtime")!="E1":
+        issue("Model inference preflight grade unexpected")
+    if x.get("selected_model") is not None:
+        issue("Model core selection incorrectly claimed from small smoke")
+    models=x.get("models",[])
+    if len(models)!=4:
+        issue("Missing model family in model-only screening")
+    for m in models:
+        if not re.fullmatch(r"[a-f0-9]{64}",str(m.get("sha256",""))):
+            issue("Invalid model sha256 in public preflight")
+    for lang in ("en","fa"):
+        path=ROOT/"docs"/lang/"model-preflight.md"
+        if not path.exists():
+            issue("Model preflight bilingual document missing: "+lang)
+            continue
+        body=path.read_text(encoding="utf-8")
+        for m in models:
+            if m.get("id","").split("-Q4")[0].split("-Base")[0].split("-3B")[0] not in body and m.get("id","") not in body:
+                issue("Model omitted from "+lang+" preflight: "+m["id"])
+
+
 def check_rights_and_leaks() -> None:
     rights = (ROOT / "RIGHTS.md").read_text(encoding="utf-8")
     if "No blanket" not in rights or not (ROOT / "RIGHTS.fa.md").exists():
@@ -188,6 +217,7 @@ def main() -> int:
     n_sources, n_experiments = check_machine_records()
     n_work,n_backlog = check_roadmap()
     check_utf8_integrity()
+    check_model_preflight_integrity()
     check_rights_and_leaks()
     if issues:
         for x in issues:

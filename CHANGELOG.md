@@ -2,6 +2,12 @@
 
 [English](CHANGELOG.md) · [فارسی](CHANGELOG.fa.md)
 
+## 0.2.4 — 2026-11-12
+
+- Add bilingual model-only CPU preflight report for four locally tested weight families, verified hashes, tool versions, narrow method and negative findings.
+- MiniCPM5-1B and Qwen3.5-0.8B official/traceable GGUF files installed in isolated model research storage, without modifying running inference services.
+- E1 applies only to model load/inference feasibility; DEC remains E0, no backbone accepted.
+
 ## 0.2.3 — 2026-11-12
 
 - P0 execution **started**: controlled read-only existing LDI integration smoke produced six successful API responses with no corpus mutation.

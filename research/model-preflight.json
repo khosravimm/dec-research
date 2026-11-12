@@ -1,0 +1,64 @@
+{
+  "schema_version": "dec-model-only-preflight-v0.1",
+  "date": "2026-11-12",
+  "scope": "Initial model runtime feasibility on CPU; NOT DEC council/LoRA benchmark",
+  "evidence_level_model_runtime": "E1",
+  "evidence_level_DEC_architecture": "E0",
+  "result": "All 4 weight families had a successful CPU-only forward/inference run with compatible runtime. None selected.",
+  "sample_count": "2 illustrative subject prompts per instruction model, not an independently verified held-out dataset",
+  "runtime": "llama.cpp 0.9.0-dev aa75ff3",
+  "threads": 4,
+  "ctx_tokens": 1024,
+  "models": [
+    {
+      "id": "Qwen2.5-3B-Q4",
+      "weight_bytes": 1929903008,
+      "sha256": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+      "sampled_peak_process_rss_bytes": 3383400000,
+      "fa_cold_ms": 20925.9,
+      "en_cold_ms": 9789.5,
+      "answer_review": "FA inaccurate, EN hashing example adequate"
+    },
+    {
+      "id": "MiniCPM5-1B-Q4",
+      "weight_bytes": 688065920,
+      "sha256": "81b64d05a23b17b34c475f42b3e72fbde62d4b92cc34541f7a8031d0752deafa",
+      "sampled_peak_process_rss_bytes": 1115200000,
+      "fa_cold_ms_nothink": 7128.5,
+      "en_cold_ms_nothink": 6929.7,
+      "answer_review": "FA incoherent, EN contains hashing error; default think outputs consumed short token budget",
+      "pinned_upstream_revision": "5385560dd3e232bcc3577fd9442c332cad2facbd"
+    },
+    {
+      "id": "Qwen3.5-0.8B-Q4",
+      "weight_bytes": 532517120,
+      "sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
+      "sampled_peak_process_rss_bytes": 887700000,
+      "fa_cold_ms_nothink": 8925.3,
+      "en_cold_ms_nothink": 3108.1,
+      "answer_review": "Both answers conceptually flawed in two samples",
+      "gguf_pinned_revision": "6ab461498e2023f6e3c1baea90a8f0fe38ab64d0"
+    },
+    {
+      "id": "LFM3-1.7B-Base-Q4",
+      "weight_bytes": 1099627936,
+      "sha256": "516b249424778cf3ab61dca89fd12a8da7cea6ba5fa863c6b07a7be68a2d6884",
+      "sampled_peak_process_rss_bytes": 1913298944,
+      "single_completion_wall_ms": 5218.5,
+      "answer_review": "Only Base next-token generation demonstrated; older llama.cpp lacked support"
+    }
+  ],
+  "selected_model": null,
+  "formal_P1A_gate": "not accepted; P0/G0 and benchmark prerequisites pending",
+  "licenses": {
+    "MiniCPM5-1B": "Apache-2.0 as declared by OpenBMB",
+    "Qwen3.5-0.8B": "Apache-2.0 original model; third-party GGUF",
+    "LFM3-1.7B": "LFM Open License v1.0; further rights review"
+  },
+  "disclosure": "No model weights, raw private paths, source corpora, or novel architecture code included.",
+  "caveats": [
+    "Single CPU host; differences in prompt templates, thinking mode, token generation and model sizes",
+    "Cold-time per run; cannot claim throughput, stable latency or accuracy ranking",
+    "Tiny demonstration: E1 feasibility only, not a DEC evaluation"
+  ]
+}

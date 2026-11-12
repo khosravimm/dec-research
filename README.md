@@ -28,6 +28,10 @@ We are investigating whether a **small, swappable language model** can solve dif
 
 [First controlled P0 integration check](docs/en/progress.md): read-only LDI API smoke passed; real DEC model experiments are not yet performed. Two P0 work packages are in progress; G0 is still open.
 
+## Model core execution / exploratory E1 preflight
+
+[CPU-only model preflight](docs/en/model-preflight.md): Qwen2.5:3B, MiniCPM5-1B, Qwen3.5-0.8B and LFM3-1.7B-Base were probed locally with pinned weights. No model selected, Persian technical performance remained problematic in the tiny sample, and DEC architecture remains E0.
+
 ## Research stages
 
 **P1: modular laboratory proof** → **P2: measured runtime/latent integration** → **P3: conditional investigation of a native learned integrated architecture**. No multi-tenant/multi-user/multi-server implementation is in current scope. Evidence gates and negative results are mandatory.
