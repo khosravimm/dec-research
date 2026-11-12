@@ -2,7 +2,7 @@
 doc_id: DEC-DOC-007
 language: en
 title: "Detailed research and implementation roadmap"
-version: 0.2.1
+version: 0.2.2
 date: 2026-11-12
 evidence_level: E0
 publication_status: public-research-draft
@@ -22,11 +22,11 @@ This is the controlled, versioned research and delivery plan (E0). No DEC model,
 
 | Phase | Estimated duration | Gate | State | Outcome |
 |---|---:|---|---|---|
-| P0 | 2-4 weeks | G0 | planned | Verified environment, benchmark and governance |
-| P1A | 3-5 weeks | G1A | planned | Core, tool and router baseline |
-| P1B | 4-6 weeks | G1B | planned | Specialist LoRA, RAG and evidence transport |
-| P1C | 4-6 weeks | G1 | planned | Runnable three-level cognition and acceptance |
-| P2 | 6-10 weeks | G2 | conditional | Measured local latent/state integration |
+| P0 | 5-7 weeks | G0 | planned | Verified environment, benchmark and governance |
+| P1A | 4-6 weeks | G1A | planned | Core, tool and router baseline |
+| P1B | 6-8 weeks | G1B | planned | Specialist LoRA, RAG and evidence transport |
+| P1C | 6-8 weeks | G1 | planned | Runnable three-level cognition and acceptance |
+| P2 | 10-14 weeks | G2 | conditional | Measured local latent/state integration |
 | P3 | 12-20 weeks | G3 | conditional | Optional learned model architecture |
 | CONT | Continuous | G-PUB | ongoing | Continuous bilingual public science |
 | FUTURE | Not scheduled | G-FUT | deferred | Deferred expansion |

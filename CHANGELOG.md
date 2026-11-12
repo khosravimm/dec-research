@@ -2,6 +2,10 @@
 
 [English](CHANGELOG.md) · [فارسی](CHANGELOG.fa.md)
 
+## 0.2.2 — 2026-11-12
+
+- Align provisional phase durations with person-day capacity assumptions: P0 5-7, P1A 4-6, P1B 6-8, P1C 6-8, conditional P2 10-14 and P3 12-20 weeks. No date commitments or test-status changes.
+
 ## 0.2.1 — 2026-11-12
 
 - Correct Windows encoding corruption in the Persian roadmap, 35 public GitHub issue titles/bodies and 8 milestone names.

@@ -1,6 +1,6 @@
 {
   "schema": "dec-roadmap-v1",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "created_at": "2026-11-12",
   "status": "owner-requested proposed implementation roadmap; phases not executed",
   "evidence_grade": "E0",
@@ -15,8 +15,8 @@
         "fa": "پایه پژوهش"
       },
       "duration_weeks": [
-        2,
-        4
+        5,
+        7
       ],
       "gate": "G0",
       "depends_on": [],
@@ -29,8 +29,8 @@
         "fa": "انتخاب هسته و ابزار"
       },
       "duration_weeks": [
-        3,
-        5
+        4,
+        6
       ],
       "gate": "G1A",
       "depends_on": [
@@ -45,8 +45,8 @@
         "fa": "تخصص و بازیابی دانش"
       },
       "duration_weeks": [
-        4,
-        6
+        6,
+        8
       ],
       "gate": "G1B",
       "depends_on": [
@@ -61,8 +61,8 @@
         "fa": "نمونه شناختی سه‌سطحی"
       },
       "duration_weeks": [
-        4,
-        6
+        6,
+        8
       ],
       "gate": "G1",
       "depends_on": [
@@ -77,8 +77,8 @@
         "fa": "یکپارچه‌سازی نهفته"
       },
       "duration_weeks": [
-        6,
-        10
+        10,
+        14
       ],
       "gate": "G2",
       "depends_on": [
@@ -1589,5 +1589,11 @@
     "reason": "Correct loss of Persian characters in initial roadmap and GitHub work-item publication.",
     "scope": "Only published roadmap text and issue/milestone labels; no experiments changed.",
     "status": "Verified UTF-8"
+  },
+  "schedule_review": {
+    "status": "revised after consistency check; provisional estimates only",
+    "en": "Stage durations now align with 216 core person-days assuming one focused full-time researcher; P0-P1C 118 person-days around 24 engineer-weeks, within the proposed 21-29 week window. P2/P3 conditional and allow review/training uncertainty.",
+    "fa": "مدت فازها با ۲۱۶ نفرروز اصلی و فرض یک پژوهشگر تمام‌وقت هماهنگ شد؛ ۱۱۸ نفرروز P0 تا P1C حدود ۲۴ هفته کاری است و در بازه پیشنهادی ۲۱ تا ۲۹ هفته قرار می‌گیرد. P2 و P3 مشروط‌اند و عدم‌قطعیت آموزش و داوری لحاظ شده است.",
+    "date": "2026-11-12"
   }
 }

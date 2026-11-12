@@ -2,7 +2,7 @@
 doc_id: DEC-DOC-007
 language: fa
 title: "رودمپ جامع پژوهش و اجرای DEC"
-version: 0.2.1
+version: 0.2.2
 date: 2026-11-12
 evidence_level: E0
 publication_status: public-research-draft
@@ -22,11 +22,11 @@ publication_status: public-research-draft
 
 | فاز | مدت برآوردی | گیت | وضعیت | نتیجه |
 |---|---:|---|---|---|
-| P0 | 2-4 هفته | G0 | planned | محیط معتبر، داده آزمون و حاکمیت |
-| P1A | 3-5 هفته | G1A | planned | مبنای هسته، ابزار و Router |
-| P1B | 4-6 هفته | G1B | planned | LoRA، RAG و مسیر شواهد |
-| P1C | 4-6 هفته | G1 | planned | نمونه سه‌سطحی و پذیرش |
-| P2 | 6-10 هفته | G2 | conditional | ادغام محلی نهفته و Cache با سنجش |
+| P0 | 5-7 هفته | G0 | planned | محیط معتبر، داده آزمون و حاکمیت |
+| P1A | 4-6 هفته | G1A | planned | مبنای هسته، ابزار و Router |
+| P1B | 6-8 هفته | G1B | planned | LoRA، RAG و مسیر شواهد |
+| P1C | 6-8 هفته | G1 | planned | نمونه سه‌سطحی و پذیرش |
+| P2 | 10-14 هفته | G2 | conditional | ادغام محلی نهفته و Cache با سنجش |
 | P3 | 12-20 هفته | G3 | conditional | مدل درونی آموزش‌پذیر مشروط |
 | CONT | پیوسته | G-PUB | ongoing | انتشار علمی دوزبانه پیوسته |
 | FUTURE | زمان‌بندی‌نشده | G-FUT | deferred | توسعه معوق |
