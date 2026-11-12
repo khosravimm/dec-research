@@ -22,5 +22,9 @@ jobs:
         run: |
           python tools/render_model_warm20.py
           git diff --exit-code -- docs/en/model-warmloaded-general20.md docs/fa/model-warmloaded-general20.md
+      - name: Validate bilingual MiniCPM5 sampler ablation rendering
+        run: |
+          python tools/render_minicpm_sampler_ablation.py
+          git diff --exit-code -- docs/en/minicpm5-sampler-ablation.md docs/fa/minicpm5-sampler-ablation.md
       - name: Validate public research dossiers
         run: python tools/validate_public_docs.py

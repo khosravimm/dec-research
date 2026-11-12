@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import re
+import statistics
 import sys
 from pathlib import Path
 
@@ -36,7 +37,7 @@ def check_docs() -> int:
             ids[lang] = field("doc_id")
             if field("language") != lang:
                 issue(f"Language incorrect: {p}")
-            expected_grade = "E1" if name.as_posix() == "model-warmloaded-general20.md" else "E0"
+            expected_grade = "E1" if name.as_posix() in ("model-warmloaded-general20.md", "minicpm5-sampler-ablation.md") else "E0"
             if field("evidence_level") != expected_grade:
                 issue(f"Incorrect scoped evidence grade in {p}: expected {expected_grade}")
             if not field("version") or not field("date"):
@@ -243,6 +244,45 @@ def check_bilingual_warmloaded_model_evaluation() -> None:
             issue("Bilingual warmloaded report missing: "+lang)
 
 
+def check_minicpm_sampler_ablation() -> None:
+    path=ROOT/"research/benchmarks/dec-minicpm5-sampler-ablation-v1.json"
+    if not path.exists():
+        issue("Missing MiniCPM sampler diagnosis JSON")
+        return
+    data=json.loads(path.read_text(encoding="utf8"))
+    if data.get("evidence_level")!="E1 limited single-run model-parameter ablation":
+        issue("Sampler evidence level changed unexpectedly")
+    if data.get("dec_architecture_evidence")!="E0, no DEC learning or integration":
+        issue("Sampler study cannot assert successful DEC integration")
+    if not re.fullmatch("[a-f0-9]{64}",data.get("private_raw_sha256","")):
+        issue("Sampler evidence hash malformed")
+    profiles=data.get("profiles",[])
+    responses=data.get("responses",[])
+    if len(profiles)!=3 or len(responses)!=60:
+        issue("Sampler study incomplete (expected 3 profiles and 60 cases)")
+        return
+    pairs={(x.get("profile"),x.get("id")) for x in responses}
+    if len(pairs)!=60:
+        issue("Duplicate sampler profile/question pair")
+    for profile in profiles:
+        name=profile["name"]
+        for lang in ("fa","en"):
+            group=[z for z in responses if z.get("profile")==name and z.get("lang")==lang]
+            if len(group)!=10 or any(z.get("http_status")!=200 for z in group):
+                issue("Sampler profile/language incomplete: "+name+"/"+lang)
+                continue
+            summary=profile["summary"][lang]
+            mean=round(statistics.mean(z["trigram_repeat_fraction"] for z in group),5)
+            if abs(mean-summary["mean_repeated_trigram_fraction"])>0.00001:
+                issue("Sampler repetition-rate summary inconsistent")
+            if sum(z.get("finish_reason")=="length" for z in group)!=summary.get("length_capped"):
+                issue("Sampler output length summary inconsistent")
+    for lang in ("fa","en"):
+        path=ROOT/"docs"/lang/"minicpm5-sampler-ablation.md"
+        if not path.exists():
+            issue("MiniCPM sampler bilingual doc missing: "+lang)
+
+
 def check_rights_and_leaks() -> None:
     rights = (ROOT / "RIGHTS.md").read_text(encoding="utf-8")
     if "No blanket" not in rights or not (ROOT / "RIGHTS.fa.md").exists():
@@ -276,6 +316,7 @@ def main() -> int:
     check_utf8_integrity()
     check_model_preflight_integrity()
     check_bilingual_warmloaded_model_evaluation()
+    check_minicpm_sampler_ablation()
     check_rights_and_leaks()
     if issues:
         for x in issues:

@@ -2,6 +2,12 @@
 
 [English](CHANGELOG.md) · [فارسی](CHANGELOG.fa.md)
 
+## 0.2.6 — 2026-11-12
+
+- Add bilingual MiniCPM5-1B repeated-output diagnosis, official sampler/llama.cpp references and 60 recorded general FA/EN responses across 3 controlled profiles after full model load and warm-up.
+- Correct interpretation of earlier temperature=0/min_p-default results; observe that min_p=0 alone did not fix loops while the official sampler plus repetition penalty removed observed repeated trigrams without restoring answer correctness.
+- Document parameters, reproducibility, source SHA256, caps, validity limits and no model selection.
+
 ## 0.2.5 — 2026-11-12
 
 - User rejected previous two-question model evaluation; publish a new 20-question per model (10 FA, 10 EN) all-general benchmark after verified full loading and explicit warm-up.

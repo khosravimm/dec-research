@@ -36,6 +36,10 @@ We are investigating whether a **small, swappable language model** can solve dif
 
 [20-question warm-loaded bilingual evaluation](docs/en/model-warmloaded-general20.md) replaces the rejected two-question decision basis: 10 Persian and 10 English **general** tasks per instruction model, with a separate load, verified warm-up, 60 saved answers, reference judgments, and post-load latencies. Results are E1 and **do not select a DEC core**.
 
+## MiniCPM5 repetition diagnosis
+
+[Controlled 60-request sampler ablation](docs/en/minicpm5-sampler-ablation.md) compares min_p-only greedy, manufacturer-recommended No-think, and No-think with repetition_penalty=1.05 on the same frozen general bilingual questions. Literal Persian loops declined, but correctness remained inadequate. This E1 observation does **not** approve or reject MiniCPM5 as DEC backbone.
+
 ## Research stages
 
 **P1: modular laboratory proof** → **P2: measured runtime/latent integration** → **P3: conditional investigation of a native learned integrated architecture**. No multi-tenant/multi-user/multi-server implementation is in current scope. Evidence gates and negative results are mandatory.
