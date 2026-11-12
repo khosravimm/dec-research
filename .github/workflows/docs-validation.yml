@@ -34,5 +34,9 @@ jobs:
         run: |
           python tools/render_english_instruction_tools.py
           git diff --exit-code -- docs/en/model-english-instruction-tools.md docs/fa/model-english-instruction-tools.md
+      - name: Verify bilingual next-generation backbone research catalogue
+        run: |
+          python tools/render_model_candidates_20261112.py
+          git diff --exit-code -- docs/en/model-candidates-20261112.md docs/fa/model-candidates-20261112.md
       - name: Validate public research dossiers
         run: python tools/validate_public_docs.py

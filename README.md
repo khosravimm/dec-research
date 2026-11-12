@@ -48,6 +48,10 @@ We are investigating whether a **small, swappable language model** can solve dif
 
 [English-only 24-case tool and instruction evaluation](docs/en/model-english-instruction-tools.md) supersedes Persian-language criteria for this research track. The suite includes 12 exact English instructions and 12 structured function-calling/no-tool cases per model, with 120 saved results across five pinned models, loaded and warmed before all questions. Scores are E1 and include both the original rule and a transparent posthoc fixture-aligned correction; no DEC core accepted.
 
+## Next-generation DEC backbone candidate landscape (November 2026)
+
+[Primary-source review of 18 models](docs/en/model-candidates-20261112.md) covers late-2026 small agent models, English-only instruction and tools criteria, LoRA-trained expert compatibility, latent-state and license hard gates. New releases **Raon-1 nano** and **BotPsy-0.8B** are explicitly included; official Qwen2.5-3B-Instruct's qwen-research licensing is flagged. All new candidate research is E0, no backbone selected.
+
 ## Research stages
 
 **P1: modular laboratory proof** → **P2: measured runtime/latent integration** → **P3: conditional investigation of a native learned integrated architecture**. No multi-tenant/multi-user/multi-server implementation is in current scope. Evidence gates and negative results are mandatory.

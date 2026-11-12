@@ -2,6 +2,13 @@
 
 [English](CHANGELOG.md) · [فارسی](CHANGELOG.fa.md)
 
+## 0.2.9 — 2026-11-12
+
+- Public primary-source survey of 18 near-term and research-only model-backbone candidates, including newly released November 11 Raon-1 nano and QVAC BotPsy-0.8B.
+- Bilingual architecture, tool-use, actual trainable LoRA, hidden/recurrent-state, local hardware and commercial licensing risk comparisons; English-only future tests.
+- Important commercial gate: official Qwen2.5-3B-Instruct weight carries qwen-research terms despite the locally stored version's 22/24 E1 instruction/tool screening score. Model lineage to be verified; no commercial rights assumed.
+- Source-indexed report generated from a single JSON catalogue with CI integrity checks; new-candidate evidence grade E0, no model selection.
+
 ## 0.2.8 — 2026-11-12
 
 - Owner-directed: remove all Persian prompts from DEC backbone model testing and focus on general English instruction following, typed Tool Calling, end-to-end synthetic tool execution and correct no-tool abstention.

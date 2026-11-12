@@ -375,6 +375,56 @@ def check_english_instructions_and_tools() -> None:
             issue("Missing bilingual English-only test report: "+lang)
 
 
+def check_model_candidates_20261112() -> None:
+    file=ROOT/"research/model-candidates-20261112.json"
+    if not file.exists():
+        issue("Current model-candidate registry missing")
+        return
+    obj=json.loads(file.read_text(encoding="utf8"))
+    if obj.get("schema")!="DEC-MODEL-CANDIDATES-20261112-v1":
+        issue("Unexpected model candidate catalogue schema")
+    choices=obj.get("candidates",[])
+    if len(choices)!=18:
+        issue("Not all source-reviewed candidates are registered")
+        return
+    ids=[x.get("id") for x in choices]
+    names=[x.get("name") for x in choices]
+    if len(set(ids))!=18 or len(set(names))!=18:
+        issue("Candidate ids or names duplicated")
+    groups={p:0 for p in ("NOW","NEXT","CONTROL","RESEARCH")}
+    for c in choices:
+        tier=c.get("tier")
+        if tier not in groups:
+            issue("Unknown candidate priority tier")
+            continue
+        groups[tier]+=1
+        if not str(c.get("url","")).startswith("https://"):
+            issue("Model official source URL missing")
+        if not str(c.get("license","")).strip() or not str(c.get("params","")).strip():
+            issue("Missing model license or parameter information: "+str(c.get("id")))
+        for field in ("role","risk"):
+            if not isinstance(c.get(field),dict) or not all(str(c[field].get(l,"")).strip() for l in ("fa","en")):
+                issue("Bilingual candidate annotation incomplete: "+str(c.get("id")))
+        if c.get("model_dec_evidence") not in ("E0 source review only","E1 local tool/instruction scope only"):
+            issue("Candidate evidence status ungrounded: "+str(c.get("id")))
+    if groups["NOW"]<5 or groups["CONTROL"]<2:
+        issue("Immediate/current experiment comparator groups missing")
+    if obj.get("owner_constraints",{}).get("test_language")!="English only":
+        issue("User English-only test requirement lost")
+    if obj.get("owner_constraints",{}).get("doc_languages")!=["fa","en"]:
+        issue("Publication bilingual requirement lost")
+    if not any(x["id"]=="QW25-3" and x["license"]=="qwen-research" for x in choices):
+        issue("Historical Qwen2.5:3B commercial license risk missing")
+    if not any(x["id"]=="RAON1" for x in choices) or not any(x["id"]=="BOTPSY" for x in choices):
+        issue("New November 2026 releases omitted")
+    for lang in ("fa","en"):
+        file=ROOT/"docs"/lang/"model-candidates-20261112.md"
+        if not file.exists():
+            issue("Bilingual model-candidate research report missing")
+        elif len(file.read_text(encoding="utf8"))<4500:
+            issue("Model candidate report suspiciously short")
+
+
 def check_rights_and_leaks() -> None:
     rights = (ROOT / "RIGHTS.md").read_text(encoding="utf-8")
     if "No blanket" not in rights or not (ROOT / "RIGHTS.fa.md").exists():
@@ -411,6 +461,7 @@ def main() -> int:
     check_minicpm_sampler_ablation()
     check_liquid_model_warm20()
     check_english_instructions_and_tools()
+    check_model_candidates_20261112()
     check_rights_and_leaks()
     if issues:
         for x in issues:
