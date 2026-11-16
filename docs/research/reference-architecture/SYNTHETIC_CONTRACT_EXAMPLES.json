@@ -1,0 +1,200 @@
+{
+  "CaseRequest": {
+    "schema_version": "1.0.0",
+    "kind": "CaseRequest",
+    "payload": {
+      "case_id": "case:1",
+      "objective": "Analyze synthetic network change",
+      "language": "mixed",
+      "input_refs": [
+        "input:1"
+      ],
+      "budget": {
+        "max_wall_ms": 30000,
+        "max_cpu_ms": 20000,
+        "max_peak_rss_mib": 8192,
+        "max_output_tokens": 1500,
+        "max_steps": 8
+      }
+    }
+  },
+  "DecisionProposal": {
+    "schema_version": "1.0.0",
+    "kind": "DecisionProposal",
+    "payload": {
+      "case_id": "case:1",
+      "decision_id": "dec:1",
+      "action": "retrieve",
+      "uncertainty": "estimated",
+      "reason_ref": "reason:1",
+      "confidence": 0.6,
+      "calibration_profile_id": "profile:1"
+    }
+  },
+  "Allocation": {
+    "schema_version": "1.0.0",
+    "kind": "Allocation",
+    "payload": {
+      "case_id": "case:1",
+      "allocation_id": "alloc:1",
+      "budget": {
+        "max_wall_ms": 30000,
+        "max_cpu_ms": 20000,
+        "max_peak_rss_mib": 8192,
+        "max_output_tokens": 1500,
+        "max_steps": 8
+      },
+      "spent": {
+        "wall_ms": 10,
+        "cpu_ms": 5,
+        "peak_rss_mib": 500,
+        "output_tokens": 10,
+        "steps": 1
+      },
+      "status": "granted"
+    }
+  },
+  "ExpertInvocation": {
+    "schema_version": "1.0.0",
+    "kind": "ExpertInvocation",
+    "payload": {
+      "case_id": "case:1",
+      "invocation_id": "inv:1",
+      "expert_id": "security",
+      "model_id": "baseline",
+      "model_revision": "sha256:test",
+      "tokenizer_revision": "rev1",
+      "task_ref": "task:1",
+      "budget": {
+        "max_wall_ms": 30000,
+        "max_cpu_ms": 20000,
+        "max_peak_rss_mib": 8192,
+        "max_output_tokens": 1500,
+        "max_steps": 8
+      }
+    }
+  },
+  "ExpertResult": {
+    "schema_version": "1.0.0",
+    "kind": "ExpertResult",
+    "payload": {
+      "case_id": "case:1",
+      "invocation_id": "inv:1",
+      "status": "success",
+      "result_refs": [
+        "result:1"
+      ],
+      "usage": {
+        "wall_ms": 10,
+        "cpu_ms": 5,
+        "peak_rss_mib": 500,
+        "output_tokens": 10,
+        "steps": 1
+      }
+    }
+  },
+  "MemoryHandle": {
+    "schema_version": "1.0.0",
+    "kind": "MemoryHandle",
+    "payload": {
+      "case_id": "case:1",
+      "handle_id": "mem:1",
+      "representation": "structured",
+      "compatibility_fingerprint": "sha256:test",
+      "lease_expiry_utc": "2026-11-17T00:00:00Z",
+      "permitted_operations": [
+        "read"
+      ]
+    }
+  },
+  "KnowledgeRequest": {
+    "schema_version": "1.0.0",
+    "kind": "KnowledgeRequest",
+    "payload": {
+      "case_id": "case:1",
+      "query_ref": "query:1",
+      "collections": [
+        "synthetic"
+      ],
+      "max_hits": 5
+    }
+  },
+  "KnowledgeResult": {
+    "schema_version": "1.0.0",
+    "kind": "KnowledgeResult",
+    "payload": {
+      "case_id": "case:1",
+      "request_ref": "query:1",
+      "hits": [
+        {
+          "source_ref": "src:1",
+          "source_revision": "1",
+          "score": 0.8
+        }
+      ],
+      "status": "success"
+    }
+  },
+  "ToolAction": {
+    "schema_version": "1.0.0",
+    "kind": "ToolAction",
+    "payload": {
+      "case_id": "case:1",
+      "action_id": "action:1",
+      "tool_id": "calculator",
+      "parameters_ref": "params:1",
+      "authorization_context_ref": "auth:1",
+      "idempotency_key": "key:1"
+    }
+  },
+  "ToolReceipt": {
+    "schema_version": "1.0.0",
+    "kind": "ToolReceipt",
+    "payload": {
+      "case_id": "case:1",
+      "action_id": "action:1",
+      "status": "succeeded",
+      "effect_refs": [
+        "effect:1"
+      ],
+      "verified_by_ref": "verification:1"
+    }
+  },
+  "EvidenceEvent": {
+    "schema_version": "1.0.0",
+    "kind": "EvidenceEvent",
+    "payload": {
+      "event_id": "event:1",
+      "case_id": "case:1",
+      "trace_id": "trace:1",
+      "sequence": 1,
+      "timestamp_utc": "2026-11-16T14:00:00Z",
+      "event_type": "transition",
+      "previous_state": "PLANNED",
+      "new_state": "RUNNING",
+      "integrity_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "CaseResult": {
+    "schema_version": "1.0.0",
+    "kind": "CaseResult",
+    "payload": {
+      "case_id": "case:1",
+      "trace_id": "trace:1",
+      "outcome": "completed",
+      "claim_refs": [
+        "claim:1"
+      ],
+      "source_refs": [
+        "src:1"
+      ],
+      "usage": {
+        "wall_ms": 10,
+        "cpu_ms": 5,
+        "peak_rss_mib": 500,
+        "output_tokens": 10,
+        "steps": 1
+      }
+    }
+  }
+}

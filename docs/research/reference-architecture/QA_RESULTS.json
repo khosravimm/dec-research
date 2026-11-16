@@ -1,0 +1,21 @@
+{
+  "schema": "dec-cra-qa-v1",
+  "status": "PASS",
+  "evidence": "E1 synthetic contract and invariant checks only; NOT end-to-end cognitive/model tests",
+  "positive_contract_cases": 12,
+  "negative_contract_cases": 8,
+  "state_transitions_checked": 4,
+  "budget_assertions_checked": 2,
+  "memory_compatibility_checked": 3,
+  "aligned_capabilities": 12,
+  "checks": [
+    "JSON Schema 2020-12 valid",
+    "12 positive fixtures accepted",
+    "8 negative fixtures rejected",
+    "state-machine transitions",
+    "budget ceilings",
+    "memory lease/fingerprint compatibility",
+    "reference docs present",
+    "12 capability mapping present"
+  ]
+}

@@ -14,6 +14,8 @@
 
 [Mission charter](docs/en/mission-amendment-20261116.md) · [Architecture decision](docs/en/decisions.md)
 
+**Reference architecture (E0):** [DEC-CRA v1: five cognitive capabilities, A/B/C alternatives and typed contracts](docs/research/reference-architecture/README.md). Synthetic contract QA is E1 only.
+
 ## Purpose
 
 We are investigating whether a **small, swappable language model** can solve difficult interdisciplinary tasks by combining specialized LoRA adapters, expert-owned retrieval, adaptive reasoning, a shared bounded *latent* working memory and evidence-grounded collaboration. The long-term hypothesis is that **measured, successful mechanisms** could be integrated into a genuinely new model/runtime architecture, not merely packaged as independent agents.

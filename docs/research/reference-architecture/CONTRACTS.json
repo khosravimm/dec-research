@@ -1,0 +1,1036 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/khosravimm/dec-research/blob/main/docs/research/reference-architecture/contracts-v1.json",
+  "title": "DEC-CRA v1 logical contracts",
+  "description": "Research proposal E0. Logical schema only; not a deployed protocol or API. Envelopes contain a typed payload. transport-specific format is intentionally unspecified.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "kind",
+    "payload"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "kind": {
+      "enum": [
+        "CaseRequest",
+        "DecisionProposal",
+        "Allocation",
+        "ExpertInvocation",
+        "ExpertResult",
+        "MemoryHandle",
+        "KnowledgeRequest",
+        "KnowledgeResult",
+        "ToolAction",
+        "ToolReceipt",
+        "EvidenceEvent",
+        "CaseResult"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "CaseRequest"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/CaseRequest"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "DecisionProposal"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/DecisionProposal"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "Allocation"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/Allocation"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "ExpertInvocation"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/ExpertInvocation"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "ExpertResult"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/ExpertResult"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "MemoryHandle"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/MemoryHandle"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "KnowledgeRequest"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/KnowledgeRequest"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "KnowledgeResult"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/KnowledgeResult"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "ToolAction"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/ToolAction"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "ToolReceipt"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/ToolReceipt"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "EvidenceEvent"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/EvidenceEvent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "CaseResult"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/CaseResult"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "Budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_wall_ms",
+        "max_cpu_ms",
+        "max_peak_rss_mib",
+        "max_output_tokens",
+        "max_steps"
+      ],
+      "properties": {
+        "max_wall_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_cpu_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_peak_rss_mib": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_steps": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "Usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "wall_ms",
+        "cpu_ms",
+        "peak_rss_mib",
+        "output_tokens",
+        "steps"
+      ],
+      "properties": {
+        "wall_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cpu_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "peak_rss_mib": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "output_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "steps": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "CaseRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "objective",
+        "language",
+        "budget",
+        "input_refs"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "language": {
+          "enum": [
+            "fa",
+            "en",
+            "mixed",
+            "other"
+          ]
+        },
+        "requested_capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "input_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "budget": {
+          "$ref": "#/$defs/Budget"
+        },
+        "trace_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        }
+      }
+    },
+    "DecisionProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "decision_id",
+        "action",
+        "uncertainty",
+        "reason_ref"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "decision_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "action": {
+          "enum": [
+            "respond",
+            "call_expert",
+            "retrieve",
+            "invoke_tool",
+            "deliberate",
+            "request_input",
+            "stop"
+          ]
+        },
+        "expert_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "tool_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "reason_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "uncertainty": {
+          "enum": [
+            "known",
+            "estimated",
+            "unknown",
+            "out_of_domain"
+          ]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "calibration_profile_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "requested_budget": {
+          "$ref": "#/$defs/Budget"
+        }
+      }
+    },
+    "Allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "allocation_id",
+        "budget",
+        "spent",
+        "status"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "allocation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "budget": {
+          "$ref": "#/$defs/Budget"
+        },
+        "spent": {
+          "$ref": "#/$defs/Usage"
+        },
+        "status": {
+          "enum": [
+            "granted",
+            "exhausted",
+            "revoked"
+          ]
+        },
+        "reason_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        }
+      }
+    },
+    "ExpertInvocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "invocation_id",
+        "expert_id",
+        "model_id",
+        "model_revision",
+        "tokenizer_revision",
+        "task_ref",
+        "budget"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "invocation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "expert_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "model_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "model_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tokenizer_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "adapter_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "budget": {
+          "$ref": "#/$defs/Budget"
+        },
+        "cache_handle_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        }
+      }
+    },
+    "ExpertResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "invocation_id",
+        "status",
+        "result_refs",
+        "usage"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "invocation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "status": {
+          "enum": [
+            "success",
+            "partial",
+            "failed",
+            "timeout",
+            "cancelled"
+          ]
+        },
+        "result_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "usage": {
+          "$ref": "#/$defs/Usage"
+        },
+        "claim_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "error_code": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        }
+      }
+    },
+    "MemoryHandle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "handle_id",
+        "representation",
+        "compatibility_fingerprint",
+        "lease_expiry_utc",
+        "permitted_operations"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "handle_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "representation": {
+          "enum": [
+            "structured",
+            "latent",
+            "kv",
+            "embedding_index"
+          ]
+        },
+        "model_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tokenizer_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "adapter_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "compatibility_fingerprint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lease_expiry_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "permitted_operations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "read",
+              "write",
+              "invalidate"
+            ]
+          }
+        },
+        "provenance_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "KnowledgeRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "query_ref",
+        "collections",
+        "max_hits"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "query_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "collections": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "max_hits": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "required_source_revisions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "filters_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        }
+      }
+    },
+    "KnowledgeResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "request_ref",
+        "hits",
+        "status"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "request_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "hits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_ref",
+              "source_revision",
+              "score"
+            ],
+            "properties": {
+              "source_ref": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+              },
+              "source_revision": {
+                "type": "string",
+                "minLength": 1
+              },
+              "score": {
+                "type": "number"
+              },
+              "excerpt_ref": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+              }
+            }
+          }
+        },
+        "status": {
+          "enum": [
+            "success",
+            "partial",
+            "empty",
+            "failed"
+          ]
+        }
+      }
+    },
+    "ToolAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "action_id",
+        "tool_id",
+        "parameters_ref",
+        "authorization_context_ref",
+        "idempotency_key"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "action_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "tool_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "parameters_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "authorization_context_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "idempotency_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "deadline_utc": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ToolReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "action_id",
+        "status",
+        "effect_refs"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "action_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "status": {
+          "enum": [
+            "succeeded",
+            "failed",
+            "denied",
+            "timed_out",
+            "uncertain"
+          ]
+        },
+        "effect_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "rollback_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "error_code": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "verified_by_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        }
+      }
+    },
+    "EvidenceEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "case_id",
+        "trace_id",
+        "sequence",
+        "timestamp_utc",
+        "event_type",
+        "previous_state",
+        "new_state",
+        "integrity_sha256"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "trace_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "timestamp_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "event_type": {
+          "enum": [
+            "case",
+            "decision",
+            "allocation",
+            "expert",
+            "knowledge",
+            "tool",
+            "verification",
+            "memory",
+            "transition"
+          ]
+        },
+        "previous_state": {
+          "enum": [
+            "ACCEPTED",
+            "PLANNED",
+            "RUNNING",
+            "WAIT_EVIDENCE",
+            "VERIFYING",
+            "COMPLETED",
+            "FAILED",
+            "INCONCLUSIVE"
+          ]
+        },
+        "new_state": {
+          "enum": [
+            "ACCEPTED",
+            "PLANNED",
+            "RUNNING",
+            "WAIT_EVIDENCE",
+            "VERIFYING",
+            "COMPLETED",
+            "FAILED",
+            "INCONCLUSIVE"
+          ]
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "claim_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "decision_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "validation_state": {
+          "enum": [
+            "unverified",
+            "supported",
+            "disputed",
+            "rejected"
+          ]
+        },
+        "budget_snapshot": {
+          "$ref": "#/$defs/Usage"
+        },
+        "integrity_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "CaseResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "trace_id",
+        "outcome",
+        "claim_refs",
+        "source_refs",
+        "usage"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "trace_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "outcome": {
+          "enum": [
+            "completed",
+            "incomplete",
+            "failed"
+          ]
+        },
+        "claim_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "dissent_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+          },
+          "uniqueItems": true
+        },
+        "uncertainty": {
+          "enum": [
+            "known",
+            "estimated",
+            "unknown",
+            "out_of_domain"
+          ]
+        },
+        "usage": {
+          "$ref": "#/$defs/Usage"
+        },
+        "verification_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        },
+        "reason_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+        }
+      }
+    }
+  }
+}

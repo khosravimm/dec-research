@@ -9,3 +9,5 @@ These are curated, non-operational research notes with independent status and li
 - [Official mission and architectural alternatives](../en/mission-amendment-20261116.md) / [فارسی](../fa/mission-amendment-20261116.md)
 
 The older studies remain in the repo; this update adds November 2026 context. Model cards, source code, replicability, licenses and CPU results must be checked independently before making implementation claims.
+
+- [DEC Cognitive Reference Architecture v1 — FA/EN diagrams, contracts and tests](reference-architecture/README.md)

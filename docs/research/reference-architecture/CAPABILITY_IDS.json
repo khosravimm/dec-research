@@ -1,0 +1,130 @@
+{
+  "schema": "dec-cra-capability-index-v1",
+  "capabilities": [
+    {
+      "id": "CAP-DECISION",
+      "requirement": "تصمیم مستقل و ساختاریافته",
+      "work_packages": [
+        "DEC-WP-009",
+        "DEC-WP-023",
+        "DEC-WP-008"
+      ]
+    },
+    {
+      "id": "CAP-COMPUTE",
+      "requirement": "تخصیص تطبیقی محاسبات",
+      "work_packages": [
+        "DEC-WP-009",
+        "DEC-WP-016",
+        "DEC-WP-025",
+        "DEC-WP-026"
+      ]
+    },
+    {
+      "id": "CAP-EXPERT",
+      "requirement": "تخصص های قابل ترکیب",
+      "work_packages": [
+        "DEC-WP-007",
+        "DEC-WP-011",
+        "DEC-WP-017",
+        "DEC-WP-023"
+      ]
+    },
+    {
+      "id": "CAP-MEMORY",
+      "requirement": "حافظه کاری، شواهد و یادگیری",
+      "work_packages": [
+        "DEC-WP-010",
+        "DEC-WP-012",
+        "DEC-WP-013",
+        "DEC-WP-020",
+        "DEC-WP-021",
+        "DEC-WP-022"
+      ]
+    },
+    {
+      "id": "CAP-COUNCIL",
+      "requirement": "همکاری چندمدلی و نقد",
+      "work_packages": [
+        "DEC-WP-012",
+        "DEC-WP-014",
+        "DEC-WP-015",
+        "DEC-WP-016",
+        "DEC-WP-017",
+        "DEC-WP-018"
+      ]
+    },
+    {
+      "id": "CAP-EFFICIENCY",
+      "requirement": "کارایی محدود CPU و RAM",
+      "work_packages": [
+        "DEC-WP-003",
+        "DEC-WP-005",
+        "DEC-WP-007",
+        "DEC-WP-025",
+        "DEC-WP-026"
+      ]
+    },
+    {
+      "id": "CAP-PERSIAN",
+      "requirement": "زبان فارسی، انگلیسی و کد",
+      "work_packages": [
+        "DEC-WP-004",
+        "DEC-WP-007",
+        "DEC-WP-011"
+      ]
+    },
+    {
+      "id": "CAP-KNOWLEDGE",
+      "requirement": "اسناد و دانش معتبر",
+      "work_packages": [
+        "DEC-WP-002",
+        "DEC-WP-010",
+        "DEC-WP-012"
+      ]
+    },
+    {
+      "id": "CAP-TOOLS",
+      "requirement": "اقدامات فنی و فراخوانی ابزار",
+      "work_packages": [
+        "DEC-WP-008",
+        "DEC-WP-012",
+        "DEC-WP-016"
+      ]
+    },
+    {
+      "id": "CAP-LATENT",
+      "requirement": "ارتباط نهفته و تقطیر",
+      "work_packages": [
+        "DEC-WP-020",
+        "DEC-WP-021",
+        "DEC-WP-024",
+        "DEC-WP-028",
+        "DEC-WP-029"
+      ]
+    },
+    {
+      "id": "CAP-AUDIT",
+      "requirement": "ردیابی شواهد و سیاست",
+      "work_packages": [
+        "DEC-WP-001",
+        "DEC-WP-005",
+        "DEC-WP-012",
+        "DEC-WP-013",
+        "DEC-WP-019"
+      ]
+    },
+    {
+      "id": "CAP-ARCH",
+      "requirement": "انتخاب بی طرف معماری نهایی",
+      "work_packages": [
+        "DEC-WP-018",
+        "DEC-WP-019",
+        "DEC-WP-027",
+        "DEC-WP-028",
+        "DEC-WP-029",
+        "DEC-WP-031"
+      ]
+    }
+  ]
+}
