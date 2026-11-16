@@ -68,7 +68,7 @@ assert not reuse_ok(sample["MemoryHandle"],"sha256:test","2026-11-18T14:00:00Z")
 
 # Check all twelve requirements are explicitly addressed by at least one reference section.
 alignment=json.loads((ROOT/'CAPABILITY_IDS.json').read_text())
-arch=(ROOT/'DEC_CRA_REFERENCE_ARCHITECTURE_FA.md').read_text()
+arch=(ROOT/'DEC_CRA_REFERENCE_ARCHITECTURE_EN.md').read_text()
 assert len(alignment['capabilities'])==12
 for term in ["Decision Engine","Compute Allocator","Expert Manager","Memory Manager","Collaboration Engine","Verification","Tool Boundary","Unified","Ecosystem","Hybrid","RQ-01"]:
  assert term in arch,term

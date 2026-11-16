@@ -14,7 +14,7 @@
 
 [منشور مأموریت](docs/fa/mission-amendment-20261116.md) · [تصمیم‌های معماری](docs/fa/decisions.md)
 
-**معماری مرجع (E0):** [DEC-CRA نسخه ۱؛ پنج قابلیت شناختی، گزینه‌های A/B/C و قراردادهای قابل آزمون](docs/research/reference-architecture/README.md). صحت‌سنجی مصنوعی قراردادها فقط E1 است.
+**معماری مرجع (E0):** [DEC-CRA نسخه ۱؛ پنج قابلیت شناختی، گزینه‌های A/B/C و قراردادهای قابل آزمون](docs/research/reference-architecture/README.fa.md). صحت‌سنجی مصنوعی قراردادها فقط E1 است.
 
 ## هدف پژوهش
 

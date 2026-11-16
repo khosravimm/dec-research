@@ -1,174 +1,197 @@
-# DEC-CRA v1.0 — Reference Architecture (فارسی)
-**Date:** 2026-11-16 | **Status:** Proposed research reference (E0) | **Authority:** PROJECT-CHARTER.md and ADR-001 (model OR ecosystem)
-**Scope:** Technology-neutral, single-case CPU-first research baseline. This is a design artifact; components are NOT claimed implemented.
+# معماری مرجع شناختی DEC — نسخهٔ ۱٫۰
+**تاریخ:** ۱۶ نوامبر ۲۰۲۶ | **وضعیت:** معماری مرجع پیشنهادی (E0) | **مرجع بالادست:** `PROJECT-CHARTER.md` و `ADR-001`
+**دامنه:** طراحی مستقل از فناوری، مناسب آزمون اولیه روی CPU، با یک پروندهٔ فعال. این سند طراحی است و به معنی پیاده‌سازی یا اثبات موفقیت مؤلفه‌ها نیست.
 
-## 1. Mission and non-negotiable architectural neutrality
+## ۱. مأموریت و بی‌طرفی معماری
+
 > تحقیق، طراحی و ارزیابی معماری یک مدل هوشمند یا یک اکوسیستم کارآمد که بتواند تصمیم‌گیری، تخصیص محاسبات، حافظه و تخصص‌های مختلف را به‌صورت هماهنگ در هسته خود مدیریت کند؛ با امکان اجرا روی منابع محدود و پشتیبانی از زبان فارسی و مأموریت‌های فنی.
 
-Three implementation candidates remain open: A = unified learnable model; B = coordinated independent models/services; C = hybrid. This architecture specifies behavior and semantic interfaces, **not** where every capability must reside.
+سه گزینهٔ نهایی همچنان باز هستند: **الف) مدل یکپارچهٔ یادگرفتنی، ب) اکوسیستم هماهنگ از مدل‌ها و خدمات مستقل، پ) معماری ترکیبی**. این معماری مرجع، رفتار و قراردادهای معنایی را مشخص می‌کند؛ محل استقرار هر قابلیت را از پیش تعیین نمی‌کند.
 
-### Prior research preserved
-- Cognitive levels L1 direct, L2 iterative/tool-assisted, L3 evidence-based multi-expert council.
-- Two complementary paths: fast cognitive/state plane and independently auditable evidence plane.
-- Typed events with trace, evidence, provenance, uncertainty, rejected alternatives and disagreement.
-- CPU/RAM budget and model revision, adapter revision, bounded memory and no automatic KV compatibility.
-- DEC experimental evidence E0–E3, separated from product/model-card claims.
-- Multiuser, multitask and distributed execution remain separate future requirements, not achieved claims.
+### اصول پژوهشی حفظ‌شده
+- سه سطح شناختی: **L1** پاسخ مستقیم، **L2** استدلال مرحله‌ای با ابزار و دانش، **L3** شورای متخصصان مستقل همراه با شواهد و ثبت اختلاف‌نظر.
+- دو مسیر مکمل: **مسیر شناختی و وضعیت داخلی** برای پردازش سریع، و **مسیر شواهد و رویدادها** برای ممیزی مستقل.
+- رویدادهای نوع‌دار دارای شناسهٔ ردیابی، منشأ شواهد، عدم‌قطعیت، گزینه‌های ردشده و اختلاف‌نظرهای حل‌نشده.
+- بودجهٔ CPU، حافظه و توکن، ثبت نسخهٔ مدل و Adapter، حافظهٔ محدود و عدم فرض سازگاری خودکار KV Cache.
+- تفکیک سطوح شواهد E0 تا E3 و ادعاهای سازندگان از یافته‌های واقعی پروژه.
+- پشتیبانی چندکاربره، اجرای هم‌زمان چند مأموریت و توزیع چندسروری، نیازمندی‌های آتی‌اند و تحقق‌یافته محسوب نمی‌شوند.
 
-## 2. Context and domain model
-A **Case** is the durable unit of a user request or research task, identified by case_id, with an objective, constraints, resources and a bounded sequence of **Steps**. A **Decision** selects action, expert, compute budget, evidence request or stopping. Each Step may request a **KnowledgeArtifact**, **ToolAction**, **ExpertResult** or **MemoryOperation**. Each event references a trace_id and immutable revisions of relevant models/knowledge.
+## ۲. مدل مفهومی دامنه
 
-**Success** is correct completed task under bounded resources with source faithfulness, not length of reasoning or count of model calls.
+**پرونده (Case)** واحد پایدار یک درخواست یا مأموریت پژوهشی است که با `case_id` شناخته می‌شود. هر پرونده هدف، محدودیت‌ها، بودجه و مجموعه‌ای محدود از **گام‌ها (Steps)** دارد.
+**تصمیم (Decision)** انتخاب نوع اقدام، متخصص، بودجهٔ محاسبه، درخواست شواهد یا توقف است. هر گام می‌تواند یک **مصنوع دانشی**، **اقدام ابزاری**، **نتیجهٔ متخصص** یا **عملیات حافظه** درخواست کند. هر رویداد با `trace_id` و نسخه‌های تغییرناپذیر مدل و منابع مرتبط ثبت می‌شود.
 
-## 3. Logical architecture
+**معیار موفقیت** تکمیل صحیح مأموریت با منابع محدود و استناد معتبر است؛ نه طول زنجیرهٔ استدلال یا تعداد فراخوانی مدل‌ها.
+
+## ۳. معماری منطقی
+
 ```mermaid
 flowchart TD
-  IN["Input: Case + Context + Budget"] --> AUTH["Input/Capability Boundary"]
-  AUTH --> CORE["DEC Cognitive Core: state & orchestration contracts"]
-  CORE <--> DEC["Decision Engine: typed action and confidence"]
-  CORE <--> COMP["Compute Allocator: adaptive effort & stopping"]
-  CORE <--> EXP["Expert Manager: model/adapter/expert lifecycle"]
-  CORE <--> MEM["Memory Manager: working/episodic/cache state"]
-  CORE <--> COOP["Collaboration Engine: L1 L2 L3 & dissent"]
+  IN["ورودی: پرونده، زمینه و بودجه"] --> AUTH["مرز پذیرش ورودی و قابلیت"]
+  AUTH --> CORE["هسته شناختی DEC: وضعیت و قراردادهای هماهنگی"]
+  CORE <--> DEC["موتور تصمیم: اقدام نوع‌دار و عدم‌قطعیت"]
+  CORE <--> COMP["تخصیص‌گر محاسبات: تلاش تطبیقی و توقف"]
+  CORE <--> EXP["مدیر متخصصان: چرخه عمر مدل و Adapter"]
+  CORE <--> MEM["مدیر حافظه: کاری، رویدادی و Cache"]
+  CORE <--> COOP["موتور همکاری: سطوح L1/L2/L3 و اختلاف‌نظر"]
   COOP <--> EXP
   COOP <--> MEM
-  MEM <--> KNOW["Knowledge Interface: LDI, RAG, Reranker"]
-  COOP <--> TOOLS["Tool Boundary: executor, result, rollback"]
-  COOP --> VERIFY["Evidence/Verification: claims, citations, conflicts"]
+  MEM <--> KNOW["رابط دانش: LDI، RAG و بازرتبه‌بندی"]
+  COOP <--> TOOLS["مرز ابزار: اجرا، رسید نتیجه و بازگشت"]
+  COOP --> VERIFY["راستی‌آزمایی: ادعا، منبع و تعارض"]
   VERIFY --> CORE
-  CORE --> OUT["Result: answer/action + provenance + uncertainty"]
-  CORE -.-> TRACE["Audit & Metrics: append-only step trace"]
+  CORE --> OUT["خروجی: پاسخ یا اقدام، منشأ و عدم‌قطعیت"]
+  CORE -.-> TRACE["ممیزی و سنجه‌ها: ردگیری افزایشی رویداد"]
   TOOLS -.-> TRACE
   KNOW -.-> TRACE
 ```
 
-### Responsibilities and invariants
-| Component | Owns | Input → Output | Cannot silently do |
+### مسئولیت‌ها و قواعد غیرقابل نقض
+
+| مؤلفه | مسئولیت | ورودی ← خروجی | اقدام ممنوع بدون کنترل |
 |---|---|---|---|
-| Capability Boundary | case admission, input trust class, executable action allowance | CaseRequest → CaseContext | interpret retrieved text as privileged instructions |
-| Cognitive Core | case lifecycle, dependencies, step graph, budget coordination | state/events → selected operation | bypass budget or erase dissent |
-| Decision Engine | typed action/role/stop selection and uncertainty | DecisionContext → DecisionProposal | claim calibrated confidence without validation |
-| Compute Allocator | CPU/RAM/token/time budget, effort escalation, early stop | Budget + progress → Allocation | spend resources beyond recorded ceiling |
-| Expert Manager | model/adapter catalog, compatible versions, cold/warm loading | ExpertInvocation → ExpertResult | reuse incompatible adapter/KV state |
-| Memory Manager | bounded working state, episodic events, knowledge references, cache handles | MemoryOperation → MemoryReceipt | treat KV or embedding as durable semantic memory |
-| Collaboration Engine | select L1/L2/L3; causal graph, review and dissent | task graph → expert hypotheses | default to running every expert or forced consensus |
-| Knowledge Interface | OCR/parse/retrieval/rerank and source revision | KnowledgeRequest → EvidenceRefs | invent attribution or execute source instructions |
-| Tool Boundary | typed action execution, access boundary, status/rollback evidence | ToolAction → ToolReceipt | infer successful side effect from model intent |
-| Verification | check claims, task completion, evidence consistency | claims/evidence → VerificationResult | equate an LLM judge with objective truth |
-| Audit & Metrics | trace, versions, latency, allocations, outcome | event → append-only record | silently alter prior observation |
+| مرز قابلیت | پذیرش پرونده، تعیین اعتماد ورودی و اختیار اقدام | `CaseRequest` ← `CaseContext` | تبدیل متن بازیابی‌شده به دستور ممتاز |
+| هستهٔ شناختی | چرخه عمر پرونده، گراف گام‌ها و هماهنگی بودجه | وضعیت و رویداد ← عملیات منتخب | دورزدن بودجه یا حذف اختلاف‌نظر |
+| موتور تصمیم | انتخاب نوع‌دار اقدام، نقش، توقف و عدم‌قطعیت | `DecisionContext` ← `DecisionProposal` | ادعای اعتماد کالیبره بدون آزمایش |
+| تخصیص‌گر محاسبات | بودجهٔ CPU/RAM/توکن/زمان، ارتقا و توقف | بودجه و پیشرفت ← `Allocation` | مصرف فراتر از سقف ثبت‌شده |
+| مدیر متخصصان | فهرست و سازگاری مدل/Adapter و بارگذاری سرد/گرم | `ExpertInvocation` ← `ExpertResult` | استفادهٔ مجدد از Adapter یا KV ناسازگار |
+| مدیر حافظه | وضعیت کاری محدود، رویدادها، دانش و دسته‌های Cache | عملیات حافظه ← رسید حافظه | تلقی KV/Embedding به‌عنوان حافظهٔ معنایی پایدار |
+| موتور همکاری | انتخاب L1/L2/L3، بازبینی، گراف علت و اختلاف‌نظر | گراف مأموریت ← فرضیه‌های متخصصان | اجرای همهٔ متخصصان در هر درخواست یا اجماع اجباری |
+| رابط دانش | OCR، تجزیهٔ سند، بازیابی، بازرتبه‌بندی و نسخهٔ منبع | `KnowledgeRequest` ← ارجاع شواهد | جعل استناد یا اجرای دستور موجود در سند |
+| مرز ابزار | اجرای اقدام نوع‌دار، دامنهٔ دسترسی، وضعیت و بازگشت | `ToolAction` ← `ToolReceipt` | ادعای اثر واقعی تنها بر اساس قصد مدل |
+| راستی‌آزمایی | بررسی ادعا، تکمیل مأموریت و سازگاری شواهد | ادعا و شواهد ← نتیجهٔ بررسی | برابرگرفتن داور زبانی با حقیقت عینی |
+| ممیزی و سنجه‌ها | ردگیری، نسخه‌ها، تأخیر، منابع و نتیجه | رویداد ← رکورد افزایشی | بازنویسی خاموش مشاهدهٔ قبلی |
 
-## 4. Two planes, four semantically different memories
-**Cognitive/state plane:** ephemeral reasoning state, optionally latent tensors, model-specific KV, expert-invocation handles; may be optimized but no guarantee of portability.
-**Evidence/event plane:** structured, portable, versioned events with source IDs, confidence status, revision, verification findings, human-readable reasons where possible. Mandatory even if core is end-to-end learned.
+## ۴. دو مسیر پردازشی و چهار نوع حافظهٔ متمایز
 
-Memory taxonomy:
-1. WorkingState: case-local, TTL/lease, bounded context; can be structured or latent; not stable across incompatible model revisions.
-2. EpisodicMemory: event-level prior actions, results, decisions and feedback, append-only with retention control.
-3. KnowledgeMemory: external retrievable corpus (LDI/KB) with document revisions and embeddings as indexes, not truth stores.
-4. ExecutionCache: KV/prompt/model cache governed by exact model, tokenizer, adapter, position encoding and runtime revision; discard on ambiguity.
+**مسیر شناختی/وضعیت:** وضعیت موقت استدلال، Tensorهای نهفته در صورت وجود، KV مخصوص مدل و Handleهای فراخوانی متخصص را حمل می‌کند. قابلیت بهینه‌سازی دارد، اما انتقال‌پذیری آن میان مدل‌ها تضمین نمی‌شود.
 
-**Model weights** are a fifth, trainable form of learned representation and must not be updated as if they were a transactional document database.
+**مسیر شواهد/رویدادها:** رویدادهای ساختاریافته، نسخه‌دار و قابل انتقال، شامل شناسهٔ منابع، وضعیت اطمینان، نسخه، نتیجهٔ راستی‌آزمایی و دلیل قابل خواندن برای انسان را ثبت می‌کند. حتی در مدل کاملاً یادگرفتنی نیز این مسیر لازم است.
 
-## 5. One-case state machine
+رده‌بندی حافظه:
+1. **حافظهٔ کاری (`WorkingState`):** ویژهٔ پرونده، دارای مدت اعتبار یا اجاره، محدود و ساختاریافته یا نهفته؛ با تغییر ناسازگار نسخهٔ مدل اعتبار آن تضمین نمی‌شود.
+2. **حافظهٔ رویدادی (`EpisodicMemory`):** تاریخچهٔ تصمیم‌ها، اقدامات، نتایج و بازخورد، با ثبت افزایشی و سیاست نگهداری.
+3. **حافظهٔ دانش (`KnowledgeMemory`):** مجموعهٔ خارجی قابل بازیابی مانند LDI/KB همراه نسخهٔ سند؛ Embedding شاخص بازیابی است، نه مرجع قطعی حقیقت.
+4. **نهانگاه اجرا (`ExecutionCache`):** Cache مدل، Prompt و KV وابسته به مدل دقیق، Tokenizer، Adapter، کدگذاری موقعیت و نسخهٔ Runtime؛ در ابهام باید نامعتبر شود.
+
+**وزن‌های آموخته‌شدهٔ مدل** نوع پنجم و قابل‌آموزش بازنمایی دانش‌اند؛ نباید مانند پایگاه دادهٔ تراکنشی سند به‌روزرسانی شوند.
+
+## ۵. ماشین حالت یک پرونده
+
 ```mermaid
 stateDiagram-v2
   [*] --> ACCEPTED
-  ACCEPTED --> PLANNED: validate input and budget
-  PLANNED --> RUNNING: decision + allocation
-  RUNNING --> WAIT_EVIDENCE: knowledge/tool required
-  WAIT_EVIDENCE --> RUNNING: receipt validated
-  RUNNING --> VERIFYING: candidate result
-  VERIFYING --> RUNNING: specific missing evidence and budget remains
-  VERIFYING --> COMPLETED: accepted outcome
-  VERIFYING --> INCONCLUSIVE: unsupported or budget exhausted
-  RUNNING --> FAILED: tool/runtime failure
+  ACCEPTED --> PLANNED: اعتبارسنجی ورودی و بودجه
+  PLANNED --> RUNNING: تصمیم و تخصیص منابع
+  RUNNING --> WAIT_EVIDENCE: نیاز به دانش یا ابزار
+  WAIT_EVIDENCE --> RUNNING: رسید معتبر دریافت شد
+  RUNNING --> VERIFYING: نتیجه پیشنهادی تولید شد
+  VERIFYING --> RUNNING: کمبود شواهد مشخص و بودجه باقی است
+  VERIFYING --> COMPLETED: نتیجه پذیرفته شد
+  VERIFYING --> INCONCLUSIVE: شاهد ناکافی یا اتمام بودجه
+  RUNNING --> FAILED: خطای ابزار یا Runtime
   COMPLETED --> [*]
   INCONCLUSIVE --> [*]
   FAILED --> [*]
 ```
-Every transition must create an event with prior_state, new_state, cause, budget_snapshot and trace_id. No unlimited retries; every loop consumes measured budget. A model-generated claim is a proposal until corroborated.
 
-## 6. Mode-agnostic contracts
-All transports must preserve the canonical semantics in CONTRACTS.json. Key records:
-- CaseRequest: case_id, objective, language, requested_capabilities, constraints, budget, user_input_refs.
-- DecisionProposal: action in {respond, call_expert, retrieve, invoke_tool, deliberate, request_input, stop}; expert_id optional; allocation_request; uncertainty status and rationale_ref.
-- Allocation: tokens, wall_ms, cpu_ms, rss_mib and max_steps, with consumed values.
-- ExpertInvocation/Result: model_id, model_revision, adapter_revision, tokenizer_revision, task, evidence_refs, raw output artifact references, status.
-- MemoryHandle: representation in {structured, latent, kv, embedding_index}, lineage revisions, TTL, permitted_operations and compatibility fingerprint.
-- KnowledgeRequest/Result: query, collections, source_revision, retrieval scores, citation handles.
-- ToolAction/Receipt: tool_id, parameters_ref, authorization_context_ref, status, effect_ref, rollback_ref.
-- EvidenceEvent: event_id, case_id, trace_id, sequence, timestamp, source_refs, claim_refs, decision_ref, validation_state, SHA-256 integrity.
-- CaseResult: outcome in {completed, incomplete, failed}, claims, citations, dissent, uncertainty and consumed budget.
+هر تغییر حالت باید رویدادی شامل `prior_state`، `new_state`، علت، `budget_snapshot` و `trace_id` ایجاد کند. تلاش مجدد نامحدود مجاز نیست و هر چرخه بودجهٔ واقعی مصرف می‌کند. **ادعای تولیدی مدل تا پیش از تأیید، فقط یک پیشنهاد است.**
 
-Referential integrity: all referenced artifacts must exist; no secret or raw sensitive data in public audit payloads. Versioning is immutable for stored results; adapters and model backbones are compared by canonical hashes/revisions.
+## ۶. قراردادهای مستقل از شیوهٔ پیاده‌سازی
 
-## 7. Three concrete deployments of the SAME reference architecture
-| Logical role | A: Unified | B: Ecosystem | C: Hybrid |
+تمام Transportها باید معنای قراردادهای مرجع موجود در `CONTRACTS.json` را حفظ کنند. نام شناسه‌ها و فیلدهای ماشینی ترجمه نمی‌شوند:
+
+- **`CaseRequest`:** شناسهٔ پرونده، هدف، زبان، قابلیت‌های درخواستی، قیود، بودجه و ارجاعات ورودی.
+- **`DecisionProposal`:** انتخاب یکی از `respond`، `call_expert`، `retrieve`، `invoke_tool`، `deliberate`، `request_input`، `stop`، همراه با متخصص اختیاری، درخواست بودجه و وضعیت عدم‌قطعیت.
+- **`Allocation`:** سقف توکن، زمان دیواری، زمان CPU، حافظه و تعداد گام، همراه مصرف واقعی.
+- **`ExpertInvocation` / `ExpertResult`:** شناسه و نسخهٔ مدل/Adapter/Tokenizer، وظیفه، شواهد، ارجاع خروجی خام و وضعیت.
+- **`MemoryHandle`:** نوع بازنمایی `structured`، `latent`، `kv` یا `embedding_index`، تبار نسخه‌ها، مدت اعتبار، عملیات مجاز و اثرانگشت سازگاری.
+- **`KnowledgeRequest` / `KnowledgeResult`:** پرس‌وجو، مجموعه‌ها، نسخهٔ منبع، امتیاز بازیابی و ارجاع استناد.
+- **`ToolAction` / `ToolReceipt`:** ابزار، پارامتر، زمینهٔ مجوز، وضعیت، ارجاع اثر واقعی و بازگشت.
+- **`EvidenceEvent`:** شناسهٔ رویداد/پرونده/ردگیری، ترتیب، زمان، منابع، ادعاها، تصمیم، وضعیت اعتبار و SHA-256.
+- **`CaseResult`:** وضعیت `completed`، `incomplete` یا `failed`، ادعاها، استنادها، اختلاف‌نظر و بودجهٔ مصرف‌شده.
+
+**یکپارچگی ارجاعات:** همهٔ مصنوع‌های ارجاع‌داده‌شده باید وجود داشته باشند. داده‌های ممیزی عمومی نباید کلید یا دادهٔ حساس خام داشته باشند. نتیجهٔ ذخیره‌شده تغییرناپذیر و مقایسهٔ مدل/Adapter وابسته به شناسه و Hash نسخه است.
+
+## ۷. سه نگاشت اجرایی برای یک معماری مرجع
+
+| نقش منطقی | الف: مدل یکپارچه | ب: اکوسیستم | پ: ترکیبی |
 |---|---|---|---|
-| Decision | learned typed head | external small decider or rule router | learned local head + external policy |
-| Compute allocation | depth/loop/halting module | scheduler/case controller | model early exit + scheduler |
-| Experts | internal MoE/adapters | discrete models or per-call adapters | shared backbone + external specialists |
-| Memory | recurrent/latent state + external source references | structured events + retrieval + separate caches | bounded internal state + episodic and KB |
-| Cooperation | learned inter-expert signals | explicit task graph L1/L2/L3 | internal specialist mixing + selective external council |
-| Evidence & tools | independently auditable interfaces remain external | independent components | independent components |
-| Main research cost | training, custom kernel and attribution | context/transport/cold-load overhead | interface complexity and compatibility |
+| تصمیم | Head یادگرفتنی نوع‌دار | تصمیم‌گیر کوچک بیرونی یا Router قاعده‌محور | Head محلی همراه سیاست بیرونی |
+| تخصیص محاسبه | ماژول عمق، حلقه یا توقف | زمان‌بند و کنترلر پرونده | توقف درون‌مدلی همراه زمان‌بند |
+| متخصصان | MoE یا Adapter درونی | مدل‌های مستقل یا Adapter در هر درخواست | Backbone مشترک و متخصص بیرونی |
+| حافظه | حالت بازگشتی/نهفته با ارجاع منابع | رویدادها، بازیابی و Cache مجزا | وضعیت درونی محدود و دانش/رویداد بیرونی |
+| همکاری | سیگنال یادگرفتنی بین متخصص‌ها | گراف مأموریت آشکار و شورای L1/L2/L3 | ترکیب درونی و شورای بیرونی انتخابی |
+| شواهد و ابزار | رابط مستقل و قابل ممیزی باقی می‌ماند | مؤلفه‌های مستقل | مؤلفه‌های مستقل |
+| هزینهٔ اصلی پژوهش | آموزش، Kernel اختصاصی و تبیین رفتار | جابه‌جایی Context، ارتباط و بارگذاری سرد | سازگاری رابط‌ها و وضعیت |
 
-**Rule:** Same test task, hardware reservation, evidence corpus, authorization boundary and cost measure for A/B/C. A prototype may use stubs for testing contracts, but stub passing does not prove cognitive benefits.
+**قاعدهٔ مقایسه:** مأموریت، سخت‌افزار رزروشده، مجموعهٔ شواهد، مرز مجوز و روش محاسبهٔ هزینه باید برای هر سه گزینه قابل‌مقایسه باشند. عبور نمونهٔ نمایشی از تست قرارداد به معنی اثبات مزیت شناختی نیست.
 
-## 8. Candidate mapping — no forced product selection
-| Needed mechanism | Research candidates / precedent | Required falsifiable test |
+## ۸. نگاشت فناوری‌های نامزد بدون انتخاب پیش‌هنگام محصول
+
+| سازوکار موردنیاز | نامزدهای پژوهشی | آزمون ابطال‌پذیر لازم |
 |---|---|---|
-| typed decisions | Strands Decider, LemonDecider, ARC | routing accuracy, calibration, OOD, downstream tool success |
-| adaptive compute | Dory, Nanbeige, ALoDLM, LayerRoute | completed-task quality per total CPU time/energy, appropriate stopping |
-| expert adaptation | MobileMoE, Ling, MoLoRA, LoRA-Mixer, MoA; PEFT/llama.cpp | quality and interference under same base/split, peak RAM |
-| bounded state | MemT, Hy-Memory, KV1 | recall, stale state, transfer across compatible revisions, resident RSS |
-| agent/tool path | Mellum, TMax, FrogNano, Holo | held-out successful end-to-end tool tasks and recovery |
-| Persian/technical | IbnSina, Dorna, LFM, MiniCPM; MorphBPE, Parity-aware BPE | code/English regression, Persian morphology, frozen evaluation set |
-| source-grounded knowledge | LDI, Nemotron Parse, WeVisDoc, BGE-M3, Jina Reranker | real-document extraction, traceable answer and retrieval quality |
-| efficient execution | Ternary-Bonsai, MobileMoE QAT, ExecuTorch, speculative decoding | actual CPU p95 latency and total peak memory |
+| تصمیم نوع‌دار | Strands Decider، LemonDecider، ARC | دقت Routing، کالیبراسیون، خروج از دامنه و موفقیت ابزار |
+| محاسبات تطبیقی | Dory، Nanbeige، ALoDLM، LayerRoute | کیفیت مأموریت کامل به‌ازای CPU/انرژی و توقف مناسب |
+| ترکیب متخصص | MobileMoE، Ling، MoLoRA، LoRA-Mixer، MoA، PEFT، llama.cpp | کیفیت/تداخل با مدل پایه و داده یکسان، بیشینهٔ RAM |
+| وضعیت محدود | MemT، Hy-Memory، KV1 | صحت بازیابی، وضعیت منسوخ، انتقال بین نسخه‌های سازگار و RSS |
+| عامل و ابزار | Mellum، TMax، FrogNano، Holo | اجرای واقعی ابزار روی موارد ندیده و بازیابی از خطا |
+| فارسی و امور فنی | IbnSina، Dorna، LFM، MiniCPM، MorphBPE، Parity-aware BPE | پس‌رفت انگلیسی/کد، صرف فارسی و آزمون نهایی ثابت |
+| دانش مستند | LDI، Nemotron Parse، WeVisDoc، BGE-M3، Jina Reranker | استخراج اسناد واقعی، صحت پاسخ مستند و بازیابی |
+| اجرای کارآمد | Ternary-Bonsai، MobileMoE QAT، ExecuTorch، Speculative Decoding | تأخیر p95 روی CPU و بیشینهٔ حافظهٔ کل |
 
-This is a technology landscape linkage, not a claim that all listed models implement the whole mechanism or work on the same CPU backend.
+این نگاشت، ارتباط یافته‌های پژوهشی با معماری است؛ نه ادعای اینکه همهٔ مدل‌های نام‌برده تمام این سازوکارها را اجرا می‌کنند یا روی یک Runtime مشترک قابل اجرا هستند.
 
-## 9. Security, audit and failure semantics
-- Trust boundaries at input, external documents, model artifacts, tools and publication; source text is evidence, never authority.
-- The cognitive core may propose actions; effectful tool calls are evaluated by a separate executable authorization gate with least privileges and traceable identity, scope and parameters.
-- Model predictions do not silently mutate knowledge or policy. Approved learned components and independently versioned policy may coexist.
-- Each external request has timeout, bounded retries, circuit/failure handling, idempotency key when available, and a receipt before reporting success.
-- Prompt injection, false citation, poisoned memory, invalid adapter/kv reuse, uncontrolled model routing, unbounded loops, data leakage and failed rollback are mandatory regression cases.
-- Publication uses a separate allowlist: no proprietary model weights, credentials, private networks, raw real-world logs, unreviewed datasets or latent dumps from sensitive input.
+## ۹. امنیت، ممیزی و رفتار در شرایط خطا
 
-## 10. Quality attributes and measurable acceptance
-Do not invent universal targets. Freeze thresholds in each experiment registration *before* comparing candidates.
-| Category | Measure | Evidence artifact |
+- مرزهای اعتماد در ورودی، اسناد بیرونی، بسته‌های مدل، ابزار و انتشار قرار دارند. متن منبع **شاهد است، نه دستور ممتاز**.
+- هسته می‌تواند اقدام پیشنهاد دهد، اما اجرای اقدام اثرگذار از دروازهٔ مجوز مستقل، با حداقل دسترسی و ثبت هویت، محدوده و پارامترها عبور می‌کند.
+- پیش‌بینی مدل نباید بی‌صدا دانش یا سیاست را تغییر دهد. مؤلفه‌های یادگرفتنی تأییدشده می‌توانند کنار سیاست مستقل و نسخه‌دار قرار گیرند.
+- درخواست بیرونی باید Timeout، تلاش مجدد محدود، مدیریت خطا/قطع سرویس، در صورت امکان کلید Idempotency و **رسید نتیجهٔ واقعی** داشته باشد.
+- تزریق Prompt، استناد جعلی، مسمومیت حافظه، استفادهٔ ناسازگار از KV/Adapter، Routing کنترل‌نشده، حلقهٔ نامحدود، نشت داده و بازگشت ناموفق، سناریوهای الزامی Regression هستند.
+- انتشار بر اساس فهرست مجاز مستقل انجام می‌شود: وزن اختصاصی، کلید، شبکهٔ خصوصی، لاگ واقعی خام، دادهٔ بررسی‌نشده و Tensor نهفتهٔ حاوی دادهٔ حساس منتشر نشود.
+
+## ۱۰. ویژگی‌های کیفیت و معیار پذیرش
+
+هدف کمّی عمومی و ساختگی تعریف نکنیم؛ آستانهٔ هر آزمایش باید **پیش از مقایسهٔ نامزدها** ثبت شود.
+
+| حوزه | شاخص اندازه‌گیری | شاهد قابل ارائه |
 |---|---|---|
-| Task accuracy | independently adjudicated success, partial, unsupported, false action | labeled eval set and receipts |
-| Decisions | route accuracy, ECE/Brier, OOD/abstain, wasted escalations | route traces and labels |
-| Adaptive compute | quality vs consumed CPU sec, end-to-end p50/p95, final answer delivery | profiler and trace |
-| Memory | retrieval correctness, contamination, forgetting, recovery, compatibility invalidation | state matrix and replay tests |
-| Experts | delta vs raw base/Prompt/RAG/LoRA, interference, switch penalty | held-out ablations |
-| Source fidelity | grounded claim rate, citation coverage, parsing CER/WER | independent annotations |
-| Resource | peak total RSS, model residency, cold/warm, disk+KV, energy if possible | external host measurement |
-| Audit/security | 100% expected events in trace, executable action gated, no leaked secrets | contract/negative tests |
-| Maintainability | independent version updates, schema migrations, rollback and cost | release/ADR log |
+| دقت مأموریت | موفقیت داوری مستقل، پاسخ ناقص، بدون شاهد یا اقدام اشتباه | مجموعهٔ برچسب‌خورده و رسید ابزار |
+| تصمیم‌گیری | دقت مسیر، ECE/Brier، عدم پاسخ خارج از دامنه و ارتقای بی‌مورد | Trace مسیر و برچسب مرجع |
+| محاسبهٔ تطبیقی | کیفیت در برابر CPU مصرفی، تأخیر انتهابه‌انتها p50/p95 و تحویل پاسخ نهایی | Profiler و Trace |
+| حافظه | بازیابی درست، آلودگی، فراموشی، بازیابی وضعیت و بی‌اعتبارسازی ناسازگار | ماتریس حالت و آزمون بازپخش |
+| متخصصان | تغییر نسبت به Base/Prompt/RAG/LoRA، تداخل و جریمهٔ تعویض | آزمون حذف مؤلفه روی دادهٔ ندیده |
+| صحت منابع | نسبت ادعاهای مستند، پوشش استناد و CER/WER اسناد | برچسب‌گذاری مستقل |
+| منابع | اوج RSS کل، اقامت وزن‌ها، سرد/گرم، دیسک/KV و انرژی در صورت امکان | اندازه‌گیری بیرونی سیستم |
+| ممیزی و امنیت | پوشش کامل رویدادهای مورد انتظار، دروازهٔ اقدام و عدم نشت | تست قرارداد و منفی |
+| نگهداری | به‌روزرسانی نسخه‌های مستقل، مهاجرت Schema، Rollback و هزینه | ثبت Release و ADR |
 
-## 11. Experiment sequence and roadmap trace
-- P0 (WP-001..006): freeze corpus, reference architecture, source register and evaluation harness.
-- P1A/B/C (WP-007..019): build common logical contracts, rule-based controller, model selection, L1/L2/L3 baselines and ablations.
-- Parallel, bounded architecture spikes: typed decision, adaptive compute, memory, expert compatibility. No declaration of completed P2.
-- P2 (WP-020..027): latent transfer, learned routing, cache-safe adapters, recurrent/low-bit tests and architecture comparison gate.
-- P3 (WP-028..031): **architecture-neutral continuation**: unified, ecosystem or hybrid as selected only by evidence. Existing public roadmap labels P3 "Integrated model research", which conflicts with charter; tracked as documentation change, not silently revised here.
-- For each option register: hypothesis, counterfactual, canonical models, revisions, dataset split, budgets, quality metrics, gates, failure result and rollback.
+## ۱۱. ترتیب آزمایش‌ها و اتصال به نقشه راه
 
-## 12. Architectural decisions, open questions and explicit nonclaims
-**Decided:** scope neutrality; five capability semantics; independent evidence plane; versioned memory/adapter contracts; bounded runtime and audited tool boundary; benchmark-conditional implementation.
-**Not decided:** base model; runtime/vendor; tokenizer; whether decider or memory is learned vs external; how latent tensors are shared; which final architecture is superior.
-**Not implemented:** model integrations, typed learned heads, bounded latent transport, multi-expert training, A/B/C comparator, E3 quality claims.
-**Open ADR topics:** state/trace envelope format, model-specific KV compatibility fingerprints, decision confidence calibration, authenticated tool boundary, adapter compatibility and registry, P3 neutral roadmap refresh.
+- **P0 (WP-001 تا 006):** تثبیت پیکره، معماری مرجع، ثبت منابع و ابزار ارزیابی.
+- **P1A/B/C (WP-007 تا 019):** قراردادهای منطقی مشترک، کنترلر قاعده‌محور، انتخاب مدل، خط مبنای L1/L2/L3 و آزمون حذف مؤلفه.
+- **آزمایش‌های کوتاه موازی:** تصمیم نوع‌دار، محاسبه تطبیقی، حافظه و سازگاری متخصصان؛ بدون ادعای پایان P2.
+- **P2 (WP-020 تا 027):** انتقال نهفته، Routing یادگرفتنی، Adapter امن از نظر Cache، معماری بازگشتی/کم‌بیت و دروازهٔ مقایسه.
+- **P3 (WP-028 تا 031):** **ادامهٔ بی‌طرف نسبت به معماری**؛ انتخاب مدل واحد، اکوسیستم یا ترکیبی تنها بر اساس شواهد. عنوان قدیمی P3 در نقشه راه عمومی هنوز «Integrated Model Research» است و با منشور تعارض دارد؛ تا اصلاح مستقل نقشه راه، این تعارض ثبت می‌ماند.
+- برای هر گزینه باید فرضیه، فرض خلاف، نسخه‌ها، تقسیم داده، بودجه، شاخص‌ها، معیار پذیرش، نتایج ناموفق و مسیر بازگشت ثبت شود.
 
-## 13. Source anchors
-- PROJECT-CHARTER.md and ADR-001-MODEL-OR-ECOSYSTEM-20261116.md (authority)
-- integration-synthesis-20261116/CAPABILITY_ALIGNMENT.json (12 mapped capabilities, WP lineage)
-- model-landscape-2026/MODEL_RESULTS_2026-11-16.md, COMPOSITION_METHODS_RESULTS_2026-11-16.md, PERSIAN_TOKENIZER_RESEARCH_2026-11-16.md
-- GitHub research/roadmap.json (35 work packages), docs/fa/problem.md (RQ01..08), docs/fa/architecture.md (L1..L3, two planes), research-master benchmark reports (operational evidence only).
+## ۱۲. تصمیم‌ها، پرسش‌های باز و ادعاهایی که مطرح نمی‌شوند
 
-**RQ traceability:** RQ-01..RQ-08 are carried by VALIDATION_PLAN.md and the linked official problem statement; status E0.
+**تصمیم‌های ثبت‌شده:** بی‌طرفی دامنه؛ پنج قابلیت شناختی؛ مسیر مستقل شواهد؛ قراردادهای نسخه‌دار حافظه و Adapter؛ اجرای محدود به بودجه و مرز ابزار قابل ممیزی؛ تصمیم اجرایی مشروط به بنچمارک.
+
+**تصمیم‌های باز:** مدل پایه، Runtime و سازنده، Tokenizer، درونی یا بیرونی بودن تصمیم‌گیر و حافظه، شیوهٔ تبادل Tensor نهفته و برتری معماری نهایی.
+
+**موارد پیاده‌سازی‌نشده:** ادغام واقعی مدل‌ها، Head تصمیم یادگرفتنی، انتقال نهفتهٔ محدود، آموزش چندمتخصصی، مقایسهٔ A/B/C و ادعای کیفیت E3.
+
+**موضوعات ADR آینده:** قالب Envelope برای وضعیت/ردگیری، اثرانگشت سازگاری KV وابسته به مدل، کالیبراسیون تصمیم، مرز ابزار دارای احراز هویت، Registry و سازگاری Adapter و اصلاح نام‌گذاری بی‌طرف فاز P3.
+
+## ۱۳. منابع و ردیابی
+
+- `PROJECT-CHARTER.md` و `ADR-001-MODEL-OR-ECOSYSTEM-20261116.md`: مبنای رسمی مأموریت.
+- `integration-synthesis-20261116/CAPABILITY_ALIGNMENT.json`: نگاشت ۱۲ قابلیت و بسته‌های کاری؛ آرشیو پژوهشی داخلی.
+- `model-landscape-2026/MODEL_RESULTS_2026-11-16.md`، `COMPOSITION_METHODS_RESULTS_2026-11-16.md` و `PERSIAN_TOKENIZER_RESEARCH_2026-11-16.md`: پیشینهٔ تحقیق.
+- `research/roadmap.json`: ۳۵ بسته کاری؛ `docs/fa/problem.md`: پرسش‌های RQ-01 تا RQ-08؛ `docs/fa/architecture.md`: L1/L2/L3 و دو مسیر داده.
+- بنچمارک‌های آرشیوی مدل‌ها فقط شواهد عملیاتی محدودند، نه اثبات معماری DEC.
+
+**ردیابی RQ:** پرسش‌های RQ-01 تا RQ-08 در `VALIDATION_PLAN.md` و سند رسمی صورت مسئله پیگیری شده‌اند و هنوز در سطح E0 هستند.

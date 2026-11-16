@@ -1,23 +1,16 @@
-# DEC-CRA v1 — Reference Architecture
+# DEC Cognitive Reference Architecture — v1 (English index)
 
-Architecture-neutral logical model of DEC's five cognitive capabilities, supporting boundaries and controlled comparison of **Unified**, **Ecosystem** and **Hybrid**.
+Technology-neutral reference design for DEC's five cognitive capabilities and a fair comparison of **Unified**, **Ecosystem** and **Hybrid** options. The Persian and English documents must be semantically equivalent in coverage, design claims and evidence limitations; a translated filename or header is not sufficient.
 
-- [فارسی — معماری مرجع کامل](DEC_CRA_REFERENCE_ARCHITECTURE_FA.md)
-- [English — overview](REFERENCE_ARCHITECTURE_EN.md)
-- [Machine-readable contracts (JSON Schema)](CONTRACTS.json)
-- [Synthetic contract fixtures](SYNTHETIC_CONTRACT_EXAMPLES.json)
-- [Requirement/WP traceability](CAPABILITY_IDS.json)
-- [Experimental validation plan](VALIDATION_PLAN.md)
-- [Decision record](ADR-002-REFERENCE-ARCHITECTURE.md)
-- [QA output](QA_RESULTS.json)
+| Subject | English | Persian |
+|---|---|---|
+| Full architecture | [Reference architecture](DEC_CRA_REFERENCE_ARCHITECTURE_EN.md) | [معماری مرجع](DEC_CRA_REFERENCE_ARCHITECTURE_FA.md) |
+| Validation plan | [Validation plan](VALIDATION_PLAN.md) | [برنامهٔ آزمون](VALIDATION_PLAN_FA.md) |
+| Architecture decision | [ADR-002](ADR-002-REFERENCE-ARCHITECTURE.md) | [ADR-002 فارسی](ADR-002-REFERENCE-ARCHITECTURE_FA.md) |
+| Brief overview | [English summary](REFERENCE_ARCHITECTURE_EN.md) | — |
 
-## Local self-test
+**Language-neutral machine artifacts:** [JSON Schema](CONTRACTS.json), [synthetic fixtures](SYNTHETIC_CONTRACT_EXAMPLES.json), [capability/WP index](CAPABILITY_IDS.json), [QA output](QA_RESULTS.json), [test runner](validate_reference.py).
 
-Requires Python 3 and jsonschema >=4.18.
+Requires Python 3 and `jsonschema>=4.18`. `python3 validate_reference.py` tests the schema and synthetic invariants, **not the cognitive performance of a model**.
 
-```bash
-python3 -m pip install jsonschema
-python3 validate_reference.py
-```
-
-Passing this test validates the envelope schema, negative fixtures, bounded state transitions, budgets and memory compatibility on synthetic examples. It does **not** validate DEC model/architecture behavior. No system implementation is included.
+Identifiers, model names, JSON keys, code and research IDs remain unchanged across languages. Explanatory narrative, decision rationale, headings and non-code tables are localized.

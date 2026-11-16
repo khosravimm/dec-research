@@ -1,0 +1,311 @@
+{
+  "schema": "dec-bilingual-audit-v1",
+  "status": "PASS_STRUCTURAL_LEXICAL",
+  "new_pairs": 12,
+  "existing_docs_pairs": 23,
+  "research_checks": [
+    {
+      "category": "research-index",
+      "english": "docs/research/README.md",
+      "persian": "docs/research/README.fa.md",
+      "persian_fraction": 0.587,
+      "section_count_en": 1,
+      "section_count_fa": 1,
+      "table_rows_en": 7,
+      "table_rows_fa": 7,
+      "missing_primary_urls": [],
+      "source_sha256": "8a844616cb7909308c6bcf6b2742c82e215f25ac772883c9283d809fd75b92eb",
+      "persian_sha256": "7680e40b8e88925e99c0d107ab1bfff2df524afda5304d77f9bbf77dc5b51d78"
+    },
+    {
+      "category": "short-overview",
+      "english": "docs/research/reference-architecture/REFERENCE_ARCHITECTURE_EN.md",
+      "persian": "docs/research/reference-architecture/REFERENCE_ARCHITECTURE_FA.md",
+      "persian_fraction": 0.804,
+      "section_count_en": 11,
+      "section_count_fa": 8,
+      "table_rows_en": 7,
+      "table_rows_fa": 6,
+      "missing_primary_urls": [],
+      "source_sha256": "8c3489c8bd002a0f4770274a3ce0ca7f5882945113587fdfad8e011632e68104",
+      "persian_sha256": "a9fce089c8028e553dfa684b0cb87e37b80f1db2bcceac1298ec06ec55d85473"
+    },
+    {
+      "category": "charter",
+      "english": "PROJECT-CHARTER.en.md",
+      "persian": "PROJECT-CHARTER.md",
+      "persian_fraction": 0.928,
+      "section_count_en": 5,
+      "section_count_fa": 5,
+      "table_rows_en": 0,
+      "table_rows_fa": 0,
+      "missing_primary_urls": [],
+      "source_sha256": "ed310d1e7d1a03ec080ba003cec74f817162c222f29c9858a9308eae8f682f6c",
+      "persian_sha256": "781139f683a09b6e905519255ba9d2b6801c47a78c867371be8f43930ebee048"
+    },
+    {
+      "category": "adr001",
+      "english": "ADR-001-MODEL-OR-ECOSYSTEM-20261116.en.md",
+      "persian": "ADR-001-MODEL-OR-ECOSYSTEM-20261116.md",
+      "persian_fraction": 0.875,
+      "section_count_en": 6,
+      "section_count_fa": 6,
+      "table_rows_en": 0,
+      "table_rows_fa": 0,
+      "missing_primary_urls": [],
+      "source_sha256": "e6539dbd25e61d768e36cfe67504ec0ff2d35bd05ae807539bf7db9cc240eec1",
+      "persian_sha256": "c65cfc6f00ed5849861f81a359fbae1c9233c879361f138df409ad009349661d"
+    },
+    {
+      "category": "architecture",
+      "english": "docs/research/reference-architecture/DEC_CRA_REFERENCE_ARCHITECTURE_EN.md",
+      "persian": "docs/research/reference-architecture/DEC_CRA_REFERENCE_ARCHITECTURE_FA.md",
+      "persian_fraction": 0.908,
+      "section_count_en": 16,
+      "section_count_fa": 16,
+      "table_rows_en": 39,
+      "table_rows_fa": 39,
+      "missing_primary_urls": [],
+      "source_sha256": "fc8b726759ce857fd9e45d61466503b3a685eab8ab8d63567cb2b7b79f11d17f",
+      "persian_sha256": "5a9f7dbf9da0af281b4f2f2669f12524c9b75c0f0c8f17c51b99538abe0ed2b4"
+    },
+    {
+      "category": "validation",
+      "english": "docs/research/reference-architecture/VALIDATION_PLAN.md",
+      "persian": "docs/research/reference-architecture/VALIDATION_PLAN_FA.md",
+      "persian_fraction": 0.886,
+      "section_count_en": 11,
+      "section_count_fa": 11,
+      "table_rows_en": 15,
+      "table_rows_fa": 15,
+      "missing_primary_urls": [],
+      "source_sha256": "e1e61728be4afe670059dbc91529e494c16711ae02cf7c0f82c7488759953aa7",
+      "persian_sha256": "38eb049a3bda7ea5d94a746f538dd2c5eac936fc6328198565c05f060279e267"
+    },
+    {
+      "category": "adr",
+      "english": "docs/research/reference-architecture/ADR-002-REFERENCE-ARCHITECTURE.md",
+      "persian": "docs/research/reference-architecture/ADR-002-REFERENCE-ARCHITECTURE_FA.md",
+      "persian_fraction": 0.945,
+      "section_count_en": 7,
+      "section_count_fa": 7,
+      "table_rows_en": 0,
+      "table_rows_fa": 0,
+      "missing_primary_urls": [],
+      "source_sha256": "6f47d361c3d3c2f9c3db10edff70412df381d294d7773f97fb9d8f6be09afa70",
+      "persian_sha256": "0a3e76474f60854cd001637d74f81d6959bb191bfd2ed26d99cd358d57563129"
+    },
+    {
+      "category": "index",
+      "english": "docs/research/reference-architecture/README.md",
+      "persian": "docs/research/reference-architecture/README.fa.md",
+      "persian_fraction": 0.649,
+      "section_count_en": 1,
+      "section_count_fa": 1,
+      "table_rows_en": 5,
+      "table_rows_fa": 5,
+      "missing_primary_urls": [],
+      "source_sha256": "dec0c8e1093f0a34e69492130f5d39c53284a4a0d948b68419cd702c701643cd",
+      "persian_sha256": "de2d1e035863ce01fad1472308884dc7808ac470e325ad76d344888fbd41ed4b"
+    },
+    {
+      "category": "mobilemoe",
+      "english": "docs/research/mobilemoe-technical-review-20261116.md",
+      "persian": "docs/research/mobilemoe-technical-review-20261116.fa.md",
+      "persian_fraction": 0.789,
+      "section_count_en": 7,
+      "section_count_fa": 7,
+      "table_rows_en": 4,
+      "table_rows_fa": 4,
+      "missing_primary_urls": [],
+      "source_sha256": "11a4ed4b59cd7deb665826c998c5fa98bd0ae2840aaa7bc57d7d525f22c548d1",
+      "persian_sha256": "95cf81ee99a95b2747f1227d2bcdcdfb1d7912ab91741160958ce42d351f75b6"
+    },
+    {
+      "category": "tokenizer",
+      "english": "docs/research/persian-tokenizer-20261116.md",
+      "persian": "docs/research/persian-tokenizer-20261116.fa.md",
+      "persian_fraction": 0.792,
+      "section_count_en": 7,
+      "section_count_fa": 7,
+      "table_rows_en": 11,
+      "table_rows_fa": 11,
+      "missing_primary_urls": [],
+      "source_sha256": "30ae6fb33068198011796af5b1a869fe5d4c5690cb888bf3ee6ec910d3a44574",
+      "persian_sha256": "32888cfc58708e75acc393a38881c4175a1ba903315a8e3318d84721b2eba3a7"
+    },
+    {
+      "category": "composition",
+      "english": "docs/research/composition-methods-20261116.md",
+      "persian": "docs/research/composition-methods-20261116.fa.md",
+      "persian_fraction": 0.792,
+      "section_count_en": 11,
+      "section_count_fa": 11,
+      "table_rows_en": 15,
+      "table_rows_fa": 15,
+      "missing_primary_urls": [],
+      "source_sha256": "7f2cf61bb511b451deac222870a5014da956426d6a77f2d67e1fca66ae6a743e",
+      "persian_sha256": "f23bf90b6c0ebb121f76d3e68eea170d0022ed07e299fb1669218e8d6a6307af"
+    },
+    {
+      "category": "models",
+      "english": "docs/research/model-landscape-20261116.md",
+      "persian": "docs/research/model-landscape-20261116.fa.md",
+      "persian_fraction": 0.698,
+      "section_count_en": 14,
+      "section_count_fa": 14,
+      "table_rows_en": 81,
+      "table_rows_fa": 81,
+      "missing_primary_urls": [],
+      "source_sha256": "38669174fa10ec32f47fec68cd3a165b95e26fed85811a1ac27fd603bc589186",
+      "persian_sha256": "e000fe037fde9fd834cbb12dc34030c6334771810688472b2b687ad4d1708ed1"
+    }
+  ],
+  "legacy_checks": [
+    {
+      "file": "architecture.md",
+      "persian_fraction": 0.851,
+      "persian_characters": 1125,
+      "latin_characters": 197
+    },
+    {
+      "file": "bilingual-policy.md",
+      "persian_fraction": 0.879,
+      "persian_characters": 1717,
+      "latin_characters": 236
+    },
+    {
+      "file": "contributing.md",
+      "persian_fraction": 0.838,
+      "persian_characters": 852,
+      "latin_characters": 165
+    },
+    {
+      "file": "decisions.md",
+      "persian_fraction": 0.852,
+      "persian_characters": 1451,
+      "latin_characters": 253
+    },
+    {
+      "file": "experiments.md",
+      "persian_fraction": 0.867,
+      "persian_characters": 1649,
+      "latin_characters": 252
+    },
+    {
+      "file": "glossary.md",
+      "persian_fraction": 0.773,
+      "persian_characters": 816,
+      "latin_characters": 239
+    },
+    {
+      "file": "liquid-warmloaded-general20.md",
+      "persian_fraction": 0.449,
+      "persian_characters": 2302,
+      "latin_characters": 2823
+    },
+    {
+      "file": "methods.md",
+      "persian_fraction": 0.909,
+      "persian_characters": 1455,
+      "latin_characters": 145
+    },
+    {
+      "file": "minicpm5-sampler-ablation.md",
+      "persian_fraction": 0.72,
+      "persian_characters": 2247,
+      "latin_characters": 872
+    },
+    {
+      "file": "mission-amendment-20261116.md",
+      "persian_fraction": 0.817,
+      "persian_characters": 958,
+      "latin_characters": 214
+    },
+    {
+      "file": "model-candidates-20261112.md",
+      "persian_fraction": 0.644,
+      "persian_characters": 3928,
+      "latin_characters": 2169
+    },
+    {
+      "file": "model-english-instruction-tools.md",
+      "persian_fraction": 0.291,
+      "persian_characters": 3304,
+      "latin_characters": 8062
+    },
+    {
+      "file": "model-preflight.md",
+      "persian_fraction": 0.803,
+      "persian_characters": 2244,
+      "latin_characters": 552
+    },
+    {
+      "file": "model-warmloaded-general20.md",
+      "persian_fraction": 0.554,
+      "persian_characters": 4188,
+      "latin_characters": 3371
+    },
+    {
+      "file": "problem.md",
+      "persian_fraction": 0.865,
+      "persian_characters": 1494,
+      "latin_characters": 233
+    },
+    {
+      "file": "progress.md",
+      "persian_fraction": 0.866,
+      "persian_characters": 1150,
+      "latin_characters": 178
+    },
+    {
+      "file": "publication-ip.md",
+      "persian_fraction": 0.923,
+      "persian_characters": 2074,
+      "latin_characters": 173
+    },
+    {
+      "file": "reproducibility.md",
+      "persian_fraction": 0.808,
+      "persian_characters": 1012,
+      "latin_characters": 241
+    },
+    {
+      "file": "research-landscape.md",
+      "persian_fraction": 0.718,
+      "persian_characters": 1733,
+      "latin_characters": 679
+    },
+    {
+      "file": "results.md",
+      "persian_fraction": 0.835,
+      "persian_characters": 1026,
+      "latin_characters": 203
+    },
+    {
+      "file": "roadmap.md",
+      "persian_fraction": 0.765,
+      "persian_characters": 13157,
+      "latin_characters": 4035
+    },
+    {
+      "file": "security.md",
+      "persian_fraction": 0.829,
+      "persian_characters": 918,
+      "latin_characters": 190
+    },
+    {
+      "file": "vision.md",
+      "persian_fraction": 0.89,
+      "persian_characters": 2057,
+      "latin_characters": 254
+    }
+  ],
+  "issues": [],
+  "editorial_warnings": [],
+  "limitations": [
+    "Character ratios and URL/heading/table parity cannot prove accurate translation.",
+    "Technical names, raw user prompts and machine fields intentionally retain original spelling.",
+    "Independent editorial review is required for semantic equivalence."
+  ]
+}
