@@ -1,0 +1,25 @@
+{
+  "remote_branch": "main",
+  "remote_head_before": "7ed0e961817bfbf03e476bd8471f7c887c0ba948",
+  "sensitive_patterns_found": [],
+  "policy": "allowlist publication only, preserve existing public repository history and files, no raw weights/benchmarks/internal locations",
+  "source_description": "Curated DEC Research lab documents (sal-ai)",
+  "published_files": [
+    "README.md",
+    "docs/en/vision.md",
+    "docs/en/decisions.md",
+    "docs/en/mission-amendment-20261116.md",
+    "README.fa.md",
+    "docs/fa/vision.md",
+    "docs/fa/decisions.md",
+    "docs/fa/mission-amendment-20261116.md",
+    "docs/research/model-landscape-20261116.md",
+    "docs/research/composition-methods-20261116.md",
+    "docs/research/mobilemoe-technical-review-20261116.md",
+    "docs/research/persian-tokenizer-20261116.md",
+    "docs/research/README.md",
+    "PROJECT-CHARTER.md",
+    "ADR-001-MODEL-OR-ECOSYSTEM-20261116.md"
+  ],
+  "security_check": "No private credentials/weights/raw logs/raw benchmarks, locally identifying paths removed from published research materials"
+}

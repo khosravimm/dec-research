@@ -21,6 +21,15 @@ publication_status: public-research-draft
 | DEC-ARCH-05 | 2026-11-12 | Conditional transition from modular proof to integrated runtime and possibly native learned model | E0 research | Long-term hypothesis |
 | DEC-PUB-01 | 2026-11-12 | Bilingual public research documentation; disclosure/ownership controls; no broad rights grant | E0 policy | Public policy |
 
+## ADR — 2026-11-16: Model or ecosystem (Accepted scope, architecture not selected)
+
+- **Decision:** The official mission explicitly includes a single integrated intelligent model, a coordinated multi-model ecosystem, or a hybrid architecture.
+- **Rationale:** The previous research emphasis on internalizing mechanisms must not exclude ecosystem designs before comparative testing.
+- **Rejected preconditions:** Choosing a single model, choosing external orchestration only, or treating benchmarks on nine LLMs as a decisive architectural comparison.
+- **Impact:** Keep independent research tracks for adaptive compute, typed decision, memory, expert/adapter composition, CPU efficiency, Persian/code tokenization, and specialist tools.
+- **Evidence status:** This is an accepted **scope decision**, not proof that any architecture has been successfully implemented.
+- **Reference:** [Mission amendment](mission-amendment-20261116.md).
+
 ## Change record principles
 
 Each scientific release must record original question, source/pin, options, rationale, accepted and rejected candidates, test threshold, risk, data lineage, owner approval, impact and rollback or superseding record. Never rewrite older results to make an experiment appear successful. Read [methods](methods.md), [results](results.md), [publication/IP](publication-ip.md).

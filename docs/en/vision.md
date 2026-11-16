@@ -10,6 +10,12 @@ publication_status: public-research-draft
 
 # Vision, objectives and non-goals
 
+**Mission amendment — 16 November 2026 (supersedes single-model-only interpretations):**
+
+> Research, design, and evaluate an intelligent model or an efficient ecosystem that can coordinate decision-making, compute allocation, memory, and diverse specializations through its core; while supporting resource-constrained execution, Persian, and technical tasks.
+
+The research keeps the integrated model, multi-model ecosystem, and hybrid as equally valid candidates. The earlier internalization hypothesis is now one option, not a predetermined outcome.
+
 ## Scientific ambition
 
 Investigate whether capabilities usually distributed among LLM services—specialization, deliberation, tool invocation, retrieval, latent working memory, and cooperation—can be measured independently and then selectively **internalized** into one small model-and-runtime architecture. Inspired by modular electronics progressing toward integrated circuits, but the analogy is **not** an engineering proof. The ultimate architecture may be sparse, recurrent, transformer-based, hybrid or learned; we deliberately do **not** preselect the answer.

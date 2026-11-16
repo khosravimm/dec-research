@@ -6,6 +6,14 @@
 
 > **Status (12 Nov 2026):** Research architecture and literature review, **E0**. No implemented or benchmark-validated DEC, production service, trained specialist LoRA or demonstrably novel neural model is claimed. DEC is a working name, not a claim of registered invention.
 
+## Official research mission (amended 16 November 2026)
+
+> Research, design, and evaluate an intelligent model or an efficient ecosystem that can coordinate decision-making, compute allocation, memory, and diverse specializations through its core; while supporting resource-constrained execution, Persian, and technical tasks.
+
+**Three architectural candidates remain in scope:** one integrated model, a coordinated multi-model ecosystem, or a hybrid of both. No solution is preselected; the research evaluates their task performance, reliability, resource cost, memory, traceability, and Persian/technical capability using comparable evidence.
+
+[Mission charter](docs/en/mission-amendment-20261116.md) · [Architecture decision](docs/en/decisions.md)
+
 ## Purpose
 
 We are investigating whether a **small, swappable language model** can solve difficult interdisciplinary tasks by combining specialized LoRA adapters, expert-owned retrieval, adaptive reasoning, a shared bounded *latent* working memory and evidence-grounded collaboration. The long-term hypothesis is that **measured, successful mechanisms** could be integrated into a genuinely new model/runtime architecture, not merely packaged as independent agents.
